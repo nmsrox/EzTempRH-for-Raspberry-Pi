@@ -38,7 +38,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "18 sep 2014"
+Date "23 sep 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -160,15 +160,11 @@ Text Label 3200 2400 2    60   ~ 0
 TX
 Text Label 3200 2500 2    60   ~ 0
 RX
-NoConn ~ 1400 1200
 NoConn ~ 1400 1300
 NoConn ~ 1400 2200
 NoConn ~ 1400 2300
 NoConn ~ 2900 2300
 NoConn ~ 2900 2200
-NoConn ~ 2900 1900
-NoConn ~ 2900 1700
-NoConn ~ 2900 1600
 Text Label 3200 1200 2    60   ~ 0
 Vss
 Text Label 3200 1300 2    60   ~ 0
@@ -270,9 +266,9 @@ Text Label 4900 2900 2    60   ~ 0
 Vddd
 Text Label 4900 3200 2    60   ~ 0
 Vss
-Text Label 4900 3000 2    60   ~ 0
-TX
 Text Label 4900 3100 2    60   ~ 0
+TX
+Text Label 4900 3000 2    60   ~ 0
 RX
 Text Label 4900 5450 2    60   ~ 0
 Vddd
@@ -298,10 +294,9 @@ $EndComp
 Text Label 2950 6900 2    60   ~ 0
 Vss
 Text Label 2450 6700 1    60   ~ 0
-HR_T
+RH_T
 Text Label 2550 6700 1    60   ~ 0
 EN
-NoConn ~ 2900 2100
 Wire Wire Line
 	1100 2000 1400 2000
 Wire Wire Line
@@ -387,16 +382,13 @@ Text Notes 7100 7050 0    60   ~ 0
 Copyright (c) 2014 - CAIMANICS (Pablo Bacho)\nPublished under the MIT License
 Wire Wire Line
 	2450 6700 2450 6400
-NoConn ~ 2900 2000
 Wire Wire Line
 	1100 1900 1400 1900
 Wire Wire Line
 	1100 1400 1400 1400
 Text Label 1100 1400 0    60   ~ 0
 OA_O
-Wire Wire Line
-	3200 1800 2900 1800
-Text Label 3200 1800 2    60   ~ 0
+Text Label 1100 1200 0    60   ~ 0
 ADC_IN
 Wire Wire Line
 	1100 1500 1400 1500
@@ -419,10 +411,6 @@ Wire Wire Line
 	2550 6400 2550 6700
 Wire Notes Line
 	1100 5300 3150 5300
-Wire Notes Line
-	1100 7300 3150 7300
-Wire Notes Line
-	1100 7300 1100 5300
 Wire Wire Line
 	1600 5750 1600 5800
 Wire Wire Line
@@ -436,8 +424,6 @@ Wire Wire Line
 	2550 6400 2700 6400
 Wire Wire Line
 	2700 6400 2700 6450
-Wire Notes Line
-	3150 7300 3150 5300
 Wire Wire Line
 	1600 6850 1600 6800
 $Comp
@@ -500,10 +486,10 @@ Wire Notes Line
 Wire Notes Line
 	5200 900  3800 900 
 $Comp
-L R R?
+L R R4
 U 1 1 541AA4FB
 P 2850 3950
-F 0 "R?" V 2930 3950 40  0000 C CNN
+F 0 "R4" V 2930 3950 40  0000 C CNN
 F 1 "10K" V 2857 3951 40  0000 C CNN
 F 2 "~" V 2780 3950 30  0000 C CNN
 F 3 "~" H 2850 3950 30  0000 C CNN
@@ -511,10 +497,10 @@ F 3 "~" H 2850 3950 30  0000 C CNN
 	1    0    0    -1  
 $EndComp
 $Comp
-L R R?
+L R R5
 U 1 1 541AA501
 P 2850 4550
-F 0 "R?" V 2930 4550 40  0000 C CNN
+F 0 "R5" V 2930 4550 40  0000 C CNN
 F 1 "10K" V 2857 4551 40  0000 C CNN
 F 2 "~" V 2780 4550 30  0000 C CNN
 F 3 "~" H 2850 4550 30  0000 C CNN
@@ -550,4 +536,61 @@ Wire Notes Line
 	3500 5050 3500 3150
 Wire Notes Line
 	3500 3150 2300 3150
+Wire Notes Line
+	1100 5300 1100 7050
+Wire Notes Line
+	1100 7050 3150 7050
+Wire Notes Line
+	3150 7050 3150 5300
+Wire Wire Line
+	1100 1200 1400 1200
+$Comp
+L R R6
+U 1 1 542174F8
+P 4300 7050
+F 0 "R6" V 4380 7050 40  0000 C CNN
+F 1 "5.6k" V 4307 7051 40  0000 C CNN
+F 2 "~" V 4230 7050 30  0000 C CNN
+F 3 "~" H 4300 7050 30  0000 C CNN
+	1    4300 7050
+	1    0    0    -1  
+$EndComp
+$Comp
+L R R7
+U 1 1 54217507
+P 4600 7050
+F 0 "R7" V 4680 7050 40  0000 C CNN
+F 1 "5.6k" V 4607 7051 40  0000 C CNN
+F 2 "~" V 4530 7050 30  0000 C CNN
+F 3 "~" H 4600 7050 30  0000 C CNN
+	1    4600 7050
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4600 6700 4600 6800
+Wire Wire Line
+	4150 6700 4600 6700
+Wire Wire Line
+	4300 6700 4300 6800
+Connection ~ 4300 6700
+Wire Wire Line
+	4300 7300 4300 7500
+Wire Wire Line
+	4600 7300 4600 7500
+Text Label 4150 6700 0    60   ~ 0
+Vddd
+Text Label 4300 7500 1    60   ~ 0
+TX
+Text Label 4600 7500 1    60   ~ 0
+RX
+Text Notes 3950 6500 0    60   ~ 0
+Optional I2C pull-up
+Wire Notes Line
+	3800 6300 5000 6300
+Wire Notes Line
+	5000 6300 5000 7650
+Wire Notes Line
+	5000 7650 3800 7650
+Wire Notes Line
+	3800 7650 3800 6300
 $EndSCHEMATC
