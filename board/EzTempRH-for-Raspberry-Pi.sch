@@ -38,7 +38,7 @@ $Descr A4 11693 8268
 encoding utf-8
 Sheet 1 1
 Title ""
-Date "23 sep 2014"
+Date "29 oct 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -272,13 +272,13 @@ Text Label 4900 3000 2    60   ~ 0
 RX
 Text Label 4900 5450 2    60   ~ 0
 Vddd
-Text Label 4900 5850 2    60   ~ 0
-Vss
 Text Label 4900 5550 2    60   ~ 0
-XRES
+Vss
 Text Label 4900 5650 2    60   ~ 0
-SWDCK
+XRES
 Text Label 4900 5750 2    60   ~ 0
+SWDCK
+Text Label 4900 5850 2    60   ~ 0
 SWDIO
 $Comp
 L HIH5030 U2
