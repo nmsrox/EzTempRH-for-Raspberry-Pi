@@ -1,3 +1,41 @@
-# KiCAD files
+### KiCAD files
+
+# Backups
 board/*.bak
 board/*.kicad_pcb-bak
+board/$*
+board/_autosave*
+
+# Fabrication outputs
+board/output/*.zip
+
+### PSoC Creator
+
+# Workspace
+firmware/*.cywrk.*
+
+# Components
+firmware/*.cylib/*.cyprj.*
+firmware/*.cylib/CortexM0/
+firmware/*.cylib/DP8051/
+
+# Projects
+firmware/*.cydsn/*.cyprj.*
+firmware/*.cydsn/*.cycdx
+firmware/*.cydsn/*.cyfit
+firmware/*.cydsn/*.cyversion
+firmware/*.cydsn/*.svd
+firmware/*.cydsn/*_timing.html
+firmware/*.cydsn/autoseltemp/
+firmware/*.cydsn/codegentemp/
+firmware/*.cydsn/CortexM3/
+firmware/*.cydsn/DP8051/
+firmware/*.cydsn/Generated_Source/PSoCCreatorExportIDE.xml
+
+# Compilation output (except binaries)
+firmware/*.cydsn/CortexM0/ARM_GCC_473/*/.deps/
+firmware/*.cydsn/CortexM0/ARM_GCC_473/*/*.lst
+firmware/*.cydsn/CortexM0/ARM_GCC_473/*/*.o
+firmware/*.cydsn/CortexM0/ARM_GCC_473/*/*.a
+firmware/*.cydsn/CortexM0/ARM_GCC_473/*/*.log
+firmware/*.cydsn/CortexM0/ARM_GCC_473/*/library.deps
