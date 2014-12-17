@@ -27,6 +27,8 @@ SOFTWARE.
 
 #include <project.h>
 
+#define _VERSION_       0x0001u
+
 struct REF {
     int16 vss;
     int16 vdd;
@@ -45,9 +47,6 @@ struct EXT {
     int16 counts;
 } EXT;
 
-struct CONF {
-    int16 celsius;
-} CONF;
 
 void read() {
     ADC_Wakeup();
@@ -94,7 +93,7 @@ void read() {
     ADC_IsEndConversion(ADC_WAIT_FOR_RESULT);
     ADC_StopConvert();
     
-    RH.humidity = (ADC_GetResult16(0) * 100) / REF.vdd;
+    RH.humidity = (ADC_GetResult16(0) * 1000) / REF.vdd;
     
     /* External signal */
     AMux_Next();
@@ -104,8 +103,7 @@ void read() {
     ADC_StopConvert();
     
     EXT.counts = ADC_GetResult16(0);
-    //EXT.counts = ADC_CountsTo_mVolts(0, EXT.counts);
-    
+
     EN_Write(0);
     
     AMux_Stop();
@@ -115,7 +113,7 @@ void read() {
 
 int main()
 {
-    uint8 cmd;
+    uint8 cmd, checksum, txbyte;
     
     UART_Start();
     ADC_Start();
@@ -126,26 +124,79 @@ int main()
         
     for(;;)
     {   
+        UART_SpiUartClearRxBuffer();
         while(UART_SpiUartGetRxBufferSize() == 0u);
         cmd = UART_UartGetByte();
         
-        UART_UartPutChar(cmd); // Echo back
+        checksum = 0xFF;
         
         read();
         
+        checksum -= cmd;
+        UART_UartPutChar(cmd); // Echo back
+        
         switch(cmd) {
-            case 'e':
-                UART_UartPutChar(T.C >> 8);
-                UART_UartPutChar(T.C);
-                UART_UartPutChar(RH.humidity >> 8);
-                UART_UartPutChar(RH.humidity);
-                UART_UartPutChar(EXT.counts >> 8);
-                UART_UartPutChar(EXT.counts);
+            case 'c': // Temperature in Celsius
+                txbyte = T.C/10;
+                checksum -= txbyte;
+                UART_UartPutChar(txbyte);
+            break;
+            case 'd': // Temperature in Celsius .1
+                txbyte = T.C >> 8;
+                checksum -= txbyte;
+                UART_UartPutChar(txbyte);
+                txbyte = T.C;
+                checksum -= txbyte;
+                UART_UartPutChar(txbyte);
+            break;
+            case 'f':
+                txbyte = T.F/10;
+                checksum -= txbyte;
+                UART_UartPutChar(txbyte);
+            break;
+            case 'g':
+                txbyte = T.F >> 8;
+                checksum -= txbyte;
+                UART_UartPutChar(txbyte);
+                txbyte = T.F;
+                checksum -= txbyte;
+                UART_UartPutChar(txbyte);
+            break;
+            case 'h':
+                txbyte = RH.humidity /10;
+                checksum -= txbyte;
+                UART_UartPutChar(txbyte);
+            break;
+            case 'i':
+                txbyte = RH.humidity >> 8;
+                checksum -= txbyte;
+                UART_UartPutChar(txbyte);
+                txbyte = RH.humidity;
+                checksum -= txbyte;
+                UART_UartPutChar(txbyte);
+            break;
+            case 'x':
+                txbyte = EXT.counts >> 8;
+                checksum -= txbyte;
+                UART_UartPutChar(txbyte);
+                txbyte = EXT.counts;
+                checksum -= txbyte;
+                UART_UartPutChar(txbyte);
+            break;
+            case 'v':
+                txbyte = _VERSION_ >> 8;
+                checksum -= txbyte;
+                UART_UartPutChar(txbyte);
+                txbyte = _VERSION_;
+                checksum -= txbyte;
+                UART_UartPutChar(txbyte);
             break;
             default:
                 
             break;
         }
+        
+        UART_UartPutChar(checksum);
     }
 }
 

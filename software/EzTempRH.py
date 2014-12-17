@@ -27,17 +27,17 @@ import serial
 
 ser = serial.Serial('/dev/ttyAMA0', 9600, timeout=1)
 
-ser.write("e")
+ser.write("c")
 
-s = ser.read(7)
+s = ser.read(3)
 
-temperature = (ord(s[1]) << 8) + ord(s[2])
-print 'Temperature: ' + str(1.0*temperature/10) + 'C'
+temperature = ord(s[1])
+print 'Temperature: ' + str(1.0*temperature) + 'C'
 
-humidity = (ord(s[3]) << 8) + ord(s[4])
-print 'Humidity:    ' + str(humidity) + '%'
+#humidity = (ord(s[3]) << 8) + ord(s[4])
+#print 'Humidity:    ' + str(humidity) + '%'
 
-external = (ord(s[5]) << 8) + ord(s[6])
-print 'External:    ' + str(external) + ' / 2048 counts'
+#external = (ord(s[5]) << 8) + ord(s[6])
+#print 'External:    ' + str(external) + ' / 2048 counts'
 
 ser.close()
