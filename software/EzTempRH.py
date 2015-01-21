@@ -27,17 +27,29 @@ import serial
 
 ser = serial.Serial('/dev/ttyAMA0', 9600, timeout=1)
 
-ser.write("c")
+ser.write("v")
+s = ser.read(4)
+version = (ord(s[1]) << 8) + ord(s[2])
+print 'EzTemp&RH build ' + str(version)
 
-s = ser.read(3)
+ser.write("d")
+s = ser.read(4)
+temperature = (ord(s[1]) << 8) + ord(s[2])
+print 'Temperature: ' + str(1.0*temperature/10) + 'C'
 
-temperature = ord(s[1])
-print 'Temperature: ' + str(1.0*temperature) + 'C'
+ser.write("i")
+s = ser.read(4)
+humidity = (ord(s[1]) << 8) + ord(s[2])
+print 'Humidity:    ' + str(1.0*humidity/10) + '%'
 
-#humidity = (ord(s[3]) << 8) + ord(s[4])
-#print 'Humidity:    ' + str(humidity) + '%'
+ser.write("x")
+s = ser.read(4)
+external = (ord(s[1]) << 8) + ord(s[2])
+print 'External:    ' + str(external) + ' / 2048 counts'
 
-#external = (ord(s[5]) << 8) + ord(s[6])
-#print 'External:    ' + str(external) + ' / 2048 counts'
+ser.write("v")
+s = ser.read(4)
+version = (ord(s[1]) << 8) + ord(s[2])
+print 'Version:     ' + str(version)
 
 ser.close()
