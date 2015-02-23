@@ -1,9 +1,10 @@
 /*******************************************************************************
 * File Name: VBAT_T.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
-*  This file containts Control Register function prototypes and register defines
+*  This file contains the Alias definitions for Per-Pin APIs in cypins.h. 
+*  Information on using these APIs can be found in the System Reference Guide.
 *
 * Note:
 *
@@ -19,12 +20,18 @@
 
 #include "cytypes.h"
 #include "cyfitter.h"
+#include "cypins.h"
 
 
 /***************************************
 *              Constants        
 ***************************************/
-#define VBAT_T_0		VBAT_T__0__PC
+#define VBAT_T_0		(VBAT_T__0__PC)
+#define VBAT_T_0_PS		(VBAT_T__0__PS)
+#define VBAT_T_0_PC		(VBAT_T__0__PC)
+#define VBAT_T_0_DR		(VBAT_T__0__DR)
+#define VBAT_T_0_SHIFT	(VBAT_T__0__SHIFT)
+
 
 #endif /* End Pins VBAT_T_ALIASES_H */
 

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: ADC_IN.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -40,17 +40,15 @@ uint8   ADC_IN_ClearInterrupt(void) ;
 /* Drive Modes */
 #define ADC_IN_DRIVE_MODE_BITS        (3)
 #define ADC_IN_DRIVE_MODE_IND_MASK    (0xFFFFFFFFu >> (32 - ADC_IN_DRIVE_MODE_BITS))
-#define ADC_IN_DRIVE_MODE_SHIFT       (0x00u)
-#define ADC_IN_DRIVE_MODE_MASK        (0x07u << ADC_IN_DRIVE_MODE_SHIFT)
 
-#define ADC_IN_DM_ALG_HIZ         (0x00u << ADC_IN_DRIVE_MODE_SHIFT)
-#define ADC_IN_DM_DIG_HIZ         (0x01u << ADC_IN_DRIVE_MODE_SHIFT)
-#define ADC_IN_DM_RES_UP          (0x02u << ADC_IN_DRIVE_MODE_SHIFT)
-#define ADC_IN_DM_RES_DWN         (0x03u << ADC_IN_DRIVE_MODE_SHIFT)
-#define ADC_IN_DM_OD_LO           (0x04u << ADC_IN_DRIVE_MODE_SHIFT)
-#define ADC_IN_DM_OD_HI           (0x05u << ADC_IN_DRIVE_MODE_SHIFT)
-#define ADC_IN_DM_STRONG          (0x06u << ADC_IN_DRIVE_MODE_SHIFT)
-#define ADC_IN_DM_RES_UPDWN       (0x07u << ADC_IN_DRIVE_MODE_SHIFT)
+#define ADC_IN_DM_ALG_HIZ         (0x00u)
+#define ADC_IN_DM_DIG_HIZ         (0x01u)
+#define ADC_IN_DM_RES_UP          (0x02u)
+#define ADC_IN_DM_RES_DWN         (0x03u)
+#define ADC_IN_DM_OD_LO           (0x04u)
+#define ADC_IN_DM_OD_HI           (0x05u)
+#define ADC_IN_DM_STRONG          (0x06u)
+#define ADC_IN_DM_RES_UPDWN       (0x07u)
 
 /* Digital Port Constants */
 #define ADC_IN_MASK               ADC_IN__MASK
@@ -78,6 +76,16 @@ uint8   ADC_IN_ClearInterrupt(void) ;
     #define ADC_IN_INTSTAT                (* (reg32 *) ADC_IN__INTSTAT)
 
 #endif /* Interrupt Registers */
+
+
+/***************************************
+* The following code is DEPRECATED and 
+* must not be used.
+***************************************/
+
+#define ADC_IN_DRIVE_MODE_SHIFT       (0x00u)
+#define ADC_IN_DRIVE_MODE_MASK        (0x07u << ADC_IN_DRIVE_MODE_SHIFT)
+
 
 #endif /* End Pins ADC_IN_H */
 

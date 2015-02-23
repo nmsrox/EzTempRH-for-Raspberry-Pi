@@ -27,7 +27,7 @@ SOFTWARE.
 
 #include <project.h>
 
-#define _VERSION_       0x0001u
+#define _VERSION_       0x0002u
 
 struct REF {
     int16 vss;

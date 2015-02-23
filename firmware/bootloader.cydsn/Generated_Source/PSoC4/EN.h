@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: EN.h  
-* Version 2.0
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -40,17 +40,15 @@ uint8   EN_ClearInterrupt(void) ;
 /* Drive Modes */
 #define EN_DRIVE_MODE_BITS        (3)
 #define EN_DRIVE_MODE_IND_MASK    (0xFFFFFFFFu >> (32 - EN_DRIVE_MODE_BITS))
-#define EN_DRIVE_MODE_SHIFT       (0x00u)
-#define EN_DRIVE_MODE_MASK        (0x07u << EN_DRIVE_MODE_SHIFT)
 
-#define EN_DM_ALG_HIZ         (0x00u << EN_DRIVE_MODE_SHIFT)
-#define EN_DM_DIG_HIZ         (0x01u << EN_DRIVE_MODE_SHIFT)
-#define EN_DM_RES_UP          (0x02u << EN_DRIVE_MODE_SHIFT)
-#define EN_DM_RES_DWN         (0x03u << EN_DRIVE_MODE_SHIFT)
-#define EN_DM_OD_LO           (0x04u << EN_DRIVE_MODE_SHIFT)
-#define EN_DM_OD_HI           (0x05u << EN_DRIVE_MODE_SHIFT)
-#define EN_DM_STRONG          (0x06u << EN_DRIVE_MODE_SHIFT)
-#define EN_DM_RES_UPDWN       (0x07u << EN_DRIVE_MODE_SHIFT)
+#define EN_DM_ALG_HIZ         (0x00u)
+#define EN_DM_DIG_HIZ         (0x01u)
+#define EN_DM_RES_UP          (0x02u)
+#define EN_DM_RES_DWN         (0x03u)
+#define EN_DM_OD_LO           (0x04u)
+#define EN_DM_OD_HI           (0x05u)
+#define EN_DM_STRONG          (0x06u)
+#define EN_DM_RES_UPDWN       (0x07u)
 
 /* Digital Port Constants */
 #define EN_MASK               EN__MASK
@@ -78,6 +76,16 @@ uint8   EN_ClearInterrupt(void) ;
     #define EN_INTSTAT                (* (reg32 *) EN__INTSTAT)
 
 #endif /* Interrupt Registers */
+
+
+/***************************************
+* The following code is DEPRECATED and 
+* must not be used.
+***************************************/
+
+#define EN_DRIVE_MODE_SHIFT       (0x00u)
+#define EN_DRIVE_MODE_MASK        (0x07u << EN_DRIVE_MODE_SHIFT)
+
 
 #endif /* End Pins EN_H */
 

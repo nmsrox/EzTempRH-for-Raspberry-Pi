@@ -4,7 +4,7 @@
 
 ;********************************************************************************
 ;* File Name: Cm0RealView.scat
-;* Version 4.10
+;* Version 4.20
 ;*
 ;*  Description:
 ;*  This Linker Descriptor file describes the memory layout of the PSOC4 device
@@ -32,7 +32,7 @@
 ;********************************************************************************/
 #include "cyfitter.h"
 
-#define CY_FLASH_SIZE       32768
+#define CY_FLASH_SIZE       16384
 #define CY_APPL_ORIGIN      0
 #define CY_FLASH_ROW_SIZE   128
 #define CY_METADATA_SIZE    64

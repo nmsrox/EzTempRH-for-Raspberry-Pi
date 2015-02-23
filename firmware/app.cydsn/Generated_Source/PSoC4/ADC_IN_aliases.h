@@ -1,9 +1,10 @@
 /*******************************************************************************
 * File Name: ADC_IN.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
-*  This file containts Control Register function prototypes and register defines
+*  This file contains the Alias definitions for Per-Pin APIs in cypins.h. 
+*  Information on using these APIs can be found in the System Reference Guide.
 *
 * Note:
 *
@@ -19,12 +20,18 @@
 
 #include "cytypes.h"
 #include "cyfitter.h"
+#include "cypins.h"
 
 
 /***************************************
 *              Constants        
 ***************************************/
-#define ADC_IN_0		ADC_IN__0__PC
+#define ADC_IN_0		(ADC_IN__0__PC)
+#define ADC_IN_0_PS		(ADC_IN__0__PS)
+#define ADC_IN_0_PC		(ADC_IN__0__PC)
+#define ADC_IN_0_DR		(ADC_IN__0__DR)
+#define ADC_IN_0_SHIFT	(ADC_IN__0__SHIFT)
+
 
 #endif /* End Pins ADC_IN_ALIASES_H */
 

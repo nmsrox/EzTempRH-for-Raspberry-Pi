@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: ADC_PM.c
-* Version 1.10
+* Version 2.0
 *
 * Description:
 *  This file provides Sleep/WakeUp APIs functionality.
@@ -8,13 +8,12 @@
 * Note:
 *
 ********************************************************************************
-* Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
 *******************************************************************************/
 
-#include "CyLib.h"
 #include "ADC.h"
 
 
@@ -135,7 +134,7 @@ void ADC_Wakeup(void)
     ADC_SAR_DFT_CTRL_REG &= (uint32)~ADC_ADFT_OVERRIDE;
     if(ADC_backup.enableState != ADC_DISABLED)
     {
-        ADC_Start();
+        ADC_Enable();
         if((ADC_backup.enableState & ADC_STARTED) != 0u)
         {
             ADC_StartConvert();

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: Bootloader.h
-* Version 1.20
+* Version 1.30
 *
 *  Description:
 *   Provides an API for the Bootloader. The API includes functions for starting
@@ -8,7 +8,7 @@
 *   application.
 *
 ********************************************************************************
-* Copyright 2008-2013, Cypress Semiconductor Corporation.  All rights reserved.
+* Copyright 2008-2014, Cypress Semiconductor Corporation.  All rights reserved.
 * You may use this file only in accordance with the license, terms, conditions,
 * disclaimers, and limitations in the end user license agreement accompanying
 * the software package with which this file was provided.
@@ -18,14 +18,7 @@
 #define CY_BOOTLOADER_Bootloader_H
 
 #include "cytypes.h"
-
-
-/* Check to see if required defines such as CY_PSOC5LP are available */
-/* They are defined starting with cy_boot v3.0 */
-#if !defined (CY_PSOC5LP)
-    #error Component Bootloader_v1_20 requires cy_boot v3.0 or later
-#endif /* (CY_ PSOC5X) */
-
+#include "CyFlash.h"
 
 #define Bootloader_DUAL_APP_BOOTLOADER        (0u)
 #define Bootloader_BOOTLOADER_APP_VERSION     (0u)
@@ -61,7 +54,6 @@
 #define Bootloader_SCHEDULE_BTLDB             (0x80u)
 #define Bootloader_SCHEDULE_BTLDR             (0x40u)
 #define Bootloader_SCHEDULE_MASK              (0xC0u)
-
 
 #if defined(__ARMCC_VERSION) || defined (__GNUC__)
     __attribute__((section (".bootloader")))
@@ -114,9 +106,9 @@ extern const uint32 CYCODE *Bootloader_SizeBytesAccess;
 
 /*******************************************************************************
 * Get the reason of the device reset
-*  Return cyBtldrRunType in case if software reset was reset reason and
+*  Return cyBtldrRunType in the case if software reset was the reset reason and
 *  set cyBtldrRunType to zero (bootloader application is scheduled - that is
-*  initial clean state) and return zero.
+*  the initial clean state) and return zero.
 *******************************************************************************/
 #if(CY_PSOC4)
     #define Bootloader_GET_RUN_TYPE           (cyBtldrRunType)
@@ -135,8 +127,10 @@ extern const uint32 CYCODE *Bootloader_SizeBytesAccess;
 #endif  /* (CY_PSOC4) */
 
 
-/* Returns the number of Flash arrays availalbe in the device */
-#define Bootloader_NUM_OF_FLASH_ARRAYS    (CYDEV_FLASH_SIZE / CYDEV_FLS_SECTOR_SIZE)
+/* Returns the number of Flash arrays available in the device */
+#ifndef CY_FLASH_NUMBER_ARRAYS
+    #define CY_FLASH_NUMBER_ARRAYS                  (CYDEV_FLASH_SIZE / CYDEV_FLS_SECTOR_SIZE)
+#endif /* CY_FLASH_NUMBER_ARRAYS */
 
 
 /*******************************************************************************
@@ -145,13 +139,20 @@ extern const uint32 CYCODE *Bootloader_SizeBytesAccess;
 void Bootloader_SetFlashByte(uint32 address, uint8 runType);
 void CyBtldr_CheckLaunch(void)  CYSMALL ;
 void Bootloader_Start(void) CYSMALL ;
+cystatus Bootloader_ValidateBootloadable(uint8 appId) \
+            CYSMALL ;
+uint8 Bootloader_Calc8BitSum(uint32 baseAddr, uint32 start, uint32 size) CYSMALL \
+                                    ;
+uint32   Bootloader_GetMetadata(uint8 field, uint8 appId) \
+                                    ;
+void Bootloader_Exit(uint8 appId) CYSMALL ;
 
 #if(CY_PSOC3)
     /* Implementation for the PSoC 3 resides in a Bootloader_psoc3.a51 file.  */
-    extern void     Bootloader_LaunchBootloadable(uint32 appAddr);
+    void     Bootloader_LaunchBootloadable(uint32 appAddr);
 #endif  /* (CY_PSOC3) */
 
-/* If using custom interface as the IO Component, user must provide these functions */
+/* When using a custom interface as the IO Component, the user must provide these functions */
 #if defined(CYDEV_BOOTLOADER_IO_COMP) && (CYDEV_BOOTLOADER_IO_COMP == CyBtldr_Custom_Interface)
 
     extern void CyBtldrCommStart(void);
@@ -164,29 +165,54 @@ void Bootloader_Start(void) CYSMALL ;
 
 
 /*******************************************************************************
-* Kept for backward compatibility.
+* Bootloader_GetMetadata()
 *******************************************************************************/
+#define Bootloader_GET_BTLDB_CHECKSUM         (1u)
+#define Bootloader_GET_BTLDB_ADDR             (2u)
+#define Bootloader_GET_BTLDR_LAST_ROW         (3u)
+#define Bootloader_GET_BTLDB_LENGTH           (4u)
+#define Bootloader_GET_BTLDB_ACTIVE           (5u)
+#define Bootloader_GET_BTLDB_STATUS           (6u)
+#define Bootloader_GET_BTLDR_APP_VERSION      (7u)
+#define Bootloader_GET_BTLDB_APP_VERSION      (8u)
+#define Bootloader_GET_BTLDB_APP_ID           (9u)
+#define Bootloader_GET_BTLDB_APP_CUST_ID      (10u)
+
+#define Bootloader_GET_METADATA_RESPONSE_SIZE (56u)
+
+/*******************************************************************************
+* Bootloader_Exit()
+*******************************************************************************/
+#define Bootloader_EXIT_TO_BTLDR              (2u)
+#define Bootloader_EXIT_TO_BTLDB              (0u)
 #if(0u != Bootloader_DUAL_APP_BOOTLOADER)
-    #define Bootloader_ValidateApp(x)                 Bootloader_ValidateBootloadable((x))
-    #define Bootloader_ValidateApplication            \
-                            Bootloader_ValidateBootloadable(Bootloader_MD_BTLDB_ACTIVE_0)
-#else
-    #define Bootloader_ValidateApplication            \
-                            Bootloader_ValidateBootloadable(Bootloader_MD_BTLDB_ACTIVE_0)
-    #define Bootloader_ValidateApp(x)                 Bootloader_ValidateBootloadable((x))
+    #define Bootloader_EXIT_TO_BTLDB_1        (0u)
+    #define Bootloader_EXIT_TO_BTLDB_2        (1u)
 #endif  /* (0u != Bootloader_DUAL_APP_BOOTLOADER) */
 
 
 /*******************************************************************************
-* Following code are OBSOLETE and must not be used starting from version 1.10
+* Kept for backward compatibility.
+*******************************************************************************/
+#if(0u != Bootloader_DUAL_APP_BOOTLOADER)
+    #define Bootloader_ValidateApp(x)                 Bootloader_ValidateBootloadable((x))
+    #define Bootloader_ValidateApplication()            \
+                            Bootloader_ValidateBootloadable(Bootloader_MD_BTLDB_ACTIVE_0)
+#else
+    #define Bootloader_ValidateApplication()            \
+                            Bootloader_ValidateBootloadable(Bootloader_MD_BTLDB_ACTIVE_0)
+    #define Bootloader_ValidateApp(x)                 Bootloader_ValidateBootloadable((x))
+#endif  /* (0u != Bootloader_DUAL_APP_BOOTLOADER) */
+#define Bootloader_Calc8BitFlashSum(start, size)      Bootloader_Calc8BitSum(CY_FLASH_BASE, (start), (size))
+
+
+/*******************************************************************************
+* The following code is DEPRECATED and must not be used.
 *******************************************************************************/
 #define Bootloader_BOOTLOADABLE_APP_VALID     (Bootloader_BOOTLOADER_APP_VALIDATION)
 #define CyBtldr_Start                               Bootloader_Start
 
-
-/*******************************************************************************
-* Following code are OBSOLETE and must not be used starting from version 1.20
-*******************************************************************************/
+#define Bootloader_NUM_OF_FLASH_ARRAYS            (CYDEV_FLASH_SIZE / CYDEV_FLS_SECTOR_SIZE)
 #define Bootloader_META_BASE(x)                   (CYDEV_FLASH_BASE + \
                                                             (CYDEV_FLASH_SIZE - (( uint32 )(x) * CYDEV_FLS_ROW_SIZE) - \
                                                             Bootloader_META_DATA_SIZE))
@@ -215,8 +241,14 @@ void Bootloader_Start(void) CYSMALL ;
                                                             Bootloader_META_APP_CHECKSUM_OFFSET)
 #if(0u == Bootloader_DUAL_APP_BOOTLOADER)
     #define Bootloader_MD_BASE                    Bootloader_META_BASE(0u)
-    #define Bootloader_MD_ROW                     ((CY_FLASH_NUMBER_ROWS / Bootloader_NUM_OF_FLASH_ARRAYS) \
-                                                           - 1u)
+
+    #if(!CY_PSOC4)
+        #define Bootloader_MD_ROW                 ((CY_FLASH_NUMBER_ROWS / Bootloader_NUM_OF_FLASH_ARRAYS) \
+                                                        - 1u)
+    #else
+        #define Bootloader_MD_ROW                 (CY_FLASH_NUMBER_ROWS - 1u)
+    #endif /* (CY_PSOC4) */
+
     #define Bootloader_MD_CHECKSUM_ADDR           Bootloader_META_CHECKSUM_ADDR(0u)
     #define Bootloader_MD_LAST_BLDR_ROW_ADDR      Bootloader_META_LAST_BLDR_ROW_ADDR(0u)
     #define Bootloader_MD_APP_BYTE_LEN            Bootloader_META_APP_BYTE_LEN(0u)
@@ -224,8 +256,13 @@ void Bootloader_Start(void) CYSMALL ;
     #define Bootloader_MD_APP_ENTRY_POINT_ADDR    Bootloader_META_APP_ENTRY_POINT_ADDR(0u)
     #define Bootloader_MD_APP_RUN_ADDR            Bootloader_META_APP_RUN_ADDR(0u)
 #else
-    #define Bootloader_MD_ROW(x)                  ((CY_FLASH_NUMBER_ROWS / Bootloader_NUM_OF_FLASH_ARRAYS) \
-                                                            - 1u - ( uint32 )(x))
+    #if(!CY_PSOC4)
+        #define Bootloader_MD_ROW(x)              ((CY_FLASH_NUMBER_ROWS / Bootloader_NUM_OF_FLASH_ARRAYS) \
+                                                        - 1u - ( uint32 )(x))
+    #else
+        #define Bootloader_MD_ROW(x)              (CY_FLASH_NUMBER_ROWS - 1u - ( uint32 )(x))
+    #endif /* (CY_PSOC4) */
+
     #define Bootloader_MD_CHECKSUM_ADDR           Bootloader_META_CHECKSUM_ADDR(appId)
     #define Bootloader_MD_LAST_BLDR_ROW_ADDR      Bootloader_META_LAST_BLDR_ROW_ADDR(appId)
     #define Bootloader_MD_APP_BYTE_LEN            Bootloader_META_APP_BYTE_LEN(appId)
@@ -302,7 +339,7 @@ void Bootloader_Start(void) CYSMALL ;
 #define Bootloader_START_APP                  (Bootloader_SCHEDULE_BTLDB)
 #define Bootloader_START_BTLDR                (Bootloader_SCHEDULE_BTLDR)
 
-/* Some PSoC Creator versions used to generate only one name types */
+/* Some PSoC Creator versions are used to generate only one name types */
 #if !defined (CYDEV_FLASH_BASE)
     #define CYDEV_FLASH_BASE                                (CYDEV_FLS_BASE)
 #endif /* !defined (CYDEV_FLASH_BASE) */

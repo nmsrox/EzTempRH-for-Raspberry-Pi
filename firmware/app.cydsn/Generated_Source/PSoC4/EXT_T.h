@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: EXT_T.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -40,17 +40,15 @@ uint8   EXT_T_ClearInterrupt(void) ;
 /* Drive Modes */
 #define EXT_T_DRIVE_MODE_BITS        (3)
 #define EXT_T_DRIVE_MODE_IND_MASK    (0xFFFFFFFFu >> (32 - EXT_T_DRIVE_MODE_BITS))
-#define EXT_T_DRIVE_MODE_SHIFT       (0x00u)
-#define EXT_T_DRIVE_MODE_MASK        (0x07u << EXT_T_DRIVE_MODE_SHIFT)
 
-#define EXT_T_DM_ALG_HIZ         (0x00u << EXT_T_DRIVE_MODE_SHIFT)
-#define EXT_T_DM_DIG_HIZ         (0x01u << EXT_T_DRIVE_MODE_SHIFT)
-#define EXT_T_DM_RES_UP          (0x02u << EXT_T_DRIVE_MODE_SHIFT)
-#define EXT_T_DM_RES_DWN         (0x03u << EXT_T_DRIVE_MODE_SHIFT)
-#define EXT_T_DM_OD_LO           (0x04u << EXT_T_DRIVE_MODE_SHIFT)
-#define EXT_T_DM_OD_HI           (0x05u << EXT_T_DRIVE_MODE_SHIFT)
-#define EXT_T_DM_STRONG          (0x06u << EXT_T_DRIVE_MODE_SHIFT)
-#define EXT_T_DM_RES_UPDWN       (0x07u << EXT_T_DRIVE_MODE_SHIFT)
+#define EXT_T_DM_ALG_HIZ         (0x00u)
+#define EXT_T_DM_DIG_HIZ         (0x01u)
+#define EXT_T_DM_RES_UP          (0x02u)
+#define EXT_T_DM_RES_DWN         (0x03u)
+#define EXT_T_DM_OD_LO           (0x04u)
+#define EXT_T_DM_OD_HI           (0x05u)
+#define EXT_T_DM_STRONG          (0x06u)
+#define EXT_T_DM_RES_UPDWN       (0x07u)
 
 /* Digital Port Constants */
 #define EXT_T_MASK               EXT_T__MASK
@@ -78,6 +76,16 @@ uint8   EXT_T_ClearInterrupt(void) ;
     #define EXT_T_INTSTAT                (* (reg32 *) EXT_T__INTSTAT)
 
 #endif /* Interrupt Registers */
+
+
+/***************************************
+* The following code is DEPRECATED and 
+* must not be used.
+***************************************/
+
+#define EXT_T_DRIVE_MODE_SHIFT       (0x00u)
+#define EXT_T_DRIVE_MODE_MASK        (0x07u << EXT_T_DRIVE_MODE_SHIFT)
+
 
 #endif /* End Pins EXT_T_H */
 

@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: TH_T.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -40,17 +40,15 @@ uint8   TH_T_ClearInterrupt(void) ;
 /* Drive Modes */
 #define TH_T_DRIVE_MODE_BITS        (3)
 #define TH_T_DRIVE_MODE_IND_MASK    (0xFFFFFFFFu >> (32 - TH_T_DRIVE_MODE_BITS))
-#define TH_T_DRIVE_MODE_SHIFT       (0x00u)
-#define TH_T_DRIVE_MODE_MASK        (0x07u << TH_T_DRIVE_MODE_SHIFT)
 
-#define TH_T_DM_ALG_HIZ         (0x00u << TH_T_DRIVE_MODE_SHIFT)
-#define TH_T_DM_DIG_HIZ         (0x01u << TH_T_DRIVE_MODE_SHIFT)
-#define TH_T_DM_RES_UP          (0x02u << TH_T_DRIVE_MODE_SHIFT)
-#define TH_T_DM_RES_DWN         (0x03u << TH_T_DRIVE_MODE_SHIFT)
-#define TH_T_DM_OD_LO           (0x04u << TH_T_DRIVE_MODE_SHIFT)
-#define TH_T_DM_OD_HI           (0x05u << TH_T_DRIVE_MODE_SHIFT)
-#define TH_T_DM_STRONG          (0x06u << TH_T_DRIVE_MODE_SHIFT)
-#define TH_T_DM_RES_UPDWN       (0x07u << TH_T_DRIVE_MODE_SHIFT)
+#define TH_T_DM_ALG_HIZ         (0x00u)
+#define TH_T_DM_DIG_HIZ         (0x01u)
+#define TH_T_DM_RES_UP          (0x02u)
+#define TH_T_DM_RES_DWN         (0x03u)
+#define TH_T_DM_OD_LO           (0x04u)
+#define TH_T_DM_OD_HI           (0x05u)
+#define TH_T_DM_STRONG          (0x06u)
+#define TH_T_DM_RES_UPDWN       (0x07u)
 
 /* Digital Port Constants */
 #define TH_T_MASK               TH_T__MASK
@@ -78,6 +76,16 @@ uint8   TH_T_ClearInterrupt(void) ;
     #define TH_T_INTSTAT                (* (reg32 *) TH_T__INTSTAT)
 
 #endif /* Interrupt Registers */
+
+
+/***************************************
+* The following code is DEPRECATED and 
+* must not be used.
+***************************************/
+
+#define TH_T_DRIVE_MODE_SHIFT       (0x00u)
+#define TH_T_DRIVE_MODE_MASK        (0x07u << TH_T_DRIVE_MODE_SHIFT)
+
 
 #endif /* End Pins TH_T_H */
 
