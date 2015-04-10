@@ -401,7 +401,7 @@ Discarded input sections
 Memory Configuration
 
 Name             Origin             Length             Attributes
-rom              0x00000000         0x00008000         xr
+rom              0x00000000         0x00004000         xr
 ram              0x20000000         0x00001000         xrw
 *default*        0x00000000         0xffffffff
 
@@ -443,189 +443,189 @@ END GROUP
                 0x20001000                PROVIDE (__cy_stack, (ORIGIN (ram) + 0x1000))
                 0x20000c00                PROVIDE (__cy_heap_end, (__cy_stack - 0x400))
 
-.cybootloader   0x00000000      0xb80
+.cybootloader   0x00000000      0xd00
  *(.cybootloader)
- .cybootloader  0x00000000      0xb80 .\CortexM0\ARM_GCC_484\Release\cybootloader.o
+ .cybootloader  0x00000000      0xd00 .\CortexM0\ARM_GCC_484\Release\cybootloader.o
                 0x00000000                cy_bootloader
-                0x00000b80                appl1_start = CY_APPL_ORIGIN?CY_APPL_ORIGIN:ALIGN (CY_FLASH_ROW_SIZE)
-                0x00004580                appl2_start = (appl1_start + ALIGN ((((0x8000 - appl1_start) - (0x2 * CY_FLASH_ROW_SIZE)) / 0x2), CY_FLASH_ROW_SIZE))
-                0x00000b80                appl_start = (CY_APPL_NUM == 0x1)?appl1_start:appl2_start
+                0x00000d00                appl1_start = CY_APPL_ORIGIN?CY_APPL_ORIGIN:ALIGN (CY_FLASH_ROW_SIZE)
+                0x00002600                appl2_start = (appl1_start + ALIGN ((((0x4000 - appl1_start) - (0x2 * CY_FLASH_ROW_SIZE)) / 0x2), CY_FLASH_ROW_SIZE))
+                0x00000d00                appl_start = (CY_APPL_NUM == 0x1)?appl1_start:appl2_start
 
-.text           0x00000b80      0xdc4
+.text           0x00000d00      0xdc4
  CREATE_OBJECT_SYMBOLS
-                0x00000b80                PROVIDE (__cy_interrupt_vector, RomVectors)
+                0x00000d00                PROVIDE (__cy_interrupt_vector, RomVectors)
  *(.romvectors)
- .romvectors    0x00000b80       0x10 .\CortexM0\ARM_GCC_484\Release\Cm0Start.o
-                0x00000b80                RomVectors
+ .romvectors    0x00000d00       0x10 .\CortexM0\ARM_GCC_484\Release\Cm0Start.o
+                0x00000d00                RomVectors
                 0x00000001                ASSERT ((. != __cy_interrupt_vector), No interrupt vector)
                 0x00000001                ASSERT (CY_APPL_ORIGIN?(SIZEOF (.cybootloader) <= CY_APPL_ORIGIN):0x1, Wrong image location)
-                0x00000b90                PROVIDE (__cy_reset, Reset)
+                0x00000d10                PROVIDE (__cy_reset, Reset)
  *(.text.Reset)
- .text.Reset    0x00000b90       0x10 .\CortexM0\ARM_GCC_484\Release\Cm0Start.o
-                0x00000b90                Reset
+ .text.Reset    0x00000d10       0x10 .\CortexM0\ARM_GCC_484\Release\Cm0Start.o
+                0x00000d10                Reset
                 0x00000001                ASSERT ((. != __cy_reset), No reset code)
  *(.psocinit)
- .psocinit      0x00000ba0      0x230 .\CortexM0\ARM_GCC_484\Release\app.a(cyfitter_cfg.o)
-                0x00000ba0                cyfitter_cfg
-                0x00000dd0                . = MAX (., 0x100)
+ .psocinit      0x00000d20      0x230 .\CortexM0\ARM_GCC_484\Release\app.a(cyfitter_cfg.o)
+                0x00000d20                cyfitter_cfg
+                0x00000f50                . = MAX (., 0x100)
  *(.text .text.* .gnu.linkonce.t.*)
- .text          0x00000dd0       0x60 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtbegin.o
- .text.read     0x00000e30      0x114 .\CortexM0\ARM_GCC_484\Release\main.o
-                0x00000e30                read
+ .text          0x00000f50       0x60 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtbegin.o
+ .text.read     0x00000fb0      0x114 .\CortexM0\ARM_GCC_484\Release\main.o
+                0x00000fb0                read
  .text.startup.main
-                0x00000f44       0xc8 .\CortexM0\ARM_GCC_484\Release\main.o
-                0x00000f44                main
+                0x000010c4       0xc8 .\CortexM0\ARM_GCC_484\Release\main.o
+                0x000010c4                main
  .text.IntDefaultHandler
-                0x0000100c        0x2 .\CortexM0\ARM_GCC_484\Release\Cm0Start.o
-                0x0000100c                IntDefaultHandler
- *fill*         0x0000100e        0x2 
- .text.Start_c  0x00001010       0x4c .\CortexM0\ARM_GCC_484\Release\Cm0Start.o
-                0x00001010                Start_c
+                0x0000118c        0x2 .\CortexM0\ARM_GCC_484\Release\Cm0Start.o
+                0x0000118c                IntDefaultHandler
+ *fill*         0x0000118e        0x2 
+ .text.Start_c  0x00001190       0x4c .\CortexM0\ARM_GCC_484\Release\Cm0Start.o
+                0x00001190                Start_c
  .text.startup.initialize_psoc
-                0x0000105c       0x54 .\CortexM0\ARM_GCC_484\Release\Cm0Start.o
-                0x0000105c                initialize_psoc
+                0x000011dc       0x54 .\CortexM0\ARM_GCC_484\Release\Cm0Start.o
+                0x000011dc                initialize_psoc
  .text.SetAnalogRoutingPumps
-                0x000010b0       0x20 .\CortexM0\ARM_GCC_484\Release\app.a(cyfitter_cfg.o)
-                0x000010b0                SetAnalogRoutingPumps
+                0x00001230       0x20 .\CortexM0\ARM_GCC_484\Release\app.a(cyfitter_cfg.o)
+                0x00001230                SetAnalogRoutingPumps
  .text.AMux_DisconnectAll
-                0x000010d0       0x50 .\CortexM0\ARM_GCC_484\Release\app.a(cyfitter_cfg.o)
-                0x000010d0                AMux_DisconnectAll
+                0x00001250       0x50 .\CortexM0\ARM_GCC_484\Release\app.a(cyfitter_cfg.o)
+                0x00001250                AMux_DisconnectAll
  .text.AMux_Next
-                0x00001120       0x94 .\CortexM0\ARM_GCC_484\Release\app.a(cyfitter_cfg.o)
-                0x00001120                AMux_Next
+                0x000012a0       0x94 .\CortexM0\ARM_GCC_484\Release\app.a(cyfitter_cfg.o)
+                0x000012a0                AMux_Next
  .text.Thermistor_GetResistance
-                0x000011b4       0x2c .\CortexM0\ARM_GCC_484\Release\app.a(Thermistor.o)
-                0x000011b4                Thermistor_GetResistance
+                0x00001334       0x2c .\CortexM0\ARM_GCC_484\Release\app.a(Thermistor.o)
+                0x00001334                Thermistor_GetResistance
  .text.Thermistor_GetTemperature
-                0x000011e0       0x78 .\CortexM0\ARM_GCC_484\Release\app.a(Thermistor.o)
-                0x000011e0                Thermistor_GetTemperature
+                0x00001360       0x78 .\CortexM0\ARM_GCC_484\Release\app.a(Thermistor.o)
+                0x00001360                Thermistor_GetTemperature
  .text.ADC_Init
-                0x00001258       0xf4 .\CortexM0\ARM_GCC_484\Release\app.a(ADC.o)
-                0x00001258                ADC_Init
+                0x000013d8       0xf4 .\CortexM0\ARM_GCC_484\Release\app.a(ADC.o)
+                0x000013d8                ADC_Init
  .text.ADC_Enable
-                0x0000134c       0x20 .\CortexM0\ARM_GCC_484\Release\app.a(ADC.o)
-                0x0000134c                ADC_Enable
+                0x000014cc       0x20 .\CortexM0\ARM_GCC_484\Release\app.a(ADC.o)
+                0x000014cc                ADC_Enable
  .text.ADC_Start
-                0x0000136c       0x1c .\CortexM0\ARM_GCC_484\Release\app.a(ADC.o)
-                0x0000136c                ADC_Start
+                0x000014ec       0x1c .\CortexM0\ARM_GCC_484\Release\app.a(ADC.o)
+                0x000014ec                ADC_Start
  .text.ADC_Stop
-                0x00001388       0x10 .\CortexM0\ARM_GCC_484\Release\app.a(ADC.o)
-                0x00001388                ADC_Stop
+                0x00001508       0x10 .\CortexM0\ARM_GCC_484\Release\app.a(ADC.o)
+                0x00001508                ADC_Stop
  .text.ADC_StartConvert
-                0x00001398       0x14 .\CortexM0\ARM_GCC_484\Release\app.a(ADC.o)
-                0x00001398                ADC_StartConvert
+                0x00001518       0x14 .\CortexM0\ARM_GCC_484\Release\app.a(ADC.o)
+                0x00001518                ADC_StartConvert
  .text.ADC_StopConvert
-                0x000013ac       0x14 .\CortexM0\ARM_GCC_484\Release\app.a(ADC.o)
-                0x000013ac                ADC_StopConvert
+                0x0000152c       0x14 .\CortexM0\ARM_GCC_484\Release\app.a(ADC.o)
+                0x0000152c                ADC_StopConvert
  .text.ADC_IsEndConversion
-                0x000013c0       0x24 .\CortexM0\ARM_GCC_484\Release\app.a(ADC.o)
-                0x000013c0                ADC_IsEndConversion
+                0x00001540       0x24 .\CortexM0\ARM_GCC_484\Release\app.a(ADC.o)
+                0x00001540                ADC_IsEndConversion
  .text.ADC_GetResult16
-                0x000013e4       0x14 .\CortexM0\ARM_GCC_484\Release\app.a(ADC.o)
-                0x000013e4                ADC_GetResult16
+                0x00001564       0x14 .\CortexM0\ARM_GCC_484\Release\app.a(ADC.o)
+                0x00001564                ADC_GetResult16
  .text.ADC_SetOffset
-                0x000013f8        0xc .\CortexM0\ARM_GCC_484\Release\app.a(ADC.o)
-                0x000013f8                ADC_SetOffset
+                0x00001578        0xc .\CortexM0\ARM_GCC_484\Release\app.a(ADC.o)
+                0x00001578                ADC_SetOffset
  .text.ADC_Sleep
-                0x00001404       0x64 .\CortexM0\ARM_GCC_484\Release\app.a(ADC_PM.o)
-                0x00001404                ADC_Sleep
+                0x00001584       0x64 .\CortexM0\ARM_GCC_484\Release\app.a(ADC_PM.o)
+                0x00001584                ADC_Sleep
  .text.ADC_Wakeup
-                0x00001468       0x44 .\CortexM0\ARM_GCC_484\Release\app.a(ADC_PM.o)
-                0x00001468                ADC_Wakeup
- .text.ADC_ISR  0x000014ac        0xc .\CortexM0\ARM_GCC_484\Release\app.a(ADC_INT.o)
-                0x000014ac                ADC_ISR
+                0x000015e8       0x44 .\CortexM0\ARM_GCC_484\Release\app.a(ADC_PM.o)
+                0x000015e8                ADC_Wakeup
+ .text.ADC_ISR  0x0000162c        0xc .\CortexM0\ARM_GCC_484\Release\app.a(ADC_INT.o)
+                0x0000162c                ADC_ISR
  .text.EN_Write
-                0x000014b8       0x18 .\CortexM0\ARM_GCC_484\Release\app.a(EN.o)
-                0x000014b8                EN_Write
+                0x00001638       0x18 .\CortexM0\ARM_GCC_484\Release\app.a(EN.o)
+                0x00001638                EN_Write
  .text.UART_Enable
-                0x000014d0       0x1c .\CortexM0\ARM_GCC_484\Release\app.a(UART.o)
-                0x000014d0                UART_Enable
+                0x00001650       0x1c .\CortexM0\ARM_GCC_484\Release\app.a(UART.o)
+                0x00001650                UART_Enable
  .text.UART_Start
-                0x000014ec       0x1c .\CortexM0\ARM_GCC_484\Release\app.a(UART.o)
-                0x000014ec                UART_Start
+                0x0000166c       0x1c .\CortexM0\ARM_GCC_484\Release\app.a(UART.o)
+                0x0000166c                UART_Start
  .text.UART_SpiUartReadRxData
-                0x00001508        0xc .\CortexM0\ARM_GCC_484\Release\app.a(UART_SPI_UART.o)
-                0x00001508                UART_SpiUartReadRxData
+                0x00001688        0xc .\CortexM0\ARM_GCC_484\Release\app.a(UART_SPI_UART.o)
+                0x00001688                UART_SpiUartReadRxData
  .text.UART_SpiUartGetRxBufferSize
-                0x00001514       0x10 .\CortexM0\ARM_GCC_484\Release\app.a(UART_SPI_UART.o)
-                0x00001514                UART_SpiUartGetRxBufferSize
+                0x00001694       0x10 .\CortexM0\ARM_GCC_484\Release\app.a(UART_SPI_UART.o)
+                0x00001694                UART_SpiUartGetRxBufferSize
  .text.UART_SpiUartClearRxBuffer
-                0x00001524       0x20 .\CortexM0\ARM_GCC_484\Release\app.a(UART_SPI_UART.o)
-                0x00001524                UART_SpiUartClearRxBuffer
+                0x000016a4       0x20 .\CortexM0\ARM_GCC_484\Release\app.a(UART_SPI_UART.o)
+                0x000016a4                UART_SpiUartClearRxBuffer
  .text.UART_SpiUartWriteTxData
-                0x00001544       0x1c .\CortexM0\ARM_GCC_484\Release\app.a(UART_SPI_UART.o)
-                0x00001544                UART_SpiUartWriteTxData
+                0x000016c4       0x1c .\CortexM0\ARM_GCC_484\Release\app.a(UART_SPI_UART.o)
+                0x000016c4                UART_SpiUartWriteTxData
  .text.UART_SpiUartDisableIntRx
-                0x00001560       0x10 .\CortexM0\ARM_GCC_484\Release\app.a(UART_SPI_UART.o)
-                0x00001560                UART_SpiUartDisableIntRx
+                0x000016e0       0x10 .\CortexM0\ARM_GCC_484\Release\app.a(UART_SPI_UART.o)
+                0x000016e0                UART_SpiUartDisableIntRx
  .text.UART_UartInit
-                0x00001570       0xac .\CortexM0\ARM_GCC_484\Release\app.a(UART_UART.o)
-                0x00001570                UART_UartInit
+                0x000016f0       0xac .\CortexM0\ARM_GCC_484\Release\app.a(UART_UART.o)
+                0x000016f0                UART_UartInit
  .text.UART_UartGetByte
-                0x0000161c       0x40 .\CortexM0\ARM_GCC_484\Release\app.a(UART_UART.o)
-                0x0000161c                UART_UartGetByte
+                0x0000179c       0x40 .\CortexM0\ARM_GCC_484\Release\app.a(UART_UART.o)
+                0x0000179c                UART_UartGetByte
  .text.Opamp_Init
-                0x0000165c       0x2c .\CortexM0\ARM_GCC_484\Release\app.a(Opamp.o)
-                0x0000165c                Opamp_Init
+                0x000017dc       0x2c .\CortexM0\ARM_GCC_484\Release\app.a(Opamp.o)
+                0x000017dc                Opamp_Init
  .text.Opamp_Enable
-                0x00001688       0x1c .\CortexM0\ARM_GCC_484\Release\app.a(Opamp.o)
-                0x00001688                Opamp_Enable
+                0x00001808       0x1c .\CortexM0\ARM_GCC_484\Release\app.a(Opamp.o)
+                0x00001808                Opamp_Enable
  .text.Opamp_Start
-                0x000016a4       0x1c .\CortexM0\ARM_GCC_484\Release\app.a(Opamp.o)
-                0x000016a4                Opamp_Start
+                0x00001824       0x1c .\CortexM0\ARM_GCC_484\Release\app.a(Opamp.o)
+                0x00001824                Opamp_Start
  .text.Opamp_Stop
-                0x000016c0       0x14 .\CortexM0\ARM_GCC_484\Release\app.a(Opamp.o)
-                0x000016c0                Opamp_Stop
+                0x00001840       0x14 .\CortexM0\ARM_GCC_484\Release\app.a(Opamp.o)
+                0x00001840                Opamp_Stop
  .text.Opamp_Sleep
-                0x000016d4       0x24 .\CortexM0\ARM_GCC_484\Release\app.a(Opamp_PM.o)
-                0x000016d4                Opamp_Sleep
+                0x00001854       0x24 .\CortexM0\ARM_GCC_484\Release\app.a(Opamp_PM.o)
+                0x00001854                Opamp_Sleep
  .text.Opamp_Wakeup
-                0x000016f8       0x14 .\CortexM0\ARM_GCC_484\Release\app.a(Opamp_PM.o)
-                0x000016f8                Opamp_Wakeup
+                0x00001878       0x14 .\CortexM0\ARM_GCC_484\Release\app.a(Opamp_PM.o)
+                0x00001878                Opamp_Wakeup
  .text.AMux_Start
-                0x0000170c       0x14 .\CortexM0\ARM_GCC_484\Release\app.a(AMux.o)
-                0x0000170c                AMux_Start
+                0x0000188c       0x14 .\CortexM0\ARM_GCC_484\Release\app.a(AMux.o)
+                0x0000188c                AMux_Start
  .text.AMux_Stop
-                0x00001720        0x8 .\CortexM0\ARM_GCC_484\Release\app.a(AMux.o)
-                0x00001720                AMux_Stop
- .text          0x00001728       0x28 .\CortexM0\ARM_GCC_484\Release\app.a(CyBootAsmGnu.o)
-                0x00001728                CyDelayCycles
-                0x0000173c                CyEnterCriticalSection
-                0x00001744                CyExitCriticalSection
+                0x000018a0        0x8 .\CortexM0\ARM_GCC_484\Release\app.a(AMux.o)
+                0x000018a0                AMux_Stop
+ .text          0x000018a8       0x28 .\CortexM0\ARM_GCC_484\Release\app.a(CyBootAsmGnu.o)
+                0x000018a8                CyDelayCycles
+                0x000018bc                CyEnterCriticalSection
+                0x000018c4                CyExitCriticalSection
  .text.CyIntSetVector
-                0x00001750       0x10 .\CortexM0\ARM_GCC_484\Release\app.a(CyLib.o)
-                0x00001750                CyIntSetVector
+                0x000018d0       0x10 .\CortexM0\ARM_GCC_484\Release\app.a(CyLib.o)
+                0x000018d0                CyIntSetVector
  .text.CyIntSetPriority
-                0x00001760       0x34 .\CortexM0\ARM_GCC_484\Release\app.a(CyLib.o)
-                0x00001760                CyIntSetPriority
+                0x000018e0       0x34 .\CortexM0\ARM_GCC_484\Release\app.a(CyLib.o)
+                0x000018e0                CyIntSetPriority
  .text.CyIntEnable
-                0x00001794       0x14 .\CortexM0\ARM_GCC_484\Release\app.a(CyLib.o)
-                0x00001794                CyIntEnable
+                0x00001914       0x14 .\CortexM0\ARM_GCC_484\Release\app.a(CyLib.o)
+                0x00001914                CyIntEnable
  .text.CyIntDisable
-                0x000017a8       0x14 .\CortexM0\ARM_GCC_484\Release\app.a(CyLib.o)
-                0x000017a8                CyIntDisable
- .text.CyDelay  0x000017bc       0x2c .\CortexM0\ARM_GCC_484\Release\app.a(CyLib.o)
-                0x000017bc                CyDelay
+                0x00001928       0x14 .\CortexM0\ARM_GCC_484\Release\app.a(CyLib.o)
+                0x00001928                CyIntDisable
+ .text.CyDelay  0x0000193c       0x2c .\CortexM0\ARM_GCC_484\Release\app.a(CyLib.o)
+                0x0000193c                CyDelay
  .text.CyDelayUs
-                0x000017e8       0x14 .\CortexM0\ARM_GCC_484\Release\app.a(CyLib.o)
-                0x000017e8                CyDelayUs
+                0x00001968       0x14 .\CortexM0\ARM_GCC_484\Release\app.a(CyLib.o)
+                0x00001968                CyDelayUs
  .text.UART_SPI_UART_ISR
-                0x000017fc       0x14 .\CortexM0\ARM_GCC_484\Release\app.a(UART_SPI_UART_INT.o)
-                0x000017fc                UART_SPI_UART_ISR
- .text          0x00001810       0x14 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libgcc.a(_thumb1_case_uqi.o)
-                0x00001810                __gnu_thumb1_case_uqi
- .text          0x00001824       0xc0 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libgcc.a(_divsi3.o)
-                0x00001824                __divsi3
-                0x00001824                __aeabi_idiv
-                0x000018d0                __aeabi_idivmod
- .text          0x000018e4        0x4 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libgcc.a(_dvmd_tls.o)
-                0x000018e4                __aeabi_idiv0
-                0x000018e4                __aeabi_ldiv0
+                0x0000197c       0x14 .\CortexM0\ARM_GCC_484\Release\app.a(UART_SPI_UART_INT.o)
+                0x0000197c                UART_SPI_UART_ISR
+ .text          0x00001990       0x14 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libgcc.a(_thumb1_case_uqi.o)
+                0x00001990                __gnu_thumb1_case_uqi
+ .text          0x000019a4       0xc0 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libgcc.a(_divsi3.o)
+                0x000019a4                __divsi3
+                0x000019a4                __aeabi_idiv
+                0x00001a50                __aeabi_idivmod
+ .text          0x00001a64        0x4 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m\libgcc.a(_dvmd_tls.o)
+                0x00001a64                __aeabi_idiv0
+                0x00001a64                __aeabi_ldiv0
  .text.__libc_init_array
-                0x000018e8       0x4c c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv6-m\libg_s.a(lib_a-init.o)
-                0x000018e8                __libc_init_array
- .text.memset   0x00001934       0x10 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv6-m\libg_s.a(lib_a-memset.o)
-                0x00001934                memset
+                0x00001a68       0x4c c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv6-m\libg_s.a(lib_a-init.o)
+                0x00001a68                __libc_init_array
+ .text.memset   0x00001ab4       0x10 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/../../../../arm-none-eabi/lib/armv6-m\libg_s.a(lib_a-memset.o)
+                0x00001ab4                memset
  *(.plt)
  *(.gnu.warning)
  *(.glue_7t)
@@ -638,75 +638,75 @@ END GROUP
  *(.ARM.extab* .gnu.linkonce.armextab.*)
  *(.gcc_except_table)
 
-.v4_bx          0x00001944        0x0
+.v4_bx          0x00001ac4        0x0
  .v4_bx         0x00000000        0x0 linker stubs
 
-.iplt           0x00001944        0x0
+.iplt           0x00001ac4        0x0
  .iplt          0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtbegin.o
 
 .eh_frame_hdr
  *(.eh_frame_hdr)
 
-.eh_frame       0x00001944        0x4
+.eh_frame       0x00001ac4        0x4
  *(.eh_frame)
- .eh_frame      0x00001944        0x0 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtbegin.o
- .eh_frame      0x00001944        0x4 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtend.o
-                0x00001948                PROVIDE (__exidx_start, .)
+ .eh_frame      0x00001ac4        0x0 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtbegin.o
+ .eh_frame      0x00001ac4        0x4 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtend.o
+                0x00001ac8                PROVIDE (__exidx_start, .)
 
 .ARM.exidx
  *(.ARM.exidx* .gnu.linkonce.armexidx.*)
-                0x00001948                __exidx_end = .
+                0x00001ac8                __exidx_end = .
 
-.rodata         0x00001948      0x848
+.rodata         0x00001ac8      0x840
  *(.rodata .rodata.* .gnu.linkonce.r.*)
- .rodata        0x00001948       0x40 .\CortexM0\ARM_GCC_484\Release\app.a(cyfitter_cfg.o)
- .rodata        0x00001988      0x7d4 .\CortexM0\ARM_GCC_484\Release\app.a(Thermistor.o)
-                0x0000215c                . = ALIGN (0x4)
+ .rodata        0x00001ac8       0x38 .\CortexM0\ARM_GCC_484\Release\app.a(cyfitter_cfg.o)
+ .rodata        0x00001b00      0x7d4 .\CortexM0\ARM_GCC_484\Release\app.a(Thermistor.o)
+                0x000022d4                . = ALIGN (0x4)
  *(.init)
- .init          0x0000215c        0x4 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crti.o
-                0x0000215c                _init
- .init          0x00002160        0x8 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtn.o
-                0x00002168                . = ALIGN (0x4)
-                0x00002168                __preinit_array_start = .
+ .init          0x000022d4        0x4 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crti.o
+                0x000022d4                _init
+ .init          0x000022d8        0x8 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtn.o
+                0x000022e0                . = ALIGN (0x4)
+                0x000022e0                __preinit_array_start = .
  *(.preinit_array)
-                0x00002168                __preinit_array_end = .
-                0x00002168                . = ALIGN (0x4)
-                0x00002168                __init_array_start = .
+                0x000022e0                __preinit_array_end = .
+                0x000022e0                . = ALIGN (0x4)
+                0x000022e0                __init_array_start = .
  *(SORT(.init_array.*))
  *(.init_array)
- .init_array    0x00002168        0x4 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtbegin.o
- .init_array    0x0000216c        0x4 .\CortexM0\ARM_GCC_484\Release\Cm0Start.o
-                0x00002170                __init_array_end = .
-                0x00002170                . = ALIGN (0x4)
+ .init_array    0x000022e0        0x4 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtbegin.o
+ .init_array    0x000022e4        0x4 .\CortexM0\ARM_GCC_484\Release\Cm0Start.o
+                0x000022e8                __init_array_end = .
+                0x000022e8                . = ALIGN (0x4)
  *(.fini)
- .fini          0x00002170        0x4 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crti.o
-                0x00002170                _fini
- .fini          0x00002174        0x8 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtn.o
-                0x0000217c                . = ALIGN (0x4)
-                0x0000217c                __fini_array_start = .
+ .fini          0x000022e8        0x4 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crti.o
+                0x000022e8                _fini
+ .fini          0x000022ec        0x8 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtn.o
+                0x000022f4                . = ALIGN (0x4)
+                0x000022f4                __fini_array_start = .
  *(.fini_array)
- .fini_array    0x0000217c        0x4 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtbegin.o
+ .fini_array    0x000022f4        0x4 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtbegin.o
  *(SORT(.fini_array.*))
-                0x00002180                __fini_array_end = .
-                0x00002180                . = ALIGN (0x4)
+                0x000022f8                __fini_array_end = .
+                0x000022f8                . = ALIGN (0x4)
  *crtbegin.o(.ctors)
  *(EXCLUDE_FILE(*crtend.o) .ctors)
  *(SORT(.ctors.*))
  *crtend.o(.ctors)
-                0x00002180                . = ALIGN (0x4)
+                0x000022f8                . = ALIGN (0x4)
  *crtbegin.o(.dtors)
  *(EXCLUDE_FILE(*crtend.o) .dtors)
  *(SORT(.dtors.*))
  *crtend.o(.dtors)
-                0x00002180                . = ALIGN (0x4)
-                0x00002180                __cy_regions = .
-                0x00002180        0x4 LONG 0x2190 __cy_region_init_ram
-                0x00002184        0x4 LONG 0x200000d0 __cy_region_start_data
-                0x00002188        0x4 LONG 0x18 __cy_region_init_size_ram
-                0x0000218c        0x4 LONG 0x48 __cy_region_zero_size_ram
-                0x00002190                __cy_regions_end = .
-                0x00002190                . = ALIGN (0x8)
-                0x00002190                _etext = .
+                0x000022f8                . = ALIGN (0x4)
+                0x000022f8                __cy_regions = .
+                0x000022f8        0x4 LONG 0x2308 __cy_region_init_ram
+                0x000022fc        0x4 LONG 0x200000d0 __cy_region_start_data
+                0x00002300        0x4 LONG 0x18 __cy_region_init_size_ram
+                0x00002304        0x4 LONG 0x48 __cy_region_zero_size_ram
+                0x00002308                __cy_regions_end = .
+                0x00002308                . = ALIGN (0x8)
+                0x00002308                _etext = .
 
 .ramvectors     0x20000000       0xc0
                 0x20000000                __cy_region_start_ram = .
@@ -724,7 +724,7 @@ END GROUP
  *(.noinit)
  .noinit        0x200000c8        0x4 .\CortexM0\ARM_GCC_484\Release\Cm0Start.o
 
-.data           0x200000d0       0x18 load address 0x00002190
+.data           0x200000d0       0x18 load address 0x00002308
                 0x200000d0                __cy_region_start_data = .
  *(.jcr)
  .jcr           0x200000d0        0x0 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtbegin.o
@@ -745,10 +745,10 @@ END GROUP
  *(.ram)
                 0x200000e8                _edata = .
 
-.igot.plt       0x200000e8        0x0 load address 0x000021a8
+.igot.plt       0x200000e8        0x0 load address 0x00002320
  .igot.plt      0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtbegin.o
 
-.bss            0x200000e8       0x48 load address 0x000021a8
+.bss            0x200000e8       0x48 load address 0x00002320
                 0x200000e8                PROVIDE (__bss_start__, .)
  *(.shbss)
  *(.bss .bss.* .gnu.linkonce.b.*)
@@ -782,11 +782,11 @@ END GROUP
                 0x20000130                __end = .
                 0x20000130                PROVIDE (end, .)
                 0x20000130                PROVIDE (__bss_end__, .)
-                0x00002190                __cy_region_init_ram = LOADADDR (.data)
+                0x00002308                __cy_region_init_ram = LOADADDR (.data)
                 0x00000018                __cy_region_init_size_ram = (_edata - ADDR (.data))
                 0x00000048                __cy_region_zero_size_ram = (_end - _edata)
 
-.heap           0x20000130      0x100 load address 0x000021a8
+.heap           0x20000130      0x100 load address 0x00002320
                 0x20000130                . = _end
                 0x20000230                . = (. + 0x100)
  *fill*         0x20000130      0x100 
@@ -804,17 +804,17 @@ END GROUP
                 0xf0000000                cy_meta_loader
 
 .cyloadablemeta
-                0x00007fc0       0x40
+                0x00003fc0       0x40
  *(.cyloadablemeta)
  .cyloadablemeta
-                0x00007fc0       0x40 .\CortexM0\ARM_GCC_484\Release\cymetadata.o
-                0x00007fc0                cy_meta_loadable
+                0x00003fc0       0x40 .\CortexM0\ARM_GCC_484\Release\cymetadata.o
+                0x00003fc0                cy_meta_loadable
 
 .cyflashprotect
-                0x90400000       0x20
+                0x90400000       0x10
  *(.cyflashprotect)
  .cyflashprotect
-                0x90400000       0x20 .\CortexM0\ARM_GCC_484\Release\cybootloader.o
+                0x90400000       0x10 .\CortexM0\ARM_GCC_484\Release\cybootloader.o
                 0x90400000                cy_meta_flashprotect
 
 .cymeta         0x90500000        0xc
@@ -828,7 +828,7 @@ END GROUP
                 0x90600000        0x1 .\CortexM0\ARM_GCC_484\Release\cybootloader.o
                 0x90600000                cy_meta_chipprotect
 
-.rel.dyn        0x00008000        0x0 load address 0x90600004
+.rel.dyn        0x00004000        0x0 load address 0x90600004
  .rel.iplt      0x00000000        0x0 c:/program files (x86)/cypress/psoc creator/3.1/psoc creator/import/gnu_cs/arm/4.8.4/bin/../lib/gcc/arm-none-eabi/4.8.4/armv6-m/crtbegin.o
 
 .stab
@@ -1030,19 +1030,19 @@ END GROUP
  .debug_str     0x000014dd       0x3f .\CortexM0\ARM_GCC_484\Release\app.a(UART_SPI_UART_INT.o)
                                 0x1c3 (size before relaxing)
 
-.debug_loc      0x00000000     0x1738
+.debug_loc      0x00000000     0x1744
  *(.debug_loc)
- .debug_loc     0x00000000       0xd5 .\CortexM0\ARM_GCC_484\Release\main.o
- .debug_loc     0x000000d5      0x1ca .\CortexM0\ARM_GCC_484\Release\Cm0Start.o
- .debug_loc     0x0000029f      0x1f2 .\CortexM0\ARM_GCC_484\Release\app.a(cyfitter_cfg.o)
- .debug_loc     0x00000491      0x173 .\CortexM0\ARM_GCC_484\Release\app.a(Thermistor.o)
- .debug_loc     0x00000604      0x2fa .\CortexM0\ARM_GCC_484\Release\app.a(ADC.o)
- .debug_loc     0x000008fe       0x7d .\CortexM0\ARM_GCC_484\Release\app.a(EN.o)
- .debug_loc     0x0000097b       0x3c .\CortexM0\ARM_GCC_484\Release\app.a(UART.o)
- .debug_loc     0x000009b7       0xee .\CortexM0\ARM_GCC_484\Release\app.a(UART_SPI_UART.o)
- .debug_loc     0x00000aa5      0x191 .\CortexM0\ARM_GCC_484\Release\app.a(UART_UART.o)
- .debug_loc     0x00000c36       0x39 .\CortexM0\ARM_GCC_484\Release\app.a(Opamp.o)
- .debug_loc     0x00000c6f      0xac9 .\CortexM0\ARM_GCC_484\Release\app.a(CyLib.o)
+ .debug_loc     0x00000000       0xe1 .\CortexM0\ARM_GCC_484\Release\main.o
+ .debug_loc     0x000000e1      0x1ca .\CortexM0\ARM_GCC_484\Release\Cm0Start.o
+ .debug_loc     0x000002ab      0x1f2 .\CortexM0\ARM_GCC_484\Release\app.a(cyfitter_cfg.o)
+ .debug_loc     0x0000049d      0x173 .\CortexM0\ARM_GCC_484\Release\app.a(Thermistor.o)
+ .debug_loc     0x00000610      0x2fa .\CortexM0\ARM_GCC_484\Release\app.a(ADC.o)
+ .debug_loc     0x0000090a       0x7d .\CortexM0\ARM_GCC_484\Release\app.a(EN.o)
+ .debug_loc     0x00000987       0x3c .\CortexM0\ARM_GCC_484\Release\app.a(UART.o)
+ .debug_loc     0x000009c3       0xee .\CortexM0\ARM_GCC_484\Release\app.a(UART_SPI_UART.o)
+ .debug_loc     0x00000ab1      0x191 .\CortexM0\ARM_GCC_484\Release\app.a(UART_UART.o)
+ .debug_loc     0x00000c42       0x39 .\CortexM0\ARM_GCC_484\Release\app.a(Opamp.o)
+ .debug_loc     0x00000c7b      0xac9 .\CortexM0\ARM_GCC_484\Release\app.a(CyLib.o)
 
 .debug_macinfo
  *(.debug_macinfo)

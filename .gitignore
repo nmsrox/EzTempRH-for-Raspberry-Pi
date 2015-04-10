@@ -5,7 +5,7 @@ board/*.bak
 board/*.kicad_pcb-bak
 board/$*
 board/_autosave*
-
+ 
 # Fabrication outputs
 board/output/*.zip
 
@@ -31,6 +31,7 @@ firmware/*.cydsn/codegentemp/
 firmware/*.cydsn/CortexM3/
 firmware/*.cydsn/DP8051/
 firmware/*.cydsn/Generated_Source/PSoCCreatorExportIDE.xml
+firmware/*.cydsn/Export/PSoCCreatorExportIDE.xml
 
 # Compilation output (except binaries)
 firmware/*.cydsn/CortexM0/*/*/.deps/

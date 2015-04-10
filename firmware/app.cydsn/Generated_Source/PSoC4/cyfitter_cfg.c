@@ -119,7 +119,7 @@ static void CyClockStartupError(uint8 errorCode)
 }
 #endif
 
-#define CY_CFG_BASE_ADDR_COUNT 6u
+#define CY_CFG_BASE_ADDR_COUNT 5u
 CYPACKED typedef struct
 {
 	uint8 offset;
@@ -400,8 +400,7 @@ void cyfitter_cfg(void)
 
 	{
 		static const uint32 CYCODE cy_cfg_addr_table[] = {
-			0x400F3004u, /* Base address: 0x400F3000 Count: 4 */
-			0x400F3101u, /* Base address: 0x400F3100 Count: 1 */
+			0x400F3204u, /* Base address: 0x400F3200 Count: 4 */
 			0x400F3303u, /* Base address: 0x400F3300 Count: 3 */
 			0x400F4104u, /* Base address: 0x400F4100 Count: 4 */
 			0x400F4205u, /* Base address: 0x400F4200 Count: 5 */
@@ -409,13 +408,12 @@ void cyfitter_cfg(void)
 		};
 
 		static const cy_cfg_addrvalue_t CYCODE cy_cfg_data_table[] = {
-			{0x34u, 0x01u},
-			{0x3Eu, 0x10u},
-			{0x58u, 0x04u},
-			{0x5Fu, 0x01u},
-			{0x18u, 0x08u},
-			{0x80u, 0x04u},
-			{0x90u, 0x08u},
+			{0xB0u, 0x01u},
+			{0xBEu, 0x01u},
+			{0xD8u, 0x04u},
+			{0xDFu, 0x01u},
+			{0x1Au, 0x80u},
+			{0x82u, 0x40u},
 			{0xE4u, 0x01u},
 			{0x5Cu, 0x10u},
 			{0x80u, 0x10u},

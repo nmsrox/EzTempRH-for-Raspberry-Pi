@@ -14,7 +14,7 @@
 ;-------------------------------------------------------------------------------
 
 #define CYDEV_FLASH_BASE 0x00000000
-#define CYDEV_FLASH_SIZE 0x00008000
+#define CYDEV_FLASH_SIZE 0x00004000
 #define CYREG_FLASH_DATA_MBASE 0x00000000
 #define CYREG_FLASH_DATA_MSIZE 0x00008000
 #define CYDEV_SFLASH_BASE 0x0ffff000
@@ -2638,5 +2638,5 @@
 #define CYDEV_CoreSightTable_SIZE 0x00001000
 #define CYREG_CoreSightTable_DATA_MBASE 0xf0000000
 #define CYREG_CoreSightTable_DATA_MSIZE 0x00001000
-#define CYDEV_FLS_SECTOR_SIZE 0x00008000
+#define CYDEV_FLS_SECTOR_SIZE 0x00004000
 #define CYDEV_FLS_ROW_SIZE 0x00000080

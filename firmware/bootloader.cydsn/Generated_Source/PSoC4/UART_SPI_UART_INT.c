@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: UART_SPI_UART_INT.c
-* Version 1.20
+* Version 2.0
 *
 * Description:
 *  This file provides the source code to the Interrupt Service Routine for
@@ -100,9 +100,9 @@ CY_ISR(UART_SPI_UART_ISR)
         if(UART_CHECK_INTR_TX_MASKED(UART_INTR_TX_NOT_FULL))
         {
             /* Put data into TX FIFO */
-            while(UART_FIFO_SIZE != UART_GET_TX_FIFO_ENTRIES)
+            while(UART_SPI_UART_FIFO_SIZE != UART_GET_TX_FIFO_ENTRIES)
             {
-                /* Check for a room in TX software buffer */
+                /* Check for room in TX software buffer */
                 if(UART_txBufferHead != UART_txBufferTail)
                 {
                     /* Move local tail index */
@@ -122,7 +122,7 @@ CY_ISR(UART_SPI_UART_ISR)
                 }
                 else
                 {
-                    /* TX software buffer is empty: complete transmition */
+                    /* TX software buffer is empty: complete transfer */
                     UART_DISABLE_INTR_TX(UART_INTR_TX_NOT_FULL);
                     break;
                 }

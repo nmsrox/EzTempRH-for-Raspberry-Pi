@@ -32,7 +32,7 @@
 ;********************************************************************************/
 #include "cyfitter.h"
 
-#define CY_FLASH_SIZE       32768
+#define CY_FLASH_SIZE       16384
 #define CY_APPL_ORIGIN      0
 #define CY_FLASH_ROW_SIZE   128
 #define CY_METADATA_SIZE    64

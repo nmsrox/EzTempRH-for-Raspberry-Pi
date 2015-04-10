@@ -1,7 +1,7 @@
 /*******************************************************************************
 * FILENAME: cydevicegnu_trm.inc
 * 
-* PSoC Creator 3.0 SP2
+* PSoC Creator  3.1 SP2
 *
 * DESCRIPTION:
 * This file provides all of the address values for the entire PSoC device.
@@ -15,7 +15,7 @@
 ********************************************************************************/
 
 .set CYDEV_FLASH_BASE, 0x00000000
-.set CYDEV_FLASH_SIZE, 0x00008000
+.set CYDEV_FLASH_SIZE, 0x00004000
 .set CYREG_FLASH_DATA_MBASE, 0x00000000
 .set CYREG_FLASH_DATA_MSIZE, 0x00008000
 .set CYDEV_SFLASH_BASE, 0x0ffff000
@@ -2639,5 +2639,5 @@
 .set CYDEV_CoreSightTable_SIZE, 0x00001000
 .set CYREG_CoreSightTable_DATA_MBASE, 0xf0000000
 .set CYREG_CoreSightTable_DATA_MSIZE, 0x00001000
-.set CYDEV_FLS_SECTOR_SIZE, 0x00008000
+.set CYDEV_FLS_SECTOR_SIZE, 0x00004000
 .set CYDEV_FLS_ROW_SIZE, 0x00000080
