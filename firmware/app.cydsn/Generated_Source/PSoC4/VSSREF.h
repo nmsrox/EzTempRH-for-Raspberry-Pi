@@ -1,6 +1,6 @@
 /*******************************************************************************
 * File Name: VSSREF.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
 *  This file containts Control Register function prototypes and register defines
@@ -40,17 +40,15 @@ uint8   VSSREF_ClearInterrupt(void) ;
 /* Drive Modes */
 #define VSSREF_DRIVE_MODE_BITS        (3)
 #define VSSREF_DRIVE_MODE_IND_MASK    (0xFFFFFFFFu >> (32 - VSSREF_DRIVE_MODE_BITS))
-#define VSSREF_DRIVE_MODE_SHIFT       (0x00u)
-#define VSSREF_DRIVE_MODE_MASK        (0x07u << VSSREF_DRIVE_MODE_SHIFT)
 
-#define VSSREF_DM_ALG_HIZ         (0x00u << VSSREF_DRIVE_MODE_SHIFT)
-#define VSSREF_DM_DIG_HIZ         (0x01u << VSSREF_DRIVE_MODE_SHIFT)
-#define VSSREF_DM_RES_UP          (0x02u << VSSREF_DRIVE_MODE_SHIFT)
-#define VSSREF_DM_RES_DWN         (0x03u << VSSREF_DRIVE_MODE_SHIFT)
-#define VSSREF_DM_OD_LO           (0x04u << VSSREF_DRIVE_MODE_SHIFT)
-#define VSSREF_DM_OD_HI           (0x05u << VSSREF_DRIVE_MODE_SHIFT)
-#define VSSREF_DM_STRONG          (0x06u << VSSREF_DRIVE_MODE_SHIFT)
-#define VSSREF_DM_RES_UPDWN       (0x07u << VSSREF_DRIVE_MODE_SHIFT)
+#define VSSREF_DM_ALG_HIZ         (0x00u)
+#define VSSREF_DM_DIG_HIZ         (0x01u)
+#define VSSREF_DM_RES_UP          (0x02u)
+#define VSSREF_DM_RES_DWN         (0x03u)
+#define VSSREF_DM_OD_LO           (0x04u)
+#define VSSREF_DM_OD_HI           (0x05u)
+#define VSSREF_DM_STRONG          (0x06u)
+#define VSSREF_DM_RES_UPDWN       (0x07u)
 
 /* Digital Port Constants */
 #define VSSREF_MASK               VSSREF__MASK
@@ -78,6 +76,16 @@ uint8   VSSREF_ClearInterrupt(void) ;
     #define VSSREF_INTSTAT                (* (reg32 *) VSSREF__INTSTAT)
 
 #endif /* Interrupt Registers */
+
+
+/***************************************
+* The following code is DEPRECATED and 
+* must not be used.
+***************************************/
+
+#define VSSREF_DRIVE_MODE_SHIFT       (0x00u)
+#define VSSREF_DRIVE_MODE_MASK        (0x07u << VSSREF_DRIVE_MODE_SHIFT)
+
 
 #endif /* End Pins VSSREF_H */
 

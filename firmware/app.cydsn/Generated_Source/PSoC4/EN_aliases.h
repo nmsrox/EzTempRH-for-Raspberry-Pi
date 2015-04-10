@@ -1,9 +1,10 @@
 /*******************************************************************************
 * File Name: EN.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
-*  This file containts Control Register function prototypes and register defines
+*  This file contains the Alias definitions for Per-Pin APIs in cypins.h. 
+*  Information on using these APIs can be found in the System Reference Guide.
 *
 * Note:
 *
@@ -19,12 +20,18 @@
 
 #include "cytypes.h"
 #include "cyfitter.h"
+#include "cypins.h"
 
 
 /***************************************
 *              Constants        
 ***************************************/
-#define EN_0		EN__0__PC
+#define EN_0		(EN__0__PC)
+#define EN_0_PS		(EN__0__PS)
+#define EN_0_PC		(EN__0__PC)
+#define EN_0_DR		(EN__0__DR)
+#define EN_0_SHIFT	(EN__0__SHIFT)
+
 
 #endif /* End Pins EN_ALIASES_H */
 

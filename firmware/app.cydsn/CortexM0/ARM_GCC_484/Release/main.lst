@@ -1,0 +1,2098 @@
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 4
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"main.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.global	__aeabi_idiv
+  18              		.section	.text.read,"ax",%progbits
+  19              		.align	1
+  20              		.global	read
+  21              		.code	16
+  22              		.thumb_func
+  23              		.type	read, %function
+  24              	read:
+  25              	.LFB33:
+  26              		.file 1 ".\\main.c"
+   1:.\main.c      **** /*
+   2:.\main.c      **** 
+   3:.\main.c      **** The MIT License (MIT)
+   4:.\main.c      **** 
+   5:.\main.c      **** Copyright (c) 2014 CAIMANICS (hola@caimanics.com)
+   6:.\main.c      **** Author: Pablo Bacho (pablo.bacho@caimanics.com)
+   7:.\main.c      **** 
+   8:.\main.c      **** Permission is hereby granted, free of charge, to any person obtaining a copy
+   9:.\main.c      **** of this software and associated documentation files (the "Software"), to deal
+  10:.\main.c      **** in the Software without restriction, including without limitation the rights
+  11:.\main.c      **** to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  12:.\main.c      **** copies of the Software, and to permit persons to whom the Software is
+  13:.\main.c      **** furnished to do so, subject to the following conditions:
+  14:.\main.c      **** 
+  15:.\main.c      **** The above copyright notice and this permission notice shall be included in all
+  16:.\main.c      **** copies or substantial portions of the Software.
+  17:.\main.c      **** 
+  18:.\main.c      **** THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  19:.\main.c      **** IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  20:.\main.c      **** FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  21:.\main.c      **** AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  22:.\main.c      **** LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  23:.\main.c      **** OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  24:.\main.c      **** SOFTWARE.
+  25:.\main.c      **** 
+  26:.\main.c      **** */
+  27:.\main.c      **** 
+  28:.\main.c      **** #include <project.h>
+  29:.\main.c      **** 
+  30:.\main.c      **** #define _VERSION_       0x0101u
+  31:.\main.c      **** 
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 2
+
+
+  32:.\main.c      **** struct REF {
+  33:.\main.c      ****     int16 vss;
+  34:.\main.c      ****     int16 vdd;
+  35:.\main.c      **** } REF;
+  36:.\main.c      **** 
+  37:.\main.c      **** struct T {
+  38:.\main.c      ****     int16 C;
+  39:.\main.c      ****     int16 F;
+  40:.\main.c      **** } T;
+  41:.\main.c      **** 
+  42:.\main.c      **** struct RH {
+  43:.\main.c      ****     int16 humidity;
+  44:.\main.c      **** } RH;
+  45:.\main.c      **** 
+  46:.\main.c      **** struct EXT {
+  47:.\main.c      ****     int16 counts;
+  48:.\main.c      **** } EXT;
+  49:.\main.c      **** 
+  50:.\main.c      **** 
+  51:.\main.c      **** void read() {
+  27              		.loc 1 51 0
+  28              		.cfi_startproc
+  29 0000 70B5     		push	{r4, r5, r6, lr}
+  30              		.cfi_def_cfa_offset 16
+  31              		.cfi_offset 4, -16
+  32              		.cfi_offset 5, -12
+  33              		.cfi_offset 6, -8
+  34              		.cfi_offset 14, -4
+  52:.\main.c      ****     ADC_Wakeup();
+  35              		.loc 1 52 0
+  36 0002 FFF7FEFF 		bl	ADC_Wakeup
+  37              	.LVL0:
+  53:.\main.c      ****     Opamp_Wakeup();
+  38              		.loc 1 53 0
+  39 0006 FFF7FEFF 		bl	Opamp_Wakeup
+  40              	.LVL1:
+  54:.\main.c      ****     AMux_Start();
+  41              		.loc 1 54 0
+  42 000a FFF7FEFF 		bl	AMux_Start
+  43              	.LVL2:
+  55:.\main.c      ****     
+  56:.\main.c      ****     EN_Write(1);
+  44              		.loc 1 56 0
+  45 000e 0120     		mov	r0, #1
+  46 0010 FFF7FEFF 		bl	EN_Write
+  47              	.LVL3:
+  57:.\main.c      ****     
+  58:.\main.c      ****     CyDelay(70);
+  48              		.loc 1 58 0
+  49 0014 4620     		mov	r0, #70
+  50 0016 FFF7FEFF 		bl	CyDelay
+  51              	.LVL4:
+  59:.\main.c      ****     
+  60:.\main.c      ****     /* VSS REF */
+  61:.\main.c      ****     AMux_Next();
+  52              		.loc 1 61 0
+  53 001a FFF7FEFF 		bl	AMux_Next
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 3
+
+
+  54              	.LVL5:
+  62:.\main.c      ****     
+  63:.\main.c      ****     ADC_StartConvert();
+  55              		.loc 1 63 0
+  56 001e FFF7FEFF 		bl	ADC_StartConvert
+  57              	.LVL6:
+  64:.\main.c      ****     ADC_IsEndConversion(ADC_WAIT_FOR_RESULT);
+  58              		.loc 1 64 0
+  59 0022 0220     		mov	r0, #2
+  60 0024 FFF7FEFF 		bl	ADC_IsEndConversion
+  61              	.LVL7:
+  65:.\main.c      ****     ADC_StopConvert();
+  62              		.loc 1 65 0
+  63 0028 FFF7FEFF 		bl	ADC_StopConvert
+  64              	.LVL8:
+  66:.\main.c      ****     
+  67:.\main.c      ****     REF.vss = ADC_GetResult16(0);
+  65              		.loc 1 67 0
+  66 002c 0020     		mov	r0, #0
+  67 002e FFF7FEFF 		bl	ADC_GetResult16
+  68              	.LVL9:
+  69 0032 344C     		ldr	r4, .L2
+  70 0034 011C     		mov	r1, r0
+  71 0036 2080     		strh	r0, [r4]
+  68:.\main.c      ****     ADC_SetOffset(0, REF.vss);
+  72              		.loc 1 68 0
+  73 0038 0020     		mov	r0, #0
+  74 003a FFF7FEFF 		bl	ADC_SetOffset
+  75              	.LVL10:
+  69:.\main.c      ****     
+  70:.\main.c      ****     /* VDD */
+  71:.\main.c      ****     AMux_Next();
+  76              		.loc 1 71 0
+  77 003e FFF7FEFF 		bl	AMux_Next
+  78              	.LVL11:
+  72:.\main.c      ****     
+  73:.\main.c      ****     ADC_StartConvert();
+  79              		.loc 1 73 0
+  80 0042 FFF7FEFF 		bl	ADC_StartConvert
+  81              	.LVL12:
+  74:.\main.c      ****     ADC_IsEndConversion(ADC_WAIT_FOR_RESULT);
+  82              		.loc 1 74 0
+  83 0046 0220     		mov	r0, #2
+  84 0048 FFF7FEFF 		bl	ADC_IsEndConversion
+  85              	.LVL13:
+  75:.\main.c      ****     ADC_StopConvert();
+  86              		.loc 1 75 0
+  87 004c FFF7FEFF 		bl	ADC_StopConvert
+  88              	.LVL14:
+  76:.\main.c      ****     
+  77:.\main.c      ****     REF.vdd = ADC_GetResult16(0) << 1;
+  89              		.loc 1 77 0
+  90 0050 0020     		mov	r0, #0
+  91 0052 FFF7FEFF 		bl	ADC_GetResult16
+  92              	.LVL15:
+  93 0056 4000     		lsl	r0, r0, #1
+  94 0058 6080     		strh	r0, [r4, #2]
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 4
+
+
+  78:.\main.c      ****     
+  79:.\main.c      ****     /* Thermistor */
+  80:.\main.c      ****     AMux_Next();
+  95              		.loc 1 80 0
+  96 005a FFF7FEFF 		bl	AMux_Next
+  97              	.LVL16:
+  81:.\main.c      ****     
+  82:.\main.c      ****     ADC_StartConvert();
+  98              		.loc 1 82 0
+  99 005e FFF7FEFF 		bl	ADC_StartConvert
+ 100              	.LVL17:
+  83:.\main.c      ****     ADC_IsEndConversion(ADC_WAIT_FOR_RESULT);
+ 101              		.loc 1 83 0
+ 102 0062 0220     		mov	r0, #2
+ 103 0064 FFF7FEFF 		bl	ADC_IsEndConversion
+ 104              	.LVL18:
+  84:.\main.c      ****     ADC_StopConvert();
+ 105              		.loc 1 84 0
+ 106 0068 FFF7FEFF 		bl	ADC_StopConvert
+ 107              	.LVL19:
+  85:.\main.c      ****     
+  86:.\main.c      ****     T.C = Thermistor_GetTemperature(Thermistor_GetResistance(REF.vdd - ADC_GetResult16(0), ADC_GetR
+ 108              		.loc 1 86 0
+ 109 006c 0020     		mov	r0, #0
+ 110 006e 6688     		ldrh	r6, [r4, #2]
+ 111 0070 FFF7FEFF 		bl	ADC_GetResult16
+ 112              	.LVL20:
+ 113 0074 051C     		mov	r5, r0
+ 114 0076 0020     		mov	r0, #0
+ 115 0078 FFF7FEFF 		bl	ADC_GetResult16
+ 116              	.LVL21:
+ 117 007c 751B     		sub	r5, r6, r5
+ 118 007e 011C     		mov	r1, r0
+ 119 0080 28B2     		sxth	r0, r5
+ 120 0082 FFF7FEFF 		bl	Thermistor_GetResistance
+ 121              	.LVL22:
+ 122 0086 FFF7FEFF 		bl	Thermistor_GetTemperature
+ 123              	.LVL23:
+ 124 008a 0A21     		mov	r1, #10
+ 125 008c FFF7FEFF 		bl	__aeabi_idiv
+ 126              	.LVL24:
+ 127 0090 1D4D     		ldr	r5, .L2+4
+ 128 0092 80B2     		uxth	r0, r0
+  87:.\main.c      ****     T.F = ((T.C * 9) /5) + 320;
+ 129              		.loc 1 87 0
+ 130 0094 0923     		mov	r3, #9
+  86:.\main.c      ****     T.C = Thermistor_GetTemperature(Thermistor_GetResistance(REF.vdd - ADC_GetResult16(0), ADC_GetR
+ 131              		.loc 1 86 0
+ 132 0096 2880     		strh	r0, [r5]
+ 133              		.loc 1 87 0
+ 134 0098 00B2     		sxth	r0, r0
+ 135 009a 5843     		mul	r0, r3
+ 136 009c 0521     		mov	r1, #5
+ 137 009e FFF7FEFF 		bl	__aeabi_idiv
+ 138              	.LVL25:
+ 139 00a2 4130     		add	r0, r0, #65
+ 140 00a4 FF30     		add	r0, r0, #255
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 5
+
+
+ 141 00a6 6880     		strh	r0, [r5, #2]
+  88:.\main.c      ****     
+  89:.\main.c      ****     /* Relative humidity */
+  90:.\main.c      ****     AMux_Next();
+ 142              		.loc 1 90 0
+ 143 00a8 FFF7FEFF 		bl	AMux_Next
+ 144              	.LVL26:
+  91:.\main.c      ****     
+  92:.\main.c      ****     ADC_StartConvert();
+ 145              		.loc 1 92 0
+ 146 00ac FFF7FEFF 		bl	ADC_StartConvert
+ 147              	.LVL27:
+  93:.\main.c      ****     ADC_IsEndConversion(ADC_WAIT_FOR_RESULT);
+ 148              		.loc 1 93 0
+ 149 00b0 0220     		mov	r0, #2
+ 150 00b2 FFF7FEFF 		bl	ADC_IsEndConversion
+ 151              	.LVL28:
+  94:.\main.c      ****     ADC_StopConvert();
+ 152              		.loc 1 94 0
+ 153 00b6 FFF7FEFF 		bl	ADC_StopConvert
+ 154              	.LVL29:
+  95:.\main.c      ****     
+  96:.\main.c      ****     RH.humidity = (ADC_GetResult16(0) * 1000) / REF.vdd;
+ 155              		.loc 1 96 0
+ 156 00ba 0020     		mov	r0, #0
+ 157 00bc FFF7FEFF 		bl	ADC_GetResult16
+ 158              	.LVL30:
+ 159 00c0 FA23     		mov	r3, #250
+ 160 00c2 9B00     		lsl	r3, r3, #2
+ 161 00c4 5843     		mul	r0, r3
+ 162 00c6 0223     		mov	r3, #2
+ 163 00c8 E15E     		ldrsh	r1, [r4, r3]
+ 164 00ca FFF7FEFF 		bl	__aeabi_idiv
+ 165              	.LVL31:
+ 166 00ce 0F4B     		ldr	r3, .L2+8
+  97:.\main.c      ****     
+  98:.\main.c      ****     /* External signal */
+  99:.\main.c      ****     AMux_Next();
+ 100:.\main.c      ****     
+ 101:.\main.c      ****     ADC_StartConvert();
+ 102:.\main.c      ****     ADC_IsEndConversion(ADC_WAIT_FOR_RESULT);
+ 103:.\main.c      ****     ADC_StopConvert();
+ 104:.\main.c      ****     
+ 105:.\main.c      ****     EXT.counts = ADC_GetResult16(0);
+ 106:.\main.c      **** 
+ 107:.\main.c      ****     EN_Write(0);
+ 108:.\main.c      ****     
+ 109:.\main.c      ****     AMux_Stop();
+ 110:.\main.c      ****     ADC_Sleep();
+ 111:.\main.c      ****     Opamp_Sleep();
+ 112:.\main.c      **** }
+ 167              		.loc 1 112 0
+ 168              		@ sp needed
+  96:.\main.c      ****     RH.humidity = (ADC_GetResult16(0) * 1000) / REF.vdd;
+ 169              		.loc 1 96 0
+ 170 00d0 1880     		strh	r0, [r3]
+  99:.\main.c      ****     AMux_Next();
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 6
+
+
+ 171              		.loc 1 99 0
+ 172 00d2 FFF7FEFF 		bl	AMux_Next
+ 173              	.LVL32:
+ 101:.\main.c      ****     ADC_StartConvert();
+ 174              		.loc 1 101 0
+ 175 00d6 FFF7FEFF 		bl	ADC_StartConvert
+ 176              	.LVL33:
+ 102:.\main.c      ****     ADC_IsEndConversion(ADC_WAIT_FOR_RESULT);
+ 177              		.loc 1 102 0
+ 178 00da 0220     		mov	r0, #2
+ 179 00dc FFF7FEFF 		bl	ADC_IsEndConversion
+ 180              	.LVL34:
+ 103:.\main.c      ****     ADC_StopConvert();
+ 181              		.loc 1 103 0
+ 182 00e0 FFF7FEFF 		bl	ADC_StopConvert
+ 183              	.LVL35:
+ 105:.\main.c      ****     EXT.counts = ADC_GetResult16(0);
+ 184              		.loc 1 105 0
+ 185 00e4 0020     		mov	r0, #0
+ 186 00e6 FFF7FEFF 		bl	ADC_GetResult16
+ 187              	.LVL36:
+ 188 00ea 094B     		ldr	r3, .L2+12
+ 189 00ec 1880     		strh	r0, [r3]
+ 107:.\main.c      ****     EN_Write(0);
+ 190              		.loc 1 107 0
+ 191 00ee 0020     		mov	r0, #0
+ 192 00f0 FFF7FEFF 		bl	EN_Write
+ 193              	.LVL37:
+ 109:.\main.c      ****     AMux_Stop();
+ 194              		.loc 1 109 0
+ 195 00f4 FFF7FEFF 		bl	AMux_Stop
+ 196              	.LVL38:
+ 110:.\main.c      ****     ADC_Sleep();
+ 197              		.loc 1 110 0
+ 198 00f8 FFF7FEFF 		bl	ADC_Sleep
+ 199              	.LVL39:
+ 111:.\main.c      ****     Opamp_Sleep();
+ 200              		.loc 1 111 0
+ 201 00fc FFF7FEFF 		bl	Opamp_Sleep
+ 202              	.LVL40:
+ 203              		.loc 1 112 0
+ 204 0100 70BD     		pop	{r4, r5, r6, pc}
+ 205              	.L3:
+ 206 0102 C046     		.align	2
+ 207              	.L2:
+ 208 0104 00000000 		.word	REF
+ 209 0108 00000000 		.word	T
+ 210 010c 00000000 		.word	RH
+ 211 0110 00000000 		.word	EXT
+ 212              		.cfi_endproc
+ 213              	.LFE33:
+ 214              		.size	read, .-read
+ 215              		.section	.text.startup.main,"ax",%progbits
+ 216              		.align	1
+ 217              		.global	main
+ 218              		.code	16
+ 219              		.thumb_func
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 7
+
+
+ 220              		.type	main, %function
+ 221              	main:
+ 222              	.LFB34:
+ 113:.\main.c      **** 
+ 114:.\main.c      **** int main()
+ 115:.\main.c      **** {
+ 223              		.loc 1 115 0
+ 224              		.cfi_startproc
+ 225 0000 38B5     		push	{r3, r4, r5, lr}
+ 226              		.cfi_def_cfa_offset 16
+ 227              		.cfi_offset 3, -16
+ 228              		.cfi_offset 4, -12
+ 229              		.cfi_offset 5, -8
+ 230              		.cfi_offset 14, -4
+ 116:.\main.c      ****     uint8 cmd, checksum, txbyte;
+ 117:.\main.c      ****     
+ 118:.\main.c      ****     UART_Start();
+ 231              		.loc 1 118 0
+ 232 0002 FFF7FEFF 		bl	UART_Start
+ 233              	.LVL41:
+ 119:.\main.c      ****     ADC_Start();
+ 234              		.loc 1 119 0
+ 235 0006 FFF7FEFF 		bl	ADC_Start
+ 236              	.LVL42:
+ 120:.\main.c      ****     Opamp_Start();
+ 237              		.loc 1 120 0
+ 238 000a FFF7FEFF 		bl	Opamp_Start
+ 239              	.LVL43:
+ 121:.\main.c      ****     
+ 122:.\main.c      ****     ADC_Sleep();
+ 240              		.loc 1 122 0
+ 241 000e FFF7FEFF 		bl	ADC_Sleep
+ 242              	.LVL44:
+ 123:.\main.c      ****     Opamp_Sleep();
+ 243              		.loc 1 123 0
+ 244 0012 FFF7FEFF 		bl	Opamp_Sleep
+ 245              	.LVL45:
+ 246              	.L17:
+ 124:.\main.c      ****         
+ 125:.\main.c      ****     for(;;)
+ 126:.\main.c      ****     {   
+ 127:.\main.c      ****         UART_SpiUartClearRxBuffer();
+ 247              		.loc 1 127 0
+ 248 0016 FFF7FEFF 		bl	UART_SpiUartClearRxBuffer
+ 249              	.LVL46:
+ 250              	.L6:
+ 128:.\main.c      ****         while(UART_SpiUartGetRxBufferSize() == 0u);
+ 251              		.loc 1 128 0 discriminator 1
+ 252 001a FFF7FEFF 		bl	UART_SpiUartGetRxBufferSize
+ 253              	.LVL47:
+ 254 001e 0028     		cmp	r0, #0
+ 255 0020 FBD0     		beq	.L6
+ 129:.\main.c      ****         
+ 130:.\main.c      ****         cmd = UART_UartGetByte();
+ 256              		.loc 1 130 0
+ 257 0022 FFF7FEFF 		bl	UART_UartGetByte
+ 258              	.LVL48:
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 8
+
+
+ 259 0026 051C     		mov	r5, r0
+ 260              	.LVL49:
+ 131:.\main.c      ****         
+ 132:.\main.c      ****         checksum = 0xFF;
+ 133:.\main.c      ****         
+ 134:.\main.c      ****         read();
+ 135:.\main.c      ****         
+ 136:.\main.c      ****         checksum -= cmd;
+ 261              		.loc 1 136 0
+ 262 0028 EC43     		mvn	r4, r5
+ 137:.\main.c      ****         UART_UartPutChar(cmd); // Echo back
+ 263              		.loc 1 137 0
+ 264 002a EDB2     		uxtb	r5, r5
+ 134:.\main.c      ****         read();
+ 265              		.loc 1 134 0
+ 266 002c FFF7FEFF 		bl	read
+ 267              	.LVL50:
+ 268              		.loc 1 137 0
+ 269 0030 281C     		mov	r0, r5
+ 270 0032 FFF7FEFF 		bl	UART_SpiUartWriteTxData
+ 271              	.LVL51:
+ 138:.\main.c      ****         
+ 139:.\main.c      ****         switch(cmd) {
+ 272              		.loc 1 139 0
+ 273 0036 281C     		mov	r0, r5
+ 274 0038 6338     		sub	r0, r0, #99
+ 136:.\main.c      ****         checksum -= cmd;
+ 275              		.loc 1 136 0
+ 276 003a E4B2     		uxtb	r4, r4
+ 277              	.LVL52:
+ 278              		.loc 1 139 0
+ 279 003c 1528     		cmp	r0, #21
+ 280 003e 38D8     		bhi	.L7
+ 281 0040 FFF7FEFF 		bl	__gnu_thumb1_case_uqi
+ 282              	.L9:
+ 283 0044 0B       		.byte	(.L8-.L9)/2
+ 284 0045 0D       		.byte	(.L10-.L9)/2
+ 285 0046 37       		.byte	(.L7-.L9)/2
+ 286 0047 0F       		.byte	(.L11-.L9)/2
+ 287 0048 13       		.byte	(.L12-.L9)/2
+ 288 0049 1B       		.byte	(.L13-.L9)/2
+ 289 004a 23       		.byte	(.L14-.L9)/2
+ 290 004b 37       		.byte	(.L7-.L9)/2
+ 291 004c 37       		.byte	(.L7-.L9)/2
+ 292 004d 37       		.byte	(.L7-.L9)/2
+ 293 004e 37       		.byte	(.L7-.L9)/2
+ 294 004f 37       		.byte	(.L7-.L9)/2
+ 295 0050 37       		.byte	(.L7-.L9)/2
+ 296 0051 37       		.byte	(.L7-.L9)/2
+ 297 0052 37       		.byte	(.L7-.L9)/2
+ 298 0053 37       		.byte	(.L7-.L9)/2
+ 299 0054 37       		.byte	(.L7-.L9)/2
+ 300 0055 37       		.byte	(.L7-.L9)/2
+ 301 0056 37       		.byte	(.L7-.L9)/2
+ 302 0057 2F       		.byte	(.L15-.L9)/2
+ 303 0058 37       		.byte	(.L7-.L9)/2
+ 304 0059 25       		.byte	(.L16-.L9)/2
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 9
+
+
+ 305              		.p2align 1
+ 306              	.L8:
+ 140:.\main.c      ****             case 'c': // Temperature in Celsius
+ 141:.\main.c      ****                 txbyte = T.C/10;
+ 307              		.loc 1 141 0
+ 308 005a 184B     		ldr	r3, .L24
+ 309 005c 0EE0     		b	.L21
+ 310              	.L10:
+ 142:.\main.c      ****                 checksum -= txbyte;
+ 143:.\main.c      ****                 UART_UartPutChar(txbyte);
+ 144:.\main.c      ****             break;
+ 145:.\main.c      ****             case 'd': // Temperature in Celsius .1
+ 146:.\main.c      ****                 txbyte = T.C >> 8;
+ 311              		.loc 1 146 0
+ 312 005e 174D     		ldr	r5, .L24
+ 313 0060 16E0     		b	.L20
+ 314              	.L11:
+ 147:.\main.c      ****                 checksum -= txbyte;
+ 148:.\main.c      ****                 UART_UartPutChar(txbyte);
+ 149:.\main.c      ****                 txbyte = T.C;
+ 150:.\main.c      ****                 checksum -= txbyte;
+ 151:.\main.c      ****                 UART_UartPutChar(txbyte);
+ 152:.\main.c      ****             break;
+ 153:.\main.c      ****             case 'f':
+ 154:.\main.c      ****                 txbyte = T.F/10;
+ 315              		.loc 1 154 0
+ 316 0062 164B     		ldr	r3, .L24
+ 317 0064 0222     		mov	r2, #2
+ 318 0066 985E     		ldrsh	r0, [r3, r2]
+ 319 0068 0AE0     		b	.L22
+ 320              	.L12:
+ 155:.\main.c      ****                 checksum -= txbyte;
+ 156:.\main.c      ****                 UART_UartPutChar(txbyte);
+ 157:.\main.c      ****             break;
+ 158:.\main.c      ****             case 'g':
+ 159:.\main.c      ****                 txbyte = T.F >> 8;
+ 321              		.loc 1 159 0
+ 322 006a 144D     		ldr	r5, .L24
+ 323 006c E878     		ldrb	r0, [r5, #3]
+ 324              	.LVL53:
+ 160:.\main.c      ****                 checksum -= txbyte;
+ 325              		.loc 1 160 0
+ 326 006e 241A     		sub	r4, r4, r0
+ 327              	.LVL54:
+ 328 0070 E4B2     		uxtb	r4, r4
+ 329              	.LVL55:
+ 161:.\main.c      ****                 UART_UartPutChar(txbyte);
+ 330              		.loc 1 161 0
+ 331 0072 FFF7FEFF 		bl	UART_SpiUartWriteTxData
+ 332              	.LVL56:
+ 162:.\main.c      ****                 txbyte = T.F;
+ 333              		.loc 1 162 0
+ 334 0076 A878     		ldrb	r0, [r5, #2]
+ 335              	.LVL57:
+ 336 0078 10E0     		b	.L19
+ 337              	.LVL58:
+ 338              	.L13:
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 10
+
+
+ 163:.\main.c      ****                 checksum -= txbyte;
+ 164:.\main.c      ****                 UART_UartPutChar(txbyte);
+ 165:.\main.c      ****             break;
+ 166:.\main.c      ****             case 'h':
+ 167:.\main.c      ****                 txbyte = RH.humidity /10;
+ 339              		.loc 1 167 0
+ 340 007a 114B     		ldr	r3, .L24+4
+ 341              	.L21:
+ 342 007c 0022     		mov	r2, #0
+ 343 007e 985E     		ldrsh	r0, [r3, r2]
+ 344              	.L22:
+ 345 0080 0A21     		mov	r1, #10
+ 346 0082 FFF7FEFF 		bl	__aeabi_idiv
+ 347              	.LVL59:
+ 348 0086 C0B2     		uxtb	r0, r0
+ 349              	.LVL60:
+ 350 0088 08E0     		b	.L19
+ 351              	.LVL61:
+ 352              	.L14:
+ 168:.\main.c      ****                 checksum -= txbyte;
+ 169:.\main.c      ****                 UART_UartPutChar(txbyte);
+ 170:.\main.c      ****             break;
+ 171:.\main.c      ****             case 'i':
+ 172:.\main.c      ****                 txbyte = RH.humidity >> 8;
+ 353              		.loc 1 172 0
+ 354 008a 0D4D     		ldr	r5, .L24+4
+ 355 008c 00E0     		b	.L20
+ 356              	.L16:
+ 173:.\main.c      ****                 checksum -= txbyte;
+ 174:.\main.c      ****                 UART_UartPutChar(txbyte);
+ 175:.\main.c      ****                 txbyte = RH.humidity;
+ 176:.\main.c      ****                 checksum -= txbyte;
+ 177:.\main.c      ****                 UART_UartPutChar(txbyte);
+ 178:.\main.c      ****             break;
+ 179:.\main.c      ****             case 'x':
+ 180:.\main.c      ****                 txbyte = EXT.counts >> 8;
+ 357              		.loc 1 180 0
+ 358 008e 0D4D     		ldr	r5, .L24+8
+ 359              	.L20:
+ 360 0090 6878     		ldrb	r0, [r5, #1]
+ 361              	.LVL62:
+ 181:.\main.c      ****                 checksum -= txbyte;
+ 362              		.loc 1 181 0
+ 363 0092 241A     		sub	r4, r4, r0
+ 364              	.LVL63:
+ 182:.\main.c      ****                 UART_UartPutChar(txbyte);
+ 365              		.loc 1 182 0
+ 366 0094 FFF7FEFF 		bl	UART_SpiUartWriteTxData
+ 367              	.LVL64:
+ 183:.\main.c      ****                 txbyte = EXT.counts;
+ 368              		.loc 1 183 0
+ 369 0098 2878     		ldrb	r0, [r5]
+ 181:.\main.c      ****                 checksum -= txbyte;
+ 370              		.loc 1 181 0
+ 371 009a E4B2     		uxtb	r4, r4
+ 372              	.LVL65:
+ 373              	.L19:
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 11
+
+
+ 184:.\main.c      ****                 checksum -= txbyte;
+ 374              		.loc 1 184 0
+ 375 009c 241A     		sub	r4, r4, r0
+ 376 009e E4B2     		uxtb	r4, r4
+ 377              	.LVL66:
+ 378 00a0 05E0     		b	.L18
+ 379              	.LVL67:
+ 380              	.L15:
+ 185:.\main.c      ****                 UART_UartPutChar(txbyte);
+ 186:.\main.c      ****             break;
+ 187:.\main.c      ****             case 'v':
+ 188:.\main.c      ****                 txbyte = _VERSION_ >> 8;
+ 189:.\main.c      ****                 checksum -= txbyte;
+ 190:.\main.c      ****                 UART_UartPutChar(txbyte);
+ 381              		.loc 1 190 0
+ 382 00a2 0120     		mov	r0, #1
+ 191:.\main.c      ****                 txbyte = _VERSION_ & 0x00FF;
+ 192:.\main.c      ****                 checksum -= txbyte;
+ 383              		.loc 1 192 0
+ 384 00a4 023C     		sub	r4, r4, #2
+ 385              	.LVL68:
+ 190:.\main.c      ****                 UART_UartPutChar(txbyte);
+ 386              		.loc 1 190 0
+ 387 00a6 FFF7FEFF 		bl	UART_SpiUartWriteTxData
+ 388              	.LVL69:
+ 389              		.loc 1 192 0
+ 390 00aa E4B2     		uxtb	r4, r4
+ 391              	.LVL70:
+ 193:.\main.c      ****                 UART_UartPutChar(txbyte);
+ 392              		.loc 1 193 0
+ 393 00ac 0120     		mov	r0, #1
+ 394              	.LVL71:
+ 395              	.L18:
+ 396 00ae FFF7FEFF 		bl	UART_SpiUartWriteTxData
+ 397              	.LVL72:
+ 398              	.L7:
+ 194:.\main.c      ****             break;
+ 195:.\main.c      ****             default:
+ 196:.\main.c      ****                 
+ 197:.\main.c      ****             break;
+ 198:.\main.c      ****         }
+ 199:.\main.c      ****         
+ 200:.\main.c      ****         UART_UartPutChar(checksum);
+ 399              		.loc 1 200 0
+ 400 00b2 201C     		mov	r0, r4
+ 401 00b4 FFF7FEFF 		bl	UART_SpiUartWriteTxData
+ 402              	.LVL73:
+ 201:.\main.c      ****     }
+ 403              		.loc 1 201 0
+ 404 00b8 ADE7     		b	.L17
+ 405              	.L25:
+ 406 00ba C046     		.align	2
+ 407              	.L24:
+ 408 00bc 00000000 		.word	T
+ 409 00c0 00000000 		.word	RH
+ 410 00c4 00000000 		.word	EXT
+ 411              		.cfi_endproc
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 12
+
+
+ 412              	.LFE34:
+ 413              		.size	main, .-main
+ 414              		.comm	EXT,2,2
+ 415              		.comm	RH,2,2
+ 416              		.comm	T,4,2
+ 417              		.comm	REF,4,2
+ 418              		.text
+ 419              	.Letext0:
+ 420              		.file 2 ".\\Generated_Source\\PSoC4/cytypes.h"
+ 421              		.file 3 ".\\Generated_Source\\PSoC4/ADC.h"
+ 422              		.file 4 ".\\Generated_Source\\PSoC4/Opamp.h"
+ 423              		.file 5 ".\\Generated_Source\\PSoC4/AMux.h"
+ 424              		.file 6 ".\\Generated_Source\\PSoC4/EN.h"
+ 425              		.file 7 ".\\Generated_Source\\PSoC4/CyLib.h"
+ 426              		.file 8 ".\\Generated_Source\\PSoC4/cyfitter_cfg.h"
+ 427              		.file 9 ".\\Generated_Source\\PSoC4/Thermistor.h"
+ 428              		.file 10 ".\\Generated_Source\\PSoC4/UART.h"
+ 429              		.file 11 ".\\Generated_Source\\PSoC4/UART_SPI_UART.h"
+ 430              		.section	.debug_info,"",%progbits
+ 431              	.Ldebug_info0:
+ 432 0000 66050000 		.4byte	0x566
+ 433 0004 0400     		.2byte	0x4
+ 434 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 435 000a 04       		.byte	0x4
+ 436 000b 01       		.uleb128 0x1
+ 437 000c 75000000 		.4byte	.LASF42
+ 438 0010 01       		.byte	0x1
+ 439 0011 97010000 		.4byte	.LASF43
+ 440 0015 05020000 		.4byte	.LASF44
+ 441 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 442 001d 00000000 		.4byte	0
+ 443 0021 00000000 		.4byte	.Ldebug_line0
+ 444 0025 02       		.uleb128 0x2
+ 445 0026 01       		.byte	0x1
+ 446 0027 06       		.byte	0x6
+ 447 0028 DA020000 		.4byte	.LASF0
+ 448 002c 02       		.uleb128 0x2
+ 449 002d 01       		.byte	0x1
+ 450 002e 08       		.byte	0x8
+ 451 002f 0B010000 		.4byte	.LASF1
+ 452 0033 02       		.uleb128 0x2
+ 453 0034 02       		.byte	0x2
+ 454 0035 05       		.byte	0x5
+ 455 0036 A8020000 		.4byte	.LASF2
+ 456 003a 02       		.uleb128 0x2
+ 457 003b 02       		.byte	0x2
+ 458 003c 07       		.byte	0x7
+ 459 003d 3C000000 		.4byte	.LASF3
+ 460 0041 02       		.uleb128 0x2
+ 461 0042 04       		.byte	0x4
+ 462 0043 05       		.byte	0x5
+ 463 0044 B2020000 		.4byte	.LASF4
+ 464 0048 02       		.uleb128 0x2
+ 465 0049 04       		.byte	0x4
+ 466 004a 07       		.byte	0x7
+ 467 004b 2A010000 		.4byte	.LASF5
+ 468 004f 02       		.uleb128 0x2
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 13
+
+
+ 469 0050 08       		.byte	0x8
+ 470 0051 05       		.byte	0x5
+ 471 0052 00000000 		.4byte	.LASF6
+ 472 0056 02       		.uleb128 0x2
+ 473 0057 08       		.byte	0x8
+ 474 0058 07       		.byte	0x7
+ 475 0059 DB010000 		.4byte	.LASF7
+ 476 005d 03       		.uleb128 0x3
+ 477 005e 04       		.byte	0x4
+ 478 005f 05       		.byte	0x5
+ 479 0060 696E7400 		.ascii	"int\000"
+ 480 0064 02       		.uleb128 0x2
+ 481 0065 04       		.byte	0x4
+ 482 0066 07       		.byte	0x7
+ 483 0067 C7010000 		.4byte	.LASF8
+ 484 006b 04       		.uleb128 0x4
+ 485 006c 3C010000 		.4byte	.LASF9
+ 486 0070 02       		.byte	0x2
+ 487 0071 A1       		.byte	0xa1
+ 488 0072 2C000000 		.4byte	0x2c
+ 489 0076 04       		.uleb128 0x4
+ 490 0077 A5010000 		.4byte	.LASF10
+ 491 007b 02       		.byte	0x2
+ 492 007c A3       		.byte	0xa3
+ 493 007d 48000000 		.4byte	0x48
+ 494 0081 04       		.uleb128 0x4
+ 495 0082 24010000 		.4byte	.LASF11
+ 496 0086 02       		.byte	0x2
+ 497 0087 A5       		.byte	0xa5
+ 498 0088 33000000 		.4byte	0x33
+ 499 008c 02       		.uleb128 0x2
+ 500 008d 04       		.byte	0x4
+ 501 008e 04       		.byte	0x4
+ 502 008f 2C000000 		.4byte	.LASF12
+ 503 0093 02       		.uleb128 0x2
+ 504 0094 08       		.byte	0x8
+ 505 0095 04       		.byte	0x4
+ 506 0096 90010000 		.4byte	.LASF13
+ 507 009a 02       		.uleb128 0x2
+ 508 009b 01       		.byte	0x1
+ 509 009c 08       		.byte	0x8
+ 510 009d BB020000 		.4byte	.LASF14
+ 511 00a1 02       		.uleb128 0x2
+ 512 00a2 04       		.byte	0x4
+ 513 00a3 07       		.byte	0x7
+ 514 00a4 FC010000 		.4byte	.LASF15
+ 515 00a8 05       		.uleb128 0x5
+ 516 00a9 52454600 		.ascii	"REF\000"
+ 517 00ad 04       		.byte	0x4
+ 518 00ae 01       		.byte	0x1
+ 519 00af 20       		.byte	0x20
+ 520 00b0 CD000000 		.4byte	0xcd
+ 521 00b4 06       		.uleb128 0x6
+ 522 00b5 76737300 		.ascii	"vss\000"
+ 523 00b9 01       		.byte	0x1
+ 524 00ba 21       		.byte	0x21
+ 525 00bb 81000000 		.4byte	0x81
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 14
+
+
+ 526 00bf 00       		.byte	0
+ 527 00c0 06       		.uleb128 0x6
+ 528 00c1 76646400 		.ascii	"vdd\000"
+ 529 00c5 01       		.byte	0x1
+ 530 00c6 22       		.byte	0x22
+ 531 00c7 81000000 		.4byte	0x81
+ 532 00cb 02       		.byte	0x2
+ 533 00cc 00       		.byte	0
+ 534 00cd 05       		.uleb128 0x5
+ 535 00ce 5400     		.ascii	"T\000"
+ 536 00d0 04       		.byte	0x4
+ 537 00d1 01       		.byte	0x1
+ 538 00d2 25       		.byte	0x25
+ 539 00d3 EC000000 		.4byte	0xec
+ 540 00d7 06       		.uleb128 0x6
+ 541 00d8 4300     		.ascii	"C\000"
+ 542 00da 01       		.byte	0x1
+ 543 00db 26       		.byte	0x26
+ 544 00dc 81000000 		.4byte	0x81
+ 545 00e0 00       		.byte	0
+ 546 00e1 06       		.uleb128 0x6
+ 547 00e2 4600     		.ascii	"F\000"
+ 548 00e4 01       		.byte	0x1
+ 549 00e5 27       		.byte	0x27
+ 550 00e6 81000000 		.4byte	0x81
+ 551 00ea 02       		.byte	0x2
+ 552 00eb 00       		.byte	0
+ 553 00ec 05       		.uleb128 0x5
+ 554 00ed 524800   		.ascii	"RH\000"
+ 555 00f0 02       		.byte	0x2
+ 556 00f1 01       		.byte	0x1
+ 557 00f2 2A       		.byte	0x2a
+ 558 00f3 04010000 		.4byte	0x104
+ 559 00f7 07       		.uleb128 0x7
+ 560 00f8 23000000 		.4byte	.LASF16
+ 561 00fc 01       		.byte	0x1
+ 562 00fd 2B       		.byte	0x2b
+ 563 00fe 81000000 		.4byte	0x81
+ 564 0102 00       		.byte	0
+ 565 0103 00       		.byte	0
+ 566 0104 05       		.uleb128 0x5
+ 567 0105 45585400 		.ascii	"EXT\000"
+ 568 0109 02       		.byte	0x2
+ 569 010a 01       		.byte	0x1
+ 570 010b 2E       		.byte	0x2e
+ 571 010c 1D010000 		.4byte	0x11d
+ 572 0110 07       		.uleb128 0x7
+ 573 0111 D4010000 		.4byte	.LASF17
+ 574 0115 01       		.byte	0x1
+ 575 0116 2F       		.byte	0x2f
+ 576 0117 81000000 		.4byte	0x81
+ 577 011b 00       		.byte	0
+ 578 011c 00       		.byte	0
+ 579 011d 08       		.uleb128 0x8
+ 580 011e A0010000 		.4byte	.LASF45
+ 581 0122 01       		.byte	0x1
+ 582 0123 33       		.byte	0x33
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 15
+
+
+ 583 0124 00000000 		.4byte	.LFB33
+ 584 0128 14010000 		.4byte	.LFE33-.LFB33
+ 585 012c 01       		.uleb128 0x1
+ 586 012d 9C       		.byte	0x9c
+ 587 012e 2B030000 		.4byte	0x32b
+ 588 0132 09       		.uleb128 0x9
+ 589 0133 06000000 		.4byte	.LVL0
+ 590 0137 56040000 		.4byte	0x456
+ 591 013b 09       		.uleb128 0x9
+ 592 013c 0A000000 		.4byte	.LVL1
+ 593 0140 5D040000 		.4byte	0x45d
+ 594 0144 09       		.uleb128 0x9
+ 595 0145 0E000000 		.4byte	.LVL2
+ 596 0149 64040000 		.4byte	0x464
+ 597 014d 0A       		.uleb128 0xa
+ 598 014e 14000000 		.4byte	.LVL3
+ 599 0152 6B040000 		.4byte	0x46b
+ 600 0156 60010000 		.4byte	0x160
+ 601 015a 0B       		.uleb128 0xb
+ 602 015b 01       		.uleb128 0x1
+ 603 015c 50       		.byte	0x50
+ 604 015d 01       		.uleb128 0x1
+ 605 015e 31       		.byte	0x31
+ 606 015f 00       		.byte	0
+ 607 0160 0A       		.uleb128 0xa
+ 608 0161 1A000000 		.4byte	.LVL4
+ 609 0165 7C040000 		.4byte	0x47c
+ 610 0169 74010000 		.4byte	0x174
+ 611 016d 0B       		.uleb128 0xb
+ 612 016e 01       		.uleb128 0x1
+ 613 016f 50       		.byte	0x50
+ 614 0170 02       		.uleb128 0x2
+ 615 0171 08       		.byte	0x8
+ 616 0172 46       		.byte	0x46
+ 617 0173 00       		.byte	0
+ 618 0174 09       		.uleb128 0x9
+ 619 0175 1E000000 		.4byte	.LVL5
+ 620 0179 8D040000 		.4byte	0x48d
+ 621 017d 09       		.uleb128 0x9
+ 622 017e 22000000 		.4byte	.LVL6
+ 623 0182 94040000 		.4byte	0x494
+ 624 0186 0A       		.uleb128 0xa
+ 625 0187 28000000 		.4byte	.LVL7
+ 626 018b 9B040000 		.4byte	0x49b
+ 627 018f 99010000 		.4byte	0x199
+ 628 0193 0B       		.uleb128 0xb
+ 629 0194 01       		.uleb128 0x1
+ 630 0195 50       		.byte	0x50
+ 631 0196 01       		.uleb128 0x1
+ 632 0197 32       		.byte	0x32
+ 633 0198 00       		.byte	0
+ 634 0199 09       		.uleb128 0x9
+ 635 019a 2C000000 		.4byte	.LVL8
+ 636 019e B0040000 		.4byte	0x4b0
+ 637 01a2 0A       		.uleb128 0xa
+ 638 01a3 32000000 		.4byte	.LVL9
+ 639 01a7 B7040000 		.4byte	0x4b7
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 16
+
+
+ 640 01ab B5010000 		.4byte	0x1b5
+ 641 01af 0B       		.uleb128 0xb
+ 642 01b0 01       		.uleb128 0x1
+ 643 01b1 50       		.byte	0x50
+ 644 01b2 01       		.uleb128 0x1
+ 645 01b3 30       		.byte	0x30
+ 646 01b4 00       		.byte	0
+ 647 01b5 0A       		.uleb128 0xa
+ 648 01b6 3E000000 		.4byte	.LVL10
+ 649 01ba CC040000 		.4byte	0x4cc
+ 650 01be C8010000 		.4byte	0x1c8
+ 651 01c2 0B       		.uleb128 0xb
+ 652 01c3 01       		.uleb128 0x1
+ 653 01c4 50       		.byte	0x50
+ 654 01c5 01       		.uleb128 0x1
+ 655 01c6 30       		.byte	0x30
+ 656 01c7 00       		.byte	0
+ 657 01c8 09       		.uleb128 0x9
+ 658 01c9 42000000 		.4byte	.LVL11
+ 659 01cd 8D040000 		.4byte	0x48d
+ 660 01d1 09       		.uleb128 0x9
+ 661 01d2 46000000 		.4byte	.LVL12
+ 662 01d6 94040000 		.4byte	0x494
+ 663 01da 0A       		.uleb128 0xa
+ 664 01db 4C000000 		.4byte	.LVL13
+ 665 01df 9B040000 		.4byte	0x49b
+ 666 01e3 ED010000 		.4byte	0x1ed
+ 667 01e7 0B       		.uleb128 0xb
+ 668 01e8 01       		.uleb128 0x1
+ 669 01e9 50       		.byte	0x50
+ 670 01ea 01       		.uleb128 0x1
+ 671 01eb 32       		.byte	0x32
+ 672 01ec 00       		.byte	0
+ 673 01ed 09       		.uleb128 0x9
+ 674 01ee 50000000 		.4byte	.LVL14
+ 675 01f2 B0040000 		.4byte	0x4b0
+ 676 01f6 0A       		.uleb128 0xa
+ 677 01f7 56000000 		.4byte	.LVL15
+ 678 01fb B7040000 		.4byte	0x4b7
+ 679 01ff 09020000 		.4byte	0x209
+ 680 0203 0B       		.uleb128 0xb
+ 681 0204 01       		.uleb128 0x1
+ 682 0205 50       		.byte	0x50
+ 683 0206 01       		.uleb128 0x1
+ 684 0207 30       		.byte	0x30
+ 685 0208 00       		.byte	0
+ 686 0209 09       		.uleb128 0x9
+ 687 020a 5E000000 		.4byte	.LVL16
+ 688 020e 8D040000 		.4byte	0x48d
+ 689 0212 09       		.uleb128 0x9
+ 690 0213 62000000 		.4byte	.LVL17
+ 691 0217 94040000 		.4byte	0x494
+ 692 021b 0A       		.uleb128 0xa
+ 693 021c 68000000 		.4byte	.LVL18
+ 694 0220 9B040000 		.4byte	0x49b
+ 695 0224 2E020000 		.4byte	0x22e
+ 696 0228 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 17
+
+
+ 697 0229 01       		.uleb128 0x1
+ 698 022a 50       		.byte	0x50
+ 699 022b 01       		.uleb128 0x1
+ 700 022c 32       		.byte	0x32
+ 701 022d 00       		.byte	0
+ 702 022e 09       		.uleb128 0x9
+ 703 022f 6C000000 		.4byte	.LVL19
+ 704 0233 B0040000 		.4byte	0x4b0
+ 705 0237 0A       		.uleb128 0xa
+ 706 0238 74000000 		.4byte	.LVL20
+ 707 023c B7040000 		.4byte	0x4b7
+ 708 0240 4A020000 		.4byte	0x24a
+ 709 0244 0B       		.uleb128 0xb
+ 710 0245 01       		.uleb128 0x1
+ 711 0246 50       		.byte	0x50
+ 712 0247 01       		.uleb128 0x1
+ 713 0248 30       		.byte	0x30
+ 714 0249 00       		.byte	0
+ 715 024a 0A       		.uleb128 0xa
+ 716 024b 7C000000 		.4byte	.LVL21
+ 717 024f B7040000 		.4byte	0x4b7
+ 718 0253 5D020000 		.4byte	0x25d
+ 719 0257 0B       		.uleb128 0xb
+ 720 0258 01       		.uleb128 0x1
+ 721 0259 50       		.byte	0x50
+ 722 025a 01       		.uleb128 0x1
+ 723 025b 30       		.byte	0x30
+ 724 025c 00       		.byte	0
+ 725 025d 0A       		.uleb128 0xa
+ 726 025e 86000000 		.4byte	.LVL22
+ 727 0262 E2040000 		.4byte	0x4e2
+ 728 0266 71020000 		.4byte	0x271
+ 729 026a 0B       		.uleb128 0xb
+ 730 026b 01       		.uleb128 0x1
+ 731 026c 50       		.byte	0x50
+ 732 026d 02       		.uleb128 0x2
+ 733 026e 75       		.byte	0x75
+ 734 026f 00       		.sleb128 0
+ 735 0270 00       		.byte	0
+ 736 0271 09       		.uleb128 0x9
+ 737 0272 8A000000 		.4byte	.LVL23
+ 738 0276 FC040000 		.4byte	0x4fc
+ 739 027a 09       		.uleb128 0x9
+ 740 027b AC000000 		.4byte	.LVL26
+ 741 027f 8D040000 		.4byte	0x48d
+ 742 0283 09       		.uleb128 0x9
+ 743 0284 B0000000 		.4byte	.LVL27
+ 744 0288 94040000 		.4byte	0x494
+ 745 028c 0A       		.uleb128 0xa
+ 746 028d B6000000 		.4byte	.LVL28
+ 747 0291 9B040000 		.4byte	0x49b
+ 748 0295 9F020000 		.4byte	0x29f
+ 749 0299 0B       		.uleb128 0xb
+ 750 029a 01       		.uleb128 0x1
+ 751 029b 50       		.byte	0x50
+ 752 029c 01       		.uleb128 0x1
+ 753 029d 32       		.byte	0x32
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 18
+
+
+ 754 029e 00       		.byte	0
+ 755 029f 09       		.uleb128 0x9
+ 756 02a0 BA000000 		.4byte	.LVL29
+ 757 02a4 B0040000 		.4byte	0x4b0
+ 758 02a8 0A       		.uleb128 0xa
+ 759 02a9 C0000000 		.4byte	.LVL30
+ 760 02ad B7040000 		.4byte	0x4b7
+ 761 02b1 BB020000 		.4byte	0x2bb
+ 762 02b5 0B       		.uleb128 0xb
+ 763 02b6 01       		.uleb128 0x1
+ 764 02b7 50       		.byte	0x50
+ 765 02b8 01       		.uleb128 0x1
+ 766 02b9 30       		.byte	0x30
+ 767 02ba 00       		.byte	0
+ 768 02bb 09       		.uleb128 0x9
+ 769 02bc D6000000 		.4byte	.LVL32
+ 770 02c0 8D040000 		.4byte	0x48d
+ 771 02c4 09       		.uleb128 0x9
+ 772 02c5 DA000000 		.4byte	.LVL33
+ 773 02c9 94040000 		.4byte	0x494
+ 774 02cd 0A       		.uleb128 0xa
+ 775 02ce E0000000 		.4byte	.LVL34
+ 776 02d2 9B040000 		.4byte	0x49b
+ 777 02d6 E0020000 		.4byte	0x2e0
+ 778 02da 0B       		.uleb128 0xb
+ 779 02db 01       		.uleb128 0x1
+ 780 02dc 50       		.byte	0x50
+ 781 02dd 01       		.uleb128 0x1
+ 782 02de 32       		.byte	0x32
+ 783 02df 00       		.byte	0
+ 784 02e0 09       		.uleb128 0x9
+ 785 02e1 E4000000 		.4byte	.LVL35
+ 786 02e5 B0040000 		.4byte	0x4b0
+ 787 02e9 0A       		.uleb128 0xa
+ 788 02ea EA000000 		.4byte	.LVL36
+ 789 02ee B7040000 		.4byte	0x4b7
+ 790 02f2 FC020000 		.4byte	0x2fc
+ 791 02f6 0B       		.uleb128 0xb
+ 792 02f7 01       		.uleb128 0x1
+ 793 02f8 50       		.byte	0x50
+ 794 02f9 01       		.uleb128 0x1
+ 795 02fa 30       		.byte	0x30
+ 796 02fb 00       		.byte	0
+ 797 02fc 0A       		.uleb128 0xa
+ 798 02fd F4000000 		.4byte	.LVL37
+ 799 0301 6B040000 		.4byte	0x46b
+ 800 0305 0F030000 		.4byte	0x30f
+ 801 0309 0B       		.uleb128 0xb
+ 802 030a 01       		.uleb128 0x1
+ 803 030b 50       		.byte	0x50
+ 804 030c 01       		.uleb128 0x1
+ 805 030d 30       		.byte	0x30
+ 806 030e 00       		.byte	0
+ 807 030f 09       		.uleb128 0x9
+ 808 0310 F8000000 		.4byte	.LVL38
+ 809 0314 11050000 		.4byte	0x511
+ 810 0318 09       		.uleb128 0x9
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 19
+
+
+ 811 0319 FC000000 		.4byte	.LVL39
+ 812 031d 18050000 		.4byte	0x518
+ 813 0321 09       		.uleb128 0x9
+ 814 0322 00010000 		.4byte	.LVL40
+ 815 0326 1F050000 		.4byte	0x51f
+ 816 032a 00       		.byte	0
+ 817 032b 0C       		.uleb128 0xc
+ 818 032c AC010000 		.4byte	.LASF46
+ 819 0330 01       		.byte	0x1
+ 820 0331 72       		.byte	0x72
+ 821 0332 5D000000 		.4byte	0x5d
+ 822 0336 00000000 		.4byte	.LFB34
+ 823 033a C8000000 		.4byte	.LFE34-.LFB34
+ 824 033e 01       		.uleb128 0x1
+ 825 033f 9C       		.byte	0x9c
+ 826 0340 15040000 		.4byte	0x415
+ 827 0344 0D       		.uleb128 0xd
+ 828 0345 636D6400 		.ascii	"cmd\000"
+ 829 0349 01       		.byte	0x1
+ 830 034a 74       		.byte	0x74
+ 831 034b 6B000000 		.4byte	0x6b
+ 832 034f 00000000 		.4byte	.LLST0
+ 833 0353 0E       		.uleb128 0xe
+ 834 0354 02010000 		.4byte	.LASF18
+ 835 0358 01       		.byte	0x1
+ 836 0359 74       		.byte	0x74
+ 837 035a 6B000000 		.4byte	0x6b
+ 838 035e 21000000 		.4byte	.LLST1
+ 839 0362 0E       		.uleb128 0xe
+ 840 0363 A1020000 		.4byte	.LASF19
+ 841 0367 01       		.byte	0x1
+ 842 0368 74       		.byte	0x74
+ 843 0369 6B000000 		.4byte	0x6b
+ 844 036d 87000000 		.4byte	.LLST2
+ 845 0371 09       		.uleb128 0x9
+ 846 0372 06000000 		.4byte	.LVL41
+ 847 0376 26050000 		.4byte	0x526
+ 848 037a 09       		.uleb128 0x9
+ 849 037b 0A000000 		.4byte	.LVL42
+ 850 037f 2D050000 		.4byte	0x52d
+ 851 0383 09       		.uleb128 0x9
+ 852 0384 0E000000 		.4byte	.LVL43
+ 853 0388 34050000 		.4byte	0x534
+ 854 038c 09       		.uleb128 0x9
+ 855 038d 12000000 		.4byte	.LVL44
+ 856 0391 18050000 		.4byte	0x518
+ 857 0395 09       		.uleb128 0x9
+ 858 0396 16000000 		.4byte	.LVL45
+ 859 039a 1F050000 		.4byte	0x51f
+ 860 039e 09       		.uleb128 0x9
+ 861 039f 1A000000 		.4byte	.LVL46
+ 862 03a3 3B050000 		.4byte	0x53b
+ 863 03a7 09       		.uleb128 0x9
+ 864 03a8 1E000000 		.4byte	.LVL47
+ 865 03ac 43050000 		.4byte	0x543
+ 866 03b0 09       		.uleb128 0x9
+ 867 03b1 26000000 		.4byte	.LVL48
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 20
+
+
+ 868 03b5 4F050000 		.4byte	0x54f
+ 869 03b9 09       		.uleb128 0x9
+ 870 03ba 30000000 		.4byte	.LVL50
+ 871 03be 1D010000 		.4byte	0x11d
+ 872 03c2 0A       		.uleb128 0xa
+ 873 03c3 36000000 		.4byte	.LVL51
+ 874 03c7 5B050000 		.4byte	0x55b
+ 875 03cb D6030000 		.4byte	0x3d6
+ 876 03cf 0B       		.uleb128 0xb
+ 877 03d0 01       		.uleb128 0x1
+ 878 03d1 50       		.byte	0x50
+ 879 03d2 02       		.uleb128 0x2
+ 880 03d3 75       		.byte	0x75
+ 881 03d4 00       		.sleb128 0
+ 882 03d5 00       		.byte	0
+ 883 03d6 09       		.uleb128 0x9
+ 884 03d7 76000000 		.4byte	.LVL56
+ 885 03db 5B050000 		.4byte	0x55b
+ 886 03df 09       		.uleb128 0x9
+ 887 03e0 98000000 		.4byte	.LVL64
+ 888 03e4 5B050000 		.4byte	0x55b
+ 889 03e8 0A       		.uleb128 0xa
+ 890 03e9 AA000000 		.4byte	.LVL69
+ 891 03ed 5B050000 		.4byte	0x55b
+ 892 03f1 FB030000 		.4byte	0x3fb
+ 893 03f5 0B       		.uleb128 0xb
+ 894 03f6 01       		.uleb128 0x1
+ 895 03f7 50       		.byte	0x50
+ 896 03f8 01       		.uleb128 0x1
+ 897 03f9 31       		.byte	0x31
+ 898 03fa 00       		.byte	0
+ 899 03fb 09       		.uleb128 0x9
+ 900 03fc B2000000 		.4byte	.LVL72
+ 901 0400 5B050000 		.4byte	0x55b
+ 902 0404 0F       		.uleb128 0xf
+ 903 0405 B8000000 		.4byte	.LVL73
+ 904 0409 5B050000 		.4byte	0x55b
+ 905 040d 0B       		.uleb128 0xb
+ 906 040e 01       		.uleb128 0x1
+ 907 040f 50       		.byte	0x50
+ 908 0410 02       		.uleb128 0x2
+ 909 0411 74       		.byte	0x74
+ 910 0412 00       		.sleb128 0
+ 911 0413 00       		.byte	0
+ 912 0414 00       		.byte	0
+ 913 0415 10       		.uleb128 0x10
+ 914 0416 52454600 		.ascii	"REF\000"
+ 915 041a 01       		.byte	0x1
+ 916 041b 23       		.byte	0x23
+ 917 041c A8000000 		.4byte	0xa8
+ 918 0420 05       		.uleb128 0x5
+ 919 0421 03       		.byte	0x3
+ 920 0422 00000000 		.4byte	REF
+ 921 0426 10       		.uleb128 0x10
+ 922 0427 5400     		.ascii	"T\000"
+ 923 0429 01       		.byte	0x1
+ 924 042a 28       		.byte	0x28
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 21
+
+
+ 925 042b CD000000 		.4byte	0xcd
+ 926 042f 05       		.uleb128 0x5
+ 927 0430 03       		.byte	0x3
+ 928 0431 00000000 		.4byte	T
+ 929 0435 10       		.uleb128 0x10
+ 930 0436 524800   		.ascii	"RH\000"
+ 931 0439 01       		.byte	0x1
+ 932 043a 2C       		.byte	0x2c
+ 933 043b EC000000 		.4byte	0xec
+ 934 043f 05       		.uleb128 0x5
+ 935 0440 03       		.byte	0x3
+ 936 0441 00000000 		.4byte	RH
+ 937 0445 10       		.uleb128 0x10
+ 938 0446 45585400 		.ascii	"EXT\000"
+ 939 044a 01       		.byte	0x1
+ 940 044b 30       		.byte	0x30
+ 941 044c 04010000 		.4byte	0x104
+ 942 0450 05       		.uleb128 0x5
+ 943 0451 03       		.byte	0x3
+ 944 0452 00000000 		.4byte	EXT
+ 945 0456 11       		.uleb128 0x11
+ 946 0457 0E000000 		.4byte	.LASF20
+ 947 045b 03       		.byte	0x3
+ 948 045c B0       		.byte	0xb0
+ 949 045d 11       		.uleb128 0x11
+ 950 045e 68000000 		.4byte	.LASF21
+ 951 0462 04       		.byte	0x4
+ 952 0463 2E       		.byte	0x2e
+ 953 0464 11       		.uleb128 0x11
+ 954 0465 19010000 		.4byte	.LASF22
+ 955 0469 05       		.byte	0x5
+ 956 046a 26       		.byte	0x26
+ 957 046b 12       		.uleb128 0x12
+ 958 046c 98020000 		.4byte	.LASF23
+ 959 0470 06       		.byte	0x6
+ 960 0471 1D       		.byte	0x1d
+ 961 0472 7C040000 		.4byte	0x47c
+ 962 0476 13       		.uleb128 0x13
+ 963 0477 6B000000 		.4byte	0x6b
+ 964 047b 00       		.byte	0
+ 965 047c 12       		.uleb128 0x12
+ 966 047d 02030000 		.4byte	.LASF24
+ 967 0481 07       		.byte	0x7
+ 968 0482 7B       		.byte	0x7b
+ 969 0483 8D040000 		.4byte	0x48d
+ 970 0487 13       		.uleb128 0x13
+ 971 0488 76000000 		.4byte	0x76
+ 972 048c 00       		.byte	0
+ 973 048d 11       		.uleb128 0x11
+ 974 048e B1010000 		.4byte	.LASF25
+ 975 0492 08       		.byte	0x8
+ 976 0493 1A       		.byte	0x1a
+ 977 0494 11       		.uleb128 0x11
+ 978 0495 4A020000 		.4byte	.LASF26
+ 979 0499 03       		.byte	0x3
+ 980 049a 9C       		.byte	0x9c
+ 981 049b 14       		.uleb128 0x14
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 22
+
+
+ 982 049c 7C010000 		.4byte	.LASF28
+ 983 04a0 03       		.byte	0x3
+ 984 04a1 9E       		.byte	0x9e
+ 985 04a2 76000000 		.4byte	0x76
+ 986 04a6 B0040000 		.4byte	0x4b0
+ 987 04aa 13       		.uleb128 0x13
+ 988 04ab 76000000 		.4byte	0x76
+ 989 04af 00       		.byte	0
+ 990 04b0 11       		.uleb128 0x11
+ 991 04b1 6C010000 		.4byte	.LASF27
+ 992 04b5 03       		.byte	0x3
+ 993 04b6 9D       		.byte	0x9d
+ 994 04b7 14       		.uleb128 0x14
+ 995 04b8 5C010000 		.4byte	.LASF29
+ 996 04bc 03       		.byte	0x3
+ 997 04bd 9F       		.byte	0x9f
+ 998 04be 81000000 		.4byte	0x81
+ 999 04c2 CC040000 		.4byte	0x4cc
+ 1000 04c6 13       		.uleb128 0x13
+ 1001 04c7 76000000 		.4byte	0x76
+ 1002 04cb 00       		.byte	0
+ 1003 04cc 12       		.uleb128 0x12
+ 1004 04cd 5A000000 		.4byte	.LASF30
+ 1005 04d1 03       		.byte	0x3
+ 1006 04d2 A5       		.byte	0xa5
+ 1007 04d3 E2040000 		.4byte	0x4e2
+ 1008 04d7 13       		.uleb128 0x13
+ 1009 04d8 76000000 		.4byte	0x76
+ 1010 04dc 13       		.uleb128 0x13
+ 1011 04dd 81000000 		.4byte	0x81
+ 1012 04e1 00       		.byte	0
+ 1013 04e2 14       		.uleb128 0x14
+ 1014 04e3 7F020000 		.4byte	.LASF31
+ 1015 04e7 09       		.byte	0x9
+ 1016 04e8 30       		.byte	0x30
+ 1017 04e9 76000000 		.4byte	0x76
+ 1018 04ed FC040000 		.4byte	0x4fc
+ 1019 04f1 13       		.uleb128 0x13
+ 1020 04f2 81000000 		.4byte	0x81
+ 1021 04f6 13       		.uleb128 0x13
+ 1022 04f7 81000000 		.4byte	0x81
+ 1023 04fb 00       		.byte	0
+ 1024 04fc 14       		.uleb128 0x14
+ 1025 04fd 42010000 		.4byte	.LASF32
+ 1026 0501 09       		.byte	0x9
+ 1027 0502 32       		.byte	0x32
+ 1028 0503 81000000 		.4byte	0x81
+ 1029 0507 11050000 		.4byte	0x511
+ 1030 050b 13       		.uleb128 0x13
+ 1031 050c 76000000 		.4byte	0x76
+ 1032 0510 00       		.byte	0
+ 1033 0511 11       		.uleb128 0x11
+ 1034 0512 19000000 		.4byte	.LASF33
+ 1035 0516 05       		.byte	0x5
+ 1036 0517 28       		.byte	0x28
+ 1037 0518 11       		.uleb128 0x11
+ 1038 0519 32000000 		.4byte	.LASF34
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 23
+
+
+ 1039 051d 03       		.byte	0x3
+ 1040 051e AF       		.byte	0xaf
+ 1041 051f 11       		.uleb128 0x11
+ 1042 0520 BB010000 		.4byte	.LASF35
+ 1043 0524 04       		.byte	0x4
+ 1044 0525 2D       		.byte	0x2d
+ 1045 0526 11       		.uleb128 0x11
+ 1046 0527 4F000000 		.4byte	.LASF36
+ 1047 052b 0A       		.byte	0xa
+ 1048 052c 65       		.byte	0x65
+ 1049 052d 11       		.uleb128 0x11
+ 1050 052e F2010000 		.4byte	.LASF37
+ 1051 0532 03       		.byte	0x3
+ 1052 0533 98       		.byte	0x98
+ 1053 0534 11       		.uleb128 0x11
+ 1054 0535 73020000 		.4byte	.LASF38
+ 1055 0539 04       		.byte	0x4
+ 1056 053a 29       		.byte	0x29
+ 1057 053b 15       		.uleb128 0x15
+ 1058 053c C0020000 		.4byte	.LASF39
+ 1059 0540 0B       		.byte	0xb
+ 1060 0541 7801     		.2byte	0x178
+ 1061 0543 16       		.uleb128 0x16
+ 1062 0544 E6020000 		.4byte	.LASF40
+ 1063 0548 0B       		.byte	0xb
+ 1064 0549 7701     		.2byte	0x177
+ 1065 054b 76000000 		.4byte	0x76
+ 1066 054f 16       		.uleb128 0x16
+ 1067 0550 F1000000 		.4byte	.LASF41
+ 1068 0554 0B       		.byte	0xb
+ 1069 0555 5C01     		.2byte	0x15c
+ 1070 0557 76000000 		.4byte	0x76
+ 1071 055b 17       		.uleb128 0x17
+ 1072 055c 5B020000 		.4byte	.LASF47
+ 1073 0560 0B       		.byte	0xb
+ 1074 0561 7D01     		.2byte	0x17d
+ 1075 0563 13       		.uleb128 0x13
+ 1076 0564 76000000 		.4byte	0x76
+ 1077 0568 00       		.byte	0
+ 1078 0569 00       		.byte	0
+ 1079              		.section	.debug_abbrev,"",%progbits
+ 1080              	.Ldebug_abbrev0:
+ 1081 0000 01       		.uleb128 0x1
+ 1082 0001 11       		.uleb128 0x11
+ 1083 0002 01       		.byte	0x1
+ 1084 0003 25       		.uleb128 0x25
+ 1085 0004 0E       		.uleb128 0xe
+ 1086 0005 13       		.uleb128 0x13
+ 1087 0006 0B       		.uleb128 0xb
+ 1088 0007 03       		.uleb128 0x3
+ 1089 0008 0E       		.uleb128 0xe
+ 1090 0009 1B       		.uleb128 0x1b
+ 1091 000a 0E       		.uleb128 0xe
+ 1092 000b 55       		.uleb128 0x55
+ 1093 000c 17       		.uleb128 0x17
+ 1094 000d 11       		.uleb128 0x11
+ 1095 000e 01       		.uleb128 0x1
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 24
+
+
+ 1096 000f 10       		.uleb128 0x10
+ 1097 0010 17       		.uleb128 0x17
+ 1098 0011 00       		.byte	0
+ 1099 0012 00       		.byte	0
+ 1100 0013 02       		.uleb128 0x2
+ 1101 0014 24       		.uleb128 0x24
+ 1102 0015 00       		.byte	0
+ 1103 0016 0B       		.uleb128 0xb
+ 1104 0017 0B       		.uleb128 0xb
+ 1105 0018 3E       		.uleb128 0x3e
+ 1106 0019 0B       		.uleb128 0xb
+ 1107 001a 03       		.uleb128 0x3
+ 1108 001b 0E       		.uleb128 0xe
+ 1109 001c 00       		.byte	0
+ 1110 001d 00       		.byte	0
+ 1111 001e 03       		.uleb128 0x3
+ 1112 001f 24       		.uleb128 0x24
+ 1113 0020 00       		.byte	0
+ 1114 0021 0B       		.uleb128 0xb
+ 1115 0022 0B       		.uleb128 0xb
+ 1116 0023 3E       		.uleb128 0x3e
+ 1117 0024 0B       		.uleb128 0xb
+ 1118 0025 03       		.uleb128 0x3
+ 1119 0026 08       		.uleb128 0x8
+ 1120 0027 00       		.byte	0
+ 1121 0028 00       		.byte	0
+ 1122 0029 04       		.uleb128 0x4
+ 1123 002a 16       		.uleb128 0x16
+ 1124 002b 00       		.byte	0
+ 1125 002c 03       		.uleb128 0x3
+ 1126 002d 0E       		.uleb128 0xe
+ 1127 002e 3A       		.uleb128 0x3a
+ 1128 002f 0B       		.uleb128 0xb
+ 1129 0030 3B       		.uleb128 0x3b
+ 1130 0031 0B       		.uleb128 0xb
+ 1131 0032 49       		.uleb128 0x49
+ 1132 0033 13       		.uleb128 0x13
+ 1133 0034 00       		.byte	0
+ 1134 0035 00       		.byte	0
+ 1135 0036 05       		.uleb128 0x5
+ 1136 0037 13       		.uleb128 0x13
+ 1137 0038 01       		.byte	0x1
+ 1138 0039 03       		.uleb128 0x3
+ 1139 003a 08       		.uleb128 0x8
+ 1140 003b 0B       		.uleb128 0xb
+ 1141 003c 0B       		.uleb128 0xb
+ 1142 003d 3A       		.uleb128 0x3a
+ 1143 003e 0B       		.uleb128 0xb
+ 1144 003f 3B       		.uleb128 0x3b
+ 1145 0040 0B       		.uleb128 0xb
+ 1146 0041 01       		.uleb128 0x1
+ 1147 0042 13       		.uleb128 0x13
+ 1148 0043 00       		.byte	0
+ 1149 0044 00       		.byte	0
+ 1150 0045 06       		.uleb128 0x6
+ 1151 0046 0D       		.uleb128 0xd
+ 1152 0047 00       		.byte	0
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 25
+
+
+ 1153 0048 03       		.uleb128 0x3
+ 1154 0049 08       		.uleb128 0x8
+ 1155 004a 3A       		.uleb128 0x3a
+ 1156 004b 0B       		.uleb128 0xb
+ 1157 004c 3B       		.uleb128 0x3b
+ 1158 004d 0B       		.uleb128 0xb
+ 1159 004e 49       		.uleb128 0x49
+ 1160 004f 13       		.uleb128 0x13
+ 1161 0050 38       		.uleb128 0x38
+ 1162 0051 0B       		.uleb128 0xb
+ 1163 0052 00       		.byte	0
+ 1164 0053 00       		.byte	0
+ 1165 0054 07       		.uleb128 0x7
+ 1166 0055 0D       		.uleb128 0xd
+ 1167 0056 00       		.byte	0
+ 1168 0057 03       		.uleb128 0x3
+ 1169 0058 0E       		.uleb128 0xe
+ 1170 0059 3A       		.uleb128 0x3a
+ 1171 005a 0B       		.uleb128 0xb
+ 1172 005b 3B       		.uleb128 0x3b
+ 1173 005c 0B       		.uleb128 0xb
+ 1174 005d 49       		.uleb128 0x49
+ 1175 005e 13       		.uleb128 0x13
+ 1176 005f 38       		.uleb128 0x38
+ 1177 0060 0B       		.uleb128 0xb
+ 1178 0061 00       		.byte	0
+ 1179 0062 00       		.byte	0
+ 1180 0063 08       		.uleb128 0x8
+ 1181 0064 2E       		.uleb128 0x2e
+ 1182 0065 01       		.byte	0x1
+ 1183 0066 3F       		.uleb128 0x3f
+ 1184 0067 19       		.uleb128 0x19
+ 1185 0068 03       		.uleb128 0x3
+ 1186 0069 0E       		.uleb128 0xe
+ 1187 006a 3A       		.uleb128 0x3a
+ 1188 006b 0B       		.uleb128 0xb
+ 1189 006c 3B       		.uleb128 0x3b
+ 1190 006d 0B       		.uleb128 0xb
+ 1191 006e 11       		.uleb128 0x11
+ 1192 006f 01       		.uleb128 0x1
+ 1193 0070 12       		.uleb128 0x12
+ 1194 0071 06       		.uleb128 0x6
+ 1195 0072 40       		.uleb128 0x40
+ 1196 0073 18       		.uleb128 0x18
+ 1197 0074 9642     		.uleb128 0x2116
+ 1198 0076 19       		.uleb128 0x19
+ 1199 0077 01       		.uleb128 0x1
+ 1200 0078 13       		.uleb128 0x13
+ 1201 0079 00       		.byte	0
+ 1202 007a 00       		.byte	0
+ 1203 007b 09       		.uleb128 0x9
+ 1204 007c 898201   		.uleb128 0x4109
+ 1205 007f 00       		.byte	0
+ 1206 0080 11       		.uleb128 0x11
+ 1207 0081 01       		.uleb128 0x1
+ 1208 0082 31       		.uleb128 0x31
+ 1209 0083 13       		.uleb128 0x13
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 26
+
+
+ 1210 0084 00       		.byte	0
+ 1211 0085 00       		.byte	0
+ 1212 0086 0A       		.uleb128 0xa
+ 1213 0087 898201   		.uleb128 0x4109
+ 1214 008a 01       		.byte	0x1
+ 1215 008b 11       		.uleb128 0x11
+ 1216 008c 01       		.uleb128 0x1
+ 1217 008d 31       		.uleb128 0x31
+ 1218 008e 13       		.uleb128 0x13
+ 1219 008f 01       		.uleb128 0x1
+ 1220 0090 13       		.uleb128 0x13
+ 1221 0091 00       		.byte	0
+ 1222 0092 00       		.byte	0
+ 1223 0093 0B       		.uleb128 0xb
+ 1224 0094 8A8201   		.uleb128 0x410a
+ 1225 0097 00       		.byte	0
+ 1226 0098 02       		.uleb128 0x2
+ 1227 0099 18       		.uleb128 0x18
+ 1228 009a 9142     		.uleb128 0x2111
+ 1229 009c 18       		.uleb128 0x18
+ 1230 009d 00       		.byte	0
+ 1231 009e 00       		.byte	0
+ 1232 009f 0C       		.uleb128 0xc
+ 1233 00a0 2E       		.uleb128 0x2e
+ 1234 00a1 01       		.byte	0x1
+ 1235 00a2 3F       		.uleb128 0x3f
+ 1236 00a3 19       		.uleb128 0x19
+ 1237 00a4 03       		.uleb128 0x3
+ 1238 00a5 0E       		.uleb128 0xe
+ 1239 00a6 3A       		.uleb128 0x3a
+ 1240 00a7 0B       		.uleb128 0xb
+ 1241 00a8 3B       		.uleb128 0x3b
+ 1242 00a9 0B       		.uleb128 0xb
+ 1243 00aa 49       		.uleb128 0x49
+ 1244 00ab 13       		.uleb128 0x13
+ 1245 00ac 11       		.uleb128 0x11
+ 1246 00ad 01       		.uleb128 0x1
+ 1247 00ae 12       		.uleb128 0x12
+ 1248 00af 06       		.uleb128 0x6
+ 1249 00b0 40       		.uleb128 0x40
+ 1250 00b1 18       		.uleb128 0x18
+ 1251 00b2 9642     		.uleb128 0x2116
+ 1252 00b4 19       		.uleb128 0x19
+ 1253 00b5 01       		.uleb128 0x1
+ 1254 00b6 13       		.uleb128 0x13
+ 1255 00b7 00       		.byte	0
+ 1256 00b8 00       		.byte	0
+ 1257 00b9 0D       		.uleb128 0xd
+ 1258 00ba 34       		.uleb128 0x34
+ 1259 00bb 00       		.byte	0
+ 1260 00bc 03       		.uleb128 0x3
+ 1261 00bd 08       		.uleb128 0x8
+ 1262 00be 3A       		.uleb128 0x3a
+ 1263 00bf 0B       		.uleb128 0xb
+ 1264 00c0 3B       		.uleb128 0x3b
+ 1265 00c1 0B       		.uleb128 0xb
+ 1266 00c2 49       		.uleb128 0x49
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 27
+
+
+ 1267 00c3 13       		.uleb128 0x13
+ 1268 00c4 02       		.uleb128 0x2
+ 1269 00c5 17       		.uleb128 0x17
+ 1270 00c6 00       		.byte	0
+ 1271 00c7 00       		.byte	0
+ 1272 00c8 0E       		.uleb128 0xe
+ 1273 00c9 34       		.uleb128 0x34
+ 1274 00ca 00       		.byte	0
+ 1275 00cb 03       		.uleb128 0x3
+ 1276 00cc 0E       		.uleb128 0xe
+ 1277 00cd 3A       		.uleb128 0x3a
+ 1278 00ce 0B       		.uleb128 0xb
+ 1279 00cf 3B       		.uleb128 0x3b
+ 1280 00d0 0B       		.uleb128 0xb
+ 1281 00d1 49       		.uleb128 0x49
+ 1282 00d2 13       		.uleb128 0x13
+ 1283 00d3 02       		.uleb128 0x2
+ 1284 00d4 17       		.uleb128 0x17
+ 1285 00d5 00       		.byte	0
+ 1286 00d6 00       		.byte	0
+ 1287 00d7 0F       		.uleb128 0xf
+ 1288 00d8 898201   		.uleb128 0x4109
+ 1289 00db 01       		.byte	0x1
+ 1290 00dc 11       		.uleb128 0x11
+ 1291 00dd 01       		.uleb128 0x1
+ 1292 00de 31       		.uleb128 0x31
+ 1293 00df 13       		.uleb128 0x13
+ 1294 00e0 00       		.byte	0
+ 1295 00e1 00       		.byte	0
+ 1296 00e2 10       		.uleb128 0x10
+ 1297 00e3 34       		.uleb128 0x34
+ 1298 00e4 00       		.byte	0
+ 1299 00e5 03       		.uleb128 0x3
+ 1300 00e6 08       		.uleb128 0x8
+ 1301 00e7 3A       		.uleb128 0x3a
+ 1302 00e8 0B       		.uleb128 0xb
+ 1303 00e9 3B       		.uleb128 0x3b
+ 1304 00ea 0B       		.uleb128 0xb
+ 1305 00eb 49       		.uleb128 0x49
+ 1306 00ec 13       		.uleb128 0x13
+ 1307 00ed 3F       		.uleb128 0x3f
+ 1308 00ee 19       		.uleb128 0x19
+ 1309 00ef 02       		.uleb128 0x2
+ 1310 00f0 18       		.uleb128 0x18
+ 1311 00f1 00       		.byte	0
+ 1312 00f2 00       		.byte	0
+ 1313 00f3 11       		.uleb128 0x11
+ 1314 00f4 2E       		.uleb128 0x2e
+ 1315 00f5 00       		.byte	0
+ 1316 00f6 3F       		.uleb128 0x3f
+ 1317 00f7 19       		.uleb128 0x19
+ 1318 00f8 03       		.uleb128 0x3
+ 1319 00f9 0E       		.uleb128 0xe
+ 1320 00fa 3A       		.uleb128 0x3a
+ 1321 00fb 0B       		.uleb128 0xb
+ 1322 00fc 3B       		.uleb128 0x3b
+ 1323 00fd 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 28
+
+
+ 1324 00fe 27       		.uleb128 0x27
+ 1325 00ff 19       		.uleb128 0x19
+ 1326 0100 3C       		.uleb128 0x3c
+ 1327 0101 19       		.uleb128 0x19
+ 1328 0102 00       		.byte	0
+ 1329 0103 00       		.byte	0
+ 1330 0104 12       		.uleb128 0x12
+ 1331 0105 2E       		.uleb128 0x2e
+ 1332 0106 01       		.byte	0x1
+ 1333 0107 3F       		.uleb128 0x3f
+ 1334 0108 19       		.uleb128 0x19
+ 1335 0109 03       		.uleb128 0x3
+ 1336 010a 0E       		.uleb128 0xe
+ 1337 010b 3A       		.uleb128 0x3a
+ 1338 010c 0B       		.uleb128 0xb
+ 1339 010d 3B       		.uleb128 0x3b
+ 1340 010e 0B       		.uleb128 0xb
+ 1341 010f 27       		.uleb128 0x27
+ 1342 0110 19       		.uleb128 0x19
+ 1343 0111 3C       		.uleb128 0x3c
+ 1344 0112 19       		.uleb128 0x19
+ 1345 0113 01       		.uleb128 0x1
+ 1346 0114 13       		.uleb128 0x13
+ 1347 0115 00       		.byte	0
+ 1348 0116 00       		.byte	0
+ 1349 0117 13       		.uleb128 0x13
+ 1350 0118 05       		.uleb128 0x5
+ 1351 0119 00       		.byte	0
+ 1352 011a 49       		.uleb128 0x49
+ 1353 011b 13       		.uleb128 0x13
+ 1354 011c 00       		.byte	0
+ 1355 011d 00       		.byte	0
+ 1356 011e 14       		.uleb128 0x14
+ 1357 011f 2E       		.uleb128 0x2e
+ 1358 0120 01       		.byte	0x1
+ 1359 0121 3F       		.uleb128 0x3f
+ 1360 0122 19       		.uleb128 0x19
+ 1361 0123 03       		.uleb128 0x3
+ 1362 0124 0E       		.uleb128 0xe
+ 1363 0125 3A       		.uleb128 0x3a
+ 1364 0126 0B       		.uleb128 0xb
+ 1365 0127 3B       		.uleb128 0x3b
+ 1366 0128 0B       		.uleb128 0xb
+ 1367 0129 27       		.uleb128 0x27
+ 1368 012a 19       		.uleb128 0x19
+ 1369 012b 49       		.uleb128 0x49
+ 1370 012c 13       		.uleb128 0x13
+ 1371 012d 3C       		.uleb128 0x3c
+ 1372 012e 19       		.uleb128 0x19
+ 1373 012f 01       		.uleb128 0x1
+ 1374 0130 13       		.uleb128 0x13
+ 1375 0131 00       		.byte	0
+ 1376 0132 00       		.byte	0
+ 1377 0133 15       		.uleb128 0x15
+ 1378 0134 2E       		.uleb128 0x2e
+ 1379 0135 00       		.byte	0
+ 1380 0136 3F       		.uleb128 0x3f
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 29
+
+
+ 1381 0137 19       		.uleb128 0x19
+ 1382 0138 03       		.uleb128 0x3
+ 1383 0139 0E       		.uleb128 0xe
+ 1384 013a 3A       		.uleb128 0x3a
+ 1385 013b 0B       		.uleb128 0xb
+ 1386 013c 3B       		.uleb128 0x3b
+ 1387 013d 05       		.uleb128 0x5
+ 1388 013e 27       		.uleb128 0x27
+ 1389 013f 19       		.uleb128 0x19
+ 1390 0140 3C       		.uleb128 0x3c
+ 1391 0141 19       		.uleb128 0x19
+ 1392 0142 00       		.byte	0
+ 1393 0143 00       		.byte	0
+ 1394 0144 16       		.uleb128 0x16
+ 1395 0145 2E       		.uleb128 0x2e
+ 1396 0146 00       		.byte	0
+ 1397 0147 3F       		.uleb128 0x3f
+ 1398 0148 19       		.uleb128 0x19
+ 1399 0149 03       		.uleb128 0x3
+ 1400 014a 0E       		.uleb128 0xe
+ 1401 014b 3A       		.uleb128 0x3a
+ 1402 014c 0B       		.uleb128 0xb
+ 1403 014d 3B       		.uleb128 0x3b
+ 1404 014e 05       		.uleb128 0x5
+ 1405 014f 27       		.uleb128 0x27
+ 1406 0150 19       		.uleb128 0x19
+ 1407 0151 49       		.uleb128 0x49
+ 1408 0152 13       		.uleb128 0x13
+ 1409 0153 3C       		.uleb128 0x3c
+ 1410 0154 19       		.uleb128 0x19
+ 1411 0155 00       		.byte	0
+ 1412 0156 00       		.byte	0
+ 1413 0157 17       		.uleb128 0x17
+ 1414 0158 2E       		.uleb128 0x2e
+ 1415 0159 01       		.byte	0x1
+ 1416 015a 3F       		.uleb128 0x3f
+ 1417 015b 19       		.uleb128 0x19
+ 1418 015c 03       		.uleb128 0x3
+ 1419 015d 0E       		.uleb128 0xe
+ 1420 015e 3A       		.uleb128 0x3a
+ 1421 015f 0B       		.uleb128 0xb
+ 1422 0160 3B       		.uleb128 0x3b
+ 1423 0161 05       		.uleb128 0x5
+ 1424 0162 27       		.uleb128 0x27
+ 1425 0163 19       		.uleb128 0x19
+ 1426 0164 3C       		.uleb128 0x3c
+ 1427 0165 19       		.uleb128 0x19
+ 1428 0166 00       		.byte	0
+ 1429 0167 00       		.byte	0
+ 1430 0168 00       		.byte	0
+ 1431              		.section	.debug_loc,"",%progbits
+ 1432              	.Ldebug_loc0:
+ 1433              	.LLST0:
+ 1434 0000 28000000 		.4byte	.LVL49
+ 1435 0004 2F000000 		.4byte	.LVL50-1
+ 1436 0008 0100     		.2byte	0x1
+ 1437 000a 50       		.byte	0x50
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 30
+
+
+ 1438 000b 2F000000 		.4byte	.LVL50-1
+ 1439 000f 3C000000 		.4byte	.LVL52
+ 1440 0013 0400     		.2byte	0x4
+ 1441 0015 74       		.byte	0x74
+ 1442 0016 00       		.sleb128 0
+ 1443 0017 20       		.byte	0x20
+ 1444 0018 9F       		.byte	0x9f
+ 1445 0019 00000000 		.4byte	0
+ 1446 001d 00000000 		.4byte	0
+ 1447              	.LLST1:
+ 1448 0021 28000000 		.4byte	.LVL49
+ 1449 0025 3C000000 		.4byte	.LVL52
+ 1450 0029 0300     		.2byte	0x3
+ 1451 002b 09       		.byte	0x9
+ 1452 002c FF       		.byte	0xff
+ 1453 002d 9F       		.byte	0x9f
+ 1454 002e 3C000000 		.4byte	.LVL52
+ 1455 0032 70000000 		.4byte	.LVL54
+ 1456 0036 0100     		.2byte	0x1
+ 1457 0038 54       		.byte	0x54
+ 1458 0039 72000000 		.4byte	.LVL55
+ 1459 003d 94000000 		.4byte	.LVL63
+ 1460 0041 0100     		.2byte	0x1
+ 1461 0043 54       		.byte	0x54
+ 1462 0044 A0000000 		.4byte	.LVL66
+ 1463 0048 A2000000 		.4byte	.LVL67
+ 1464 004c 0100     		.2byte	0x1
+ 1465 004e 54       		.byte	0x54
+ 1466 004f A2000000 		.4byte	.LVL67
+ 1467 0053 A6000000 		.4byte	.LVL68
+ 1468 0057 0300     		.2byte	0x3
+ 1469 0059 74       		.byte	0x74
+ 1470 005a 7F       		.sleb128 -1
+ 1471 005b 9F       		.byte	0x9f
+ 1472 005c A6000000 		.4byte	.LVL68
+ 1473 0060 AC000000 		.4byte	.LVL70
+ 1474 0064 0300     		.2byte	0x3
+ 1475 0066 74       		.byte	0x74
+ 1476 0067 01       		.sleb128 1
+ 1477 0068 9F       		.byte	0x9f
+ 1478 0069 AC000000 		.4byte	.LVL70
+ 1479 006d AE000000 		.4byte	.LVL71
+ 1480 0071 0100     		.2byte	0x1
+ 1481 0073 54       		.byte	0x54
+ 1482 0074 B2000000 		.4byte	.LVL72
+ 1483 0078 C8000000 		.4byte	.LFE34
+ 1484 007c 0100     		.2byte	0x1
+ 1485 007e 54       		.byte	0x54
+ 1486 007f 00000000 		.4byte	0
+ 1487 0083 00000000 		.4byte	0
+ 1488              	.LLST2:
+ 1489 0087 6E000000 		.4byte	.LVL53
+ 1490 008b 75000000 		.4byte	.LVL56-1
+ 1491 008f 0200     		.2byte	0x2
+ 1492 0091 75       		.byte	0x75
+ 1493 0092 03       		.sleb128 3
+ 1494 0093 78000000 		.4byte	.LVL57
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 31
+
+
+ 1495 0097 7A000000 		.4byte	.LVL58
+ 1496 009b 0200     		.2byte	0x2
+ 1497 009d 75       		.byte	0x75
+ 1498 009e 02       		.sleb128 2
+ 1499 009f 88000000 		.4byte	.LVL60
+ 1500 00a3 8A000000 		.4byte	.LVL61
+ 1501 00a7 0100     		.2byte	0x1
+ 1502 00a9 50       		.byte	0x50
+ 1503 00aa 92000000 		.4byte	.LVL62
+ 1504 00ae 97000000 		.4byte	.LVL64-1
+ 1505 00b2 0200     		.2byte	0x2
+ 1506 00b4 75       		.byte	0x75
+ 1507 00b5 01       		.sleb128 1
+ 1508 00b6 9C000000 		.4byte	.LVL65
+ 1509 00ba A2000000 		.4byte	.LVL67
+ 1510 00be 0100     		.2byte	0x1
+ 1511 00c0 50       		.byte	0x50
+ 1512 00c1 A2000000 		.4byte	.LVL67
+ 1513 00c5 AE000000 		.4byte	.LVL71
+ 1514 00c9 0200     		.2byte	0x2
+ 1515 00cb 31       		.byte	0x31
+ 1516 00cc 9F       		.byte	0x9f
+ 1517 00cd 00000000 		.4byte	0
+ 1518 00d1 00000000 		.4byte	0
+ 1519              		.section	.debug_aranges,"",%progbits
+ 1520 0000 24000000 		.4byte	0x24
+ 1521 0004 0200     		.2byte	0x2
+ 1522 0006 00000000 		.4byte	.Ldebug_info0
+ 1523 000a 04       		.byte	0x4
+ 1524 000b 00       		.byte	0
+ 1525 000c 0000     		.2byte	0
+ 1526 000e 0000     		.2byte	0
+ 1527 0010 00000000 		.4byte	.LFB33
+ 1528 0014 14010000 		.4byte	.LFE33-.LFB33
+ 1529 0018 00000000 		.4byte	.LFB34
+ 1530 001c C8000000 		.4byte	.LFE34-.LFB34
+ 1531 0020 00000000 		.4byte	0
+ 1532 0024 00000000 		.4byte	0
+ 1533              		.section	.debug_ranges,"",%progbits
+ 1534              	.Ldebug_ranges0:
+ 1535 0000 00000000 		.4byte	.LFB33
+ 1536 0004 14010000 		.4byte	.LFE33
+ 1537 0008 00000000 		.4byte	.LFB34
+ 1538 000c C8000000 		.4byte	.LFE34
+ 1539 0010 00000000 		.4byte	0
+ 1540 0014 00000000 		.4byte	0
+ 1541              		.section	.debug_line,"",%progbits
+ 1542              	.Ldebug_line0:
+ 1543 0000 31010000 		.section	.debug_str,"MS",%progbits,1
+ 1543      0200B500 
+ 1543      00000201 
+ 1543      FB0E0D00 
+ 1543      01010101 
+ 1544              	.LASF6:
+ 1545 0000 6C6F6E67 		.ascii	"long long int\000"
+ 1545      206C6F6E 
+ 1545      6720696E 
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 32
+
+
+ 1545      7400
+ 1546              	.LASF20:
+ 1547 000e 4144435F 		.ascii	"ADC_Wakeup\000"
+ 1547      57616B65 
+ 1547      757000
+ 1548              	.LASF33:
+ 1549 0019 414D7578 		.ascii	"AMux_Stop\000"
+ 1549      5F53746F 
+ 1549      7000
+ 1550              	.LASF16:
+ 1551 0023 68756D69 		.ascii	"humidity\000"
+ 1551      64697479 
+ 1551      00
+ 1552              	.LASF12:
+ 1553 002c 666C6F61 		.ascii	"float\000"
+ 1553      7400
+ 1554              	.LASF34:
+ 1555 0032 4144435F 		.ascii	"ADC_Sleep\000"
+ 1555      536C6565 
+ 1555      7000
+ 1556              	.LASF3:
+ 1557 003c 73686F72 		.ascii	"short unsigned int\000"
+ 1557      7420756E 
+ 1557      7369676E 
+ 1557      65642069 
+ 1557      6E7400
+ 1558              	.LASF36:
+ 1559 004f 55415254 		.ascii	"UART_Start\000"
+ 1559      5F537461 
+ 1559      727400
+ 1560              	.LASF30:
+ 1561 005a 4144435F 		.ascii	"ADC_SetOffset\000"
+ 1561      5365744F 
+ 1561      66667365 
+ 1561      7400
+ 1562              	.LASF21:
+ 1563 0068 4F70616D 		.ascii	"Opamp_Wakeup\000"
+ 1563      705F5761 
+ 1563      6B657570 
+ 1563      00
+ 1564              	.LASF42:
+ 1565 0075 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ 1565      4320342E 
+ 1565      382E3420 
+ 1565      32303134 
+ 1565      30353236 
+ 1566 00a8 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 1566      20726576 
+ 1566      6973696F 
+ 1566      6E203231 
+ 1566      31333538 
+ 1567 00db 73202D66 		.ascii	"s -ffunction-sections\000"
+ 1567      66756E63 
+ 1567      74696F6E 
+ 1567      2D736563 
+ 1567      74696F6E 
+ 1568              	.LASF41:
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 33
+
+
+ 1569 00f1 55415254 		.ascii	"UART_UartGetByte\000"
+ 1569      5F556172 
+ 1569      74476574 
+ 1569      42797465 
+ 1569      00
+ 1570              	.LASF18:
+ 1571 0102 63686563 		.ascii	"checksum\000"
+ 1571      6B73756D 
+ 1571      00
+ 1572              	.LASF1:
+ 1573 010b 756E7369 		.ascii	"unsigned char\000"
+ 1573      676E6564 
+ 1573      20636861 
+ 1573      7200
+ 1574              	.LASF22:
+ 1575 0119 414D7578 		.ascii	"AMux_Start\000"
+ 1575      5F537461 
+ 1575      727400
+ 1576              	.LASF11:
+ 1577 0124 696E7431 		.ascii	"int16\000"
+ 1577      3600
+ 1578              	.LASF5:
+ 1579 012a 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1579      20756E73 
+ 1579      69676E65 
+ 1579      6420696E 
+ 1579      7400
+ 1580              	.LASF9:
+ 1581 013c 75696E74 		.ascii	"uint8\000"
+ 1581      3800
+ 1582              	.LASF32:
+ 1583 0142 54686572 		.ascii	"Thermistor_GetTemperature\000"
+ 1583      6D697374 
+ 1583      6F725F47 
+ 1583      65745465 
+ 1583      6D706572 
+ 1584              	.LASF29:
+ 1585 015c 4144435F 		.ascii	"ADC_GetResult16\000"
+ 1585      47657452 
+ 1585      6573756C 
+ 1585      74313600 
+ 1586              	.LASF27:
+ 1587 016c 4144435F 		.ascii	"ADC_StopConvert\000"
+ 1587      53746F70 
+ 1587      436F6E76 
+ 1587      65727400 
+ 1588              	.LASF28:
+ 1589 017c 4144435F 		.ascii	"ADC_IsEndConversion\000"
+ 1589      4973456E 
+ 1589      64436F6E 
+ 1589      76657273 
+ 1589      696F6E00 
+ 1590              	.LASF13:
+ 1591 0190 646F7562 		.ascii	"double\000"
+ 1591      6C6500
+ 1592              	.LASF43:
+ 1593 0197 2E5C6D61 		.ascii	".\\main.c\000"
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 34
+
+
+ 1593      696E2E63 
+ 1593      00
+ 1594              	.LASF45:
+ 1595 01a0 72656164 		.ascii	"read\000"
+ 1595      00
+ 1596              	.LASF10:
+ 1597 01a5 75696E74 		.ascii	"uint32\000"
+ 1597      333200
+ 1598              	.LASF46:
+ 1599 01ac 6D61696E 		.ascii	"main\000"
+ 1599      00
+ 1600              	.LASF25:
+ 1601 01b1 414D7578 		.ascii	"AMux_Next\000"
+ 1601      5F4E6578 
+ 1601      7400
+ 1602              	.LASF35:
+ 1603 01bb 4F70616D 		.ascii	"Opamp_Sleep\000"
+ 1603      705F536C 
+ 1603      65657000 
+ 1604              	.LASF8:
+ 1605 01c7 756E7369 		.ascii	"unsigned int\000"
+ 1605      676E6564 
+ 1605      20696E74 
+ 1605      00
+ 1606              	.LASF17:
+ 1607 01d4 636F756E 		.ascii	"counts\000"
+ 1607      747300
+ 1608              	.LASF7:
+ 1609 01db 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1609      206C6F6E 
+ 1609      6720756E 
+ 1609      7369676E 
+ 1609      65642069 
+ 1610              	.LASF37:
+ 1611 01f2 4144435F 		.ascii	"ADC_Start\000"
+ 1611      53746172 
+ 1611      7400
+ 1612              	.LASF15:
+ 1613 01fc 73697A65 		.ascii	"sizetype\000"
+ 1613      74797065 
+ 1613      00
+ 1614              	.LASF44:
+ 1615 0205 433A5C55 		.ascii	"C:\\Users\\Pablo\\Projects\\EzTempRH-for-Raspberry-"
+ 1615      73657273 
+ 1615      5C506162 
+ 1615      6C6F5C50 
+ 1615      726F6A65 
+ 1616 0234 50695C66 		.ascii	"Pi\\firmware\\app.cydsn\000"
+ 1616      69726D77 
+ 1616      6172655C 
+ 1616      6170702E 
+ 1616      63796473 
+ 1617              	.LASF26:
+ 1618 024a 4144435F 		.ascii	"ADC_StartConvert\000"
+ 1618      53746172 
+ 1618      74436F6E 
+ 1618      76657274 
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccuUCuef.s 			page 35
+
+
+ 1618      00
+ 1619              	.LASF47:
+ 1620 025b 55415254 		.ascii	"UART_SpiUartWriteTxData\000"
+ 1620      5F537069 
+ 1620      55617274 
+ 1620      57726974 
+ 1620      65547844 
+ 1621              	.LASF38:
+ 1622 0273 4F70616D 		.ascii	"Opamp_Start\000"
+ 1622      705F5374 
+ 1622      61727400 
+ 1623              	.LASF31:
+ 1624 027f 54686572 		.ascii	"Thermistor_GetResistance\000"
+ 1624      6D697374 
+ 1624      6F725F47 
+ 1624      65745265 
+ 1624      73697374 
+ 1625              	.LASF23:
+ 1626 0298 454E5F57 		.ascii	"EN_Write\000"
+ 1626      72697465 
+ 1626      00
+ 1627              	.LASF19:
+ 1628 02a1 74786279 		.ascii	"txbyte\000"
+ 1628      746500
+ 1629              	.LASF2:
+ 1630 02a8 73686F72 		.ascii	"short int\000"
+ 1630      7420696E 
+ 1630      7400
+ 1631              	.LASF4:
+ 1632 02b2 6C6F6E67 		.ascii	"long int\000"
+ 1632      20696E74 
+ 1632      00
+ 1633              	.LASF14:
+ 1634 02bb 63686172 		.ascii	"char\000"
+ 1634      00
+ 1635              	.LASF39:
+ 1636 02c0 55415254 		.ascii	"UART_SpiUartClearRxBuffer\000"
+ 1636      5F537069 
+ 1636      55617274 
+ 1636      436C6561 
+ 1636      72527842 
+ 1637              	.LASF0:
+ 1638 02da 7369676E 		.ascii	"signed char\000"
+ 1638      65642063 
+ 1638      68617200 
+ 1639              	.LASF40:
+ 1640 02e6 55415254 		.ascii	"UART_SpiUartGetRxBufferSize\000"
+ 1640      5F537069 
+ 1640      55617274 
+ 1640      47657452 
+ 1640      78427566 
+ 1641              	.LASF24:
+ 1642 0302 43794465 		.ascii	"CyDelay\000"
+ 1642      6C617900 
+ 1643              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br

@@ -1,9 +1,10 @@
 /*******************************************************************************
 * File Name: VSSREF.h  
-* Version 2.5
+* Version 2.10
 *
 * Description:
-*  This file containts Control Register function prototypes and register defines
+*  This file contains the Alias definitions for Per-Pin APIs in cypins.h. 
+*  Information on using these APIs can be found in the System Reference Guide.
 *
 * Note:
 *
@@ -19,12 +20,18 @@
 
 #include "cytypes.h"
 #include "cyfitter.h"
+#include "cypins.h"
 
 
 /***************************************
 *              Constants        
 ***************************************/
-#define VSSREF_0		VSSREF__0__PC
+#define VSSREF_0		(VSSREF__0__PC)
+#define VSSREF_0_PS		(VSSREF__0__PS)
+#define VSSREF_0_PC		(VSSREF__0__PC)
+#define VSSREF_0_DR		(VSSREF__0__DR)
+#define VSSREF_0_SHIFT	(VSSREF__0__SHIFT)
+
 
 #endif /* End Pins VSSREF_ALIASES_H */
 

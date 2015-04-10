@@ -1,0 +1,1609 @@
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccAWb0ap.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.fpu softvfp
+   3              		.eabi_attribute 20, 1
+   4              		.eabi_attribute 21, 1
+   5              		.eabi_attribute 23, 3
+   6              		.eabi_attribute 24, 1
+   7              		.eabi_attribute 25, 1
+   8              		.eabi_attribute 26, 1
+   9              		.eabi_attribute 30, 4
+  10              		.eabi_attribute 34, 0
+  11              		.eabi_attribute 18, 4
+  12              		.code	16
+  13              		.file	"main.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.section	.text.startup.main,"ax",%progbits
+  18              		.align	1
+  19              		.global	main
+  20              		.code	16
+  21              		.thumb_func
+  22              		.type	main, %function
+  23              	main:
+  24              	.LFB33:
+  25              		.file 1 ".\\main.c"
+   1:.\main.c      **** /*
+   2:.\main.c      **** 
+   3:.\main.c      **** The MIT License (MIT)
+   4:.\main.c      **** 
+   5:.\main.c      **** Copyright (c) 2014 CAIMANICS (hola@caimanics.com)
+   6:.\main.c      **** Author: Pablo Bacho (pablo.bacho@caimanics.com)
+   7:.\main.c      **** 
+   8:.\main.c      **** Permission is hereby granted, free of charge, to any person obtaining a copy
+   9:.\main.c      **** of this software and associated documentation files (the "Software"), to deal
+  10:.\main.c      **** in the Software without restriction, including without limitation the rights
+  11:.\main.c      **** to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  12:.\main.c      **** copies of the Software, and to permit persons to whom the Software is
+  13:.\main.c      **** furnished to do so, subject to the following conditions:
+  14:.\main.c      **** 
+  15:.\main.c      **** The above copyright notice and this permission notice shall be included in all
+  16:.\main.c      **** copies or substantial portions of the Software.
+  17:.\main.c      **** 
+  18:.\main.c      **** THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  19:.\main.c      **** IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  20:.\main.c      **** FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  21:.\main.c      **** AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  22:.\main.c      **** LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  23:.\main.c      **** OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  24:.\main.c      **** SOFTWARE.
+  25:.\main.c      **** 
+  26:.\main.c      **** */
+  27:.\main.c      **** 
+  28:.\main.c      **** #include <project.h>
+  29:.\main.c      **** 
+  30:.\main.c      **** int main()
+  31:.\main.c      **** {
+  26              		.loc 1 31 0
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccAWb0ap.s 			page 2
+
+
+  27              		.cfi_startproc
+  28 0000 08B5     		push	{r3, lr}
+  29              		.cfi_def_cfa_offset 8
+  30              		.cfi_offset 3, -8
+  31              		.cfi_offset 14, -4
+  32:.\main.c      ****     /* Short-circuit EN and VDD to start bootloader */
+  33:.\main.c      ****     EN_Write(0);
+  32              		.loc 1 33 0
+  33 0002 0020     		mov	r0, #0
+  34 0004 FFF7FEFF 		bl	EN_Write
+  35              	.LVL0:
+  34:.\main.c      ****     
+  35:.\main.c      ****     if(EN_Read() != 0u) {
+  36              		.loc 1 35 0
+  37 0008 FFF7FEFF 		bl	EN_Read
+  38              	.LVL1:
+  39 000c 044B     		ldr	r3, .L6
+  36:.\main.c      ****         Bootloader_SET_RUN_TYPE(Bootloader_START_BTLDR);
+  40              		.loc 1 36 0
+  41 000e 4022     		mov	r2, #64
+  35:.\main.c      ****     if(EN_Read() != 0u) {
+  42              		.loc 1 35 0
+  43 0010 0028     		cmp	r0, #0
+  44 0012 00D1     		bne	.L4
+  37:.\main.c      ****     } else {
+  38:.\main.c      ****         Bootloader_SET_RUN_TYPE(Bootloader_START_APP);
+  45              		.loc 1 38 0
+  46 0014 8022     		mov	r2, #128
+  47              	.L4:
+  48 0016 1A60     		str	r2, [r3]
+  39:.\main.c      ****     }
+  40:.\main.c      ****     
+  41:.\main.c      ****     Bootloader_Start();
+  42:.\main.c      **** }
+  49              		.loc 1 42 0
+  50              		@ sp needed
+  41:.\main.c      ****     Bootloader_Start();
+  51              		.loc 1 41 0
+  52 0018 FFF7FEFF 		bl	Bootloader_Start
+  53              	.LVL2:
+  54              		.loc 1 42 0
+  55 001c 08BD     		pop	{r3, pc}
+  56              	.L7:
+  57 001e C046     		.align	2
+  58              	.L6:
+  59 0020 00000000 		.word	cyBtldrRunType
+  60              		.cfi_endproc
+  61              	.LFE33:
+  62              		.size	main, .-main
+  63              		.section	.text.CyBtldrCommStart,"ax",%progbits
+  64              		.align	1
+  65              		.global	CyBtldrCommStart
+  66              		.code	16
+  67              		.thumb_func
+  68              		.type	CyBtldrCommStart, %function
+  69              	CyBtldrCommStart:
+  70              	.LFB34:
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccAWb0ap.s 			page 3
+
+
+  43:.\main.c      **** 
+  44:.\main.c      **** /**
+  45:.\main.c      **** * SCB UART bootloader code by Arachnid:
+  46:.\main.c      **** * https://gist.github.com/Arachnid/8069083
+  47:.\main.c      **** */
+  48:.\main.c      **** 
+  49:.\main.c      **** void CyBtldrCommStart(void) {
+  71              		.loc 1 49 0
+  72              		.cfi_startproc
+  73 0000 08B5     		push	{r3, lr}
+  74              		.cfi_def_cfa_offset 8
+  75              		.cfi_offset 3, -8
+  76              		.cfi_offset 14, -4
+  50:.\main.c      ****     UART_Start();
+  77              		.loc 1 50 0
+  78 0002 FFF7FEFF 		bl	UART_Start
+  79              	.LVL3:
+  51:.\main.c      **** }
+  80              		.loc 1 51 0
+  81              		@ sp needed
+  82 0006 08BD     		pop	{r3, pc}
+  83              		.cfi_endproc
+  84              	.LFE34:
+  85              		.size	CyBtldrCommStart, .-CyBtldrCommStart
+  86              		.section	.text.CyBtldrCommStop,"ax",%progbits
+  87              		.align	1
+  88              		.global	CyBtldrCommStop
+  89              		.code	16
+  90              		.thumb_func
+  91              		.type	CyBtldrCommStop, %function
+  92              	CyBtldrCommStop:
+  93              	.LFB35:
+  52:.\main.c      ****  
+  53:.\main.c      **** void CyBtldrCommStop (void) {
+  94              		.loc 1 53 0
+  95              		.cfi_startproc
+  96 0000 08B5     		push	{r3, lr}
+  97              		.cfi_def_cfa_offset 8
+  98              		.cfi_offset 3, -8
+  99              		.cfi_offset 14, -4
+  54:.\main.c      ****     UART_Stop();
+ 100              		.loc 1 54 0
+ 101 0002 FFF7FEFF 		bl	UART_Stop
+ 102              	.LVL4:
+  55:.\main.c      **** }
+ 103              		.loc 1 55 0
+ 104              		@ sp needed
+ 105 0006 08BD     		pop	{r3, pc}
+ 106              		.cfi_endproc
+ 107              	.LFE35:
+ 108              		.size	CyBtldrCommStop, .-CyBtldrCommStop
+ 109              		.section	.text.CyBtldrCommReset,"ax",%progbits
+ 110              		.align	1
+ 111              		.global	CyBtldrCommReset
+ 112              		.code	16
+ 113              		.thumb_func
+ 114              		.type	CyBtldrCommReset, %function
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccAWb0ap.s 			page 4
+
+
+ 115              	CyBtldrCommReset:
+ 116              	.LFB36:
+  56:.\main.c      ****  
+  57:.\main.c      **** void CyBtldrCommReset(void) {
+ 117              		.loc 1 57 0
+ 118              		.cfi_startproc
+ 119 0000 08B5     		push	{r3, lr}
+ 120              		.cfi_def_cfa_offset 8
+ 121              		.cfi_offset 3, -8
+ 122              		.cfi_offset 14, -4
+  58:.\main.c      ****     UART_SpiUartClearRxBuffer();
+ 123              		.loc 1 58 0
+ 124 0002 FFF7FEFF 		bl	UART_SpiUartClearRxBuffer
+ 125              	.LVL5:
+  59:.\main.c      ****     UART_SpiUartClearTxBuffer();
+  60:.\main.c      **** }
+ 126              		.loc 1 60 0
+ 127              		@ sp needed
+  59:.\main.c      ****     UART_SpiUartClearTxBuffer();
+ 128              		.loc 1 59 0
+ 129 0006 FFF7FEFF 		bl	UART_SpiUartClearTxBuffer
+ 130              	.LVL6:
+ 131              		.loc 1 60 0
+ 132 000a 08BD     		pop	{r3, pc}
+ 133              		.cfi_endproc
+ 134              	.LFE36:
+ 135              		.size	CyBtldrCommReset, .-CyBtldrCommReset
+ 136              		.section	.text.CyBtldrCommWrite,"ax",%progbits
+ 137              		.align	1
+ 138              		.global	CyBtldrCommWrite
+ 139              		.code	16
+ 140              		.thumb_func
+ 141              		.type	CyBtldrCommWrite, %function
+ 142              	CyBtldrCommWrite:
+ 143              	.LFB37:
+  61:.\main.c      ****  
+  62:.\main.c      **** cystatus CyBtldrCommWrite(uint8* buffer, uint16 size, uint16* count, uint8 timeOut) {
+ 144              		.loc 1 62 0
+ 145              		.cfi_startproc
+ 146              	.LVL7:
+ 147 0000 70B5     		push	{r4, r5, r6, lr}
+ 148              		.cfi_def_cfa_offset 16
+ 149              		.cfi_offset 4, -16
+ 150              		.cfi_offset 5, -12
+ 151              		.cfi_offset 6, -8
+ 152              		.cfi_offset 14, -4
+  63:.\main.c      ****     for(*count = 0; *count < size; (*count)++) {
+ 153              		.loc 1 63 0
+ 154 0002 0023     		mov	r3, #0
+ 155              	.LVL8:
+  62:.\main.c      **** cystatus CyBtldrCommWrite(uint8* buffer, uint16 size, uint16* count, uint8 timeOut) {
+ 156              		.loc 1 62 0
+ 157 0004 061C     		mov	r6, r0
+ 158 0006 0D1C     		mov	r5, r1
+ 159 0008 141C     		mov	r4, r2
+ 160              	.LVL9:
+ 161              	.L14:
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccAWb0ap.s 			page 5
+
+
+ 162              		.loc 1 63 0 discriminator 2
+ 163 000a 2380     		strh	r3, [r4]
+ 164 000c 2388     		ldrh	r3, [r4]
+ 165 000e AB42     		cmp	r3, r5
+ 166 0010 05D2     		bcs	.L15
+  64:.\main.c      ****         UART_UartPutChar(buffer[*count]);
+ 167              		.loc 1 64 0 discriminator 2
+ 168 0012 F05C     		ldrb	r0, [r6, r3]
+ 169 0014 FFF7FEFF 		bl	UART_SpiUartWriteTxData
+ 170              	.LVL10:
+  63:.\main.c      ****     for(*count = 0; *count < size; (*count)++) {
+ 171              		.loc 1 63 0 discriminator 2
+ 172 0018 2388     		ldrh	r3, [r4]
+ 173 001a 0133     		add	r3, r3, #1
+ 174 001c F5E7     		b	.L14
+ 175              	.L15:
+  65:.\main.c      ****     }
+  66:.\main.c      ****     
+  67:.\main.c      ****     return CYRET_SUCCESS;
+  68:.\main.c      **** }
+ 176              		.loc 1 68 0
+ 177 001e 0020     		mov	r0, #0
+ 178              		@ sp needed
+ 179              	.LVL11:
+ 180              	.LVL12:
+ 181 0020 70BD     		pop	{r4, r5, r6, pc}
+ 182              		.cfi_endproc
+ 183              	.LFE37:
+ 184              		.size	CyBtldrCommWrite, .-CyBtldrCommWrite
+ 185              		.section	.text.CyBtldrCommRead,"ax",%progbits
+ 186              		.align	1
+ 187              		.global	CyBtldrCommRead
+ 188              		.code	16
+ 189              		.thumb_func
+ 190              		.type	CyBtldrCommRead, %function
+ 191              	CyBtldrCommRead:
+ 192              	.LFB38:
+  69:.\main.c      ****  
+  70:.\main.c      **** cystatus CyBtldrCommRead (uint8* buffer, uint16 size, uint16* count, uint8 timeOut) {
+ 193              		.loc 1 70 0
+ 194              		.cfi_startproc
+ 195              	.LVL13:
+ 196 0000 F7B5     		push	{r0, r1, r2, r4, r5, r6, r7, lr}
+ 197              		.cfi_def_cfa_offset 32
+ 198              		.cfi_offset 0, -32
+ 199              		.cfi_offset 1, -28
+ 200              		.cfi_offset 2, -24
+ 201              		.cfi_offset 4, -20
+ 202              		.cfi_offset 5, -16
+ 203              		.cfi_offset 6, -12
+ 204              		.cfi_offset 7, -8
+ 205              		.cfi_offset 14, -4
+  71:.\main.c      ****     int timeoutUs = timeOut * 10000;
+ 206              		.loc 1 71 0
+ 207 0002 114C     		ldr	r4, .L24
+  70:.\main.c      **** cystatus CyBtldrCommRead (uint8* buffer, uint16 size, uint16* count, uint8 timeOut) {
+ 208              		.loc 1 70 0
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccAWb0ap.s 			page 6
+
+
+ 209 0004 071C     		mov	r7, r0
+ 210              		.loc 1 71 0
+ 211 0006 5C43     		mul	r4, r3
+ 212              	.LVL14:
+  72:.\main.c      ****     cystatus status = CYRET_TIMEOUT;
+  73:.\main.c      ****     *count = 0;
+ 213              		.loc 1 73 0
+ 214 0008 0023     		mov	r3, #0
+ 215              	.LVL15:
+  70:.\main.c      **** cystatus CyBtldrCommRead (uint8* buffer, uint16 size, uint16* count, uint8 timeOut) {
+ 216              		.loc 1 70 0
+ 217 000a 0191     		str	r1, [sp, #4]
+ 218 000c 151C     		mov	r5, r2
+ 219              		.loc 1 73 0
+ 220 000e 1380     		strh	r3, [r2]
+  72:.\main.c      ****     cystatus status = CYRET_TIMEOUT;
+ 221              		.loc 1 72 0
+ 222 0010 1026     		mov	r6, #16
+ 223              	.LVL16:
+ 224              	.L17:
+  74:.\main.c      ****     
+  75:.\main.c      ****     while(*count < size && timeoutUs >= 0) {
+ 225              		.loc 1 75 0 discriminator 1
+ 226 0012 2B88     		ldrh	r3, [r5]
+ 227 0014 019A     		ldr	r2, [sp, #4]
+ 228 0016 9342     		cmp	r3, r2
+ 229 0018 14D2     		bcs	.L23
+ 230              		.loc 1 75 0 is_stmt 0 discriminator 2
+ 231 001a 002C     		cmp	r4, #0
+ 232 001c 12DB     		blt	.L23
+  76:.\main.c      ****         if(UART_SpiUartGetRxBufferSize() > 0) {
+ 233              		.loc 1 76 0 is_stmt 1
+ 234 001e FFF7FEFF 		bl	UART_SpiUartGetRxBufferSize
+ 235              	.LVL17:
+ 236 0022 0028     		cmp	r0, #0
+ 237 0024 09D0     		beq	.L18
+  77:.\main.c      ****             buffer[(*count)++] = UART_UartGetByte();
+ 238              		.loc 1 77 0
+ 239 0026 2B88     		ldrh	r3, [r5]
+  78:.\main.c      ****             // Switch to byte-to-byte timeout and mark as success
+  79:.\main.c      ****             timeoutUs = 10000; //10mS
+  80:.\main.c      ****             status = CYRET_SUCCESS;
+ 240              		.loc 1 80 0
+ 241 0028 0026     		mov	r6, #0
+ 242              	.LVL18:
+  77:.\main.c      ****             buffer[(*count)++] = UART_UartGetByte();
+ 243              		.loc 1 77 0
+ 244 002a 5A1C     		add	r2, r3, #1
+ 245 002c 2A80     		strh	r2, [r5]
+ 246 002e FC18     		add	r4, r7, r3
+ 247              	.LVL19:
+ 248 0030 FFF7FEFF 		bl	UART_UartGetByte
+ 249              	.LVL20:
+ 250 0034 2070     		strb	r0, [r4]
+ 251              	.LVL21:
+  79:.\main.c      ****             timeoutUs = 10000; //10mS
+ 252              		.loc 1 79 0
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccAWb0ap.s 			page 7
+
+
+ 253 0036 044C     		ldr	r4, .L24
+ 254 0038 EBE7     		b	.L17
+ 255              	.LVL22:
+ 256              	.L18:
+  81:.\main.c      ****         } else {
+  82:.\main.c      ****             CyDelayUs(10);
+ 257              		.loc 1 82 0
+ 258 003a 0A20     		mov	r0, #10
+ 259 003c FFF7FEFF 		bl	CyDelayUs
+ 260              	.LVL23:
+  83:.\main.c      ****             timeoutUs -= 10;
+ 261              		.loc 1 83 0
+ 262 0040 0A3C     		sub	r4, r4, #10
+ 263              	.LVL24:
+ 264 0042 E6E7     		b	.L17
+ 265              	.L23:
+  84:.\main.c      ****         }
+  85:.\main.c      ****     }
+  86:.\main.c      ****     return status;
+  87:.\main.c      **** }
+ 266              		.loc 1 87 0
+ 267 0044 301C     		mov	r0, r6
+ 268              		@ sp needed
+ 269              	.LVL25:
+ 270              	.LVL26:
+ 271              	.LVL27:
+ 272              	.LVL28:
+ 273 0046 FEBD     		pop	{r1, r2, r3, r4, r5, r6, r7, pc}
+ 274              	.L25:
+ 275              		.align	2
+ 276              	.L24:
+ 277 0048 10270000 		.word	10000
+ 278              		.cfi_endproc
+ 279              	.LFE38:
+ 280              		.size	CyBtldrCommRead, .-CyBtldrCommRead
+ 281              		.text
+ 282              	.Letext0:
+ 283              		.file 2 ".\\Generated_Source\\PSoC4/cytypes.h"
+ 284              		.file 3 ".\\Generated_Source\\PSoC4/Bootloader.h"
+ 285              		.file 4 ".\\Generated_Source\\PSoC4/UART.h"
+ 286              		.file 5 ".\\Generated_Source\\PSoC4/UART_SPI_UART.h"
+ 287              		.file 6 ".\\Generated_Source\\PSoC4/EN.h"
+ 288              		.file 7 ".\\Generated_Source\\PSoC4/CyLib.h"
+ 289              		.section	.debug_info,"",%progbits
+ 290              	.Ldebug_info0:
+ 291 0000 DE020000 		.4byte	0x2de
+ 292 0004 0400     		.2byte	0x4
+ 293 0006 00000000 		.4byte	.Ldebug_abbrev0
+ 294 000a 04       		.byte	0x4
+ 295 000b 01       		.uleb128 0x1
+ 296 000c B7000000 		.4byte	.LASF39
+ 297 0010 01       		.byte	0x1
+ 298 0011 BC010000 		.4byte	.LASF40
+ 299 0015 20000000 		.4byte	.LASF41
+ 300 0019 00000000 		.4byte	.Ldebug_ranges0+0
+ 301 001d 00000000 		.4byte	0
+ 302 0021 00000000 		.4byte	.Ldebug_line0
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccAWb0ap.s 			page 8
+
+
+ 303 0025 02       		.uleb128 0x2
+ 304 0026 01       		.byte	0x1
+ 305 0027 06       		.byte	0x6
+ 306 0028 B1020000 		.4byte	.LASF0
+ 307 002c 02       		.uleb128 0x2
+ 308 002d 01       		.byte	0x1
+ 309 002e 08       		.byte	0x8
+ 310 002f A7010000 		.4byte	.LASF1
+ 311 0033 02       		.uleb128 0x2
+ 312 0034 02       		.byte	0x2
+ 313 0035 05       		.byte	0x5
+ 314 0036 6E020000 		.4byte	.LASF2
+ 315 003a 02       		.uleb128 0x2
+ 316 003b 02       		.byte	0x2
+ 317 003c 07       		.byte	0x7
+ 318 003d 72000000 		.4byte	.LASF3
+ 319 0041 02       		.uleb128 0x2
+ 320 0042 04       		.byte	0x4
+ 321 0043 05       		.byte	0x5
+ 322 0044 89020000 		.4byte	.LASF4
+ 323 0048 02       		.uleb128 0x2
+ 324 0049 04       		.byte	0x4
+ 325 004a 07       		.byte	0x7
+ 326 004b 62010000 		.4byte	.LASF5
+ 327 004f 02       		.uleb128 0x2
+ 328 0050 08       		.byte	0x8
+ 329 0051 05       		.byte	0x5
+ 330 0052 3E020000 		.4byte	.LASF6
+ 331 0056 02       		.uleb128 0x2
+ 332 0057 08       		.byte	0x8
+ 333 0058 07       		.byte	0x7
+ 334 0059 11020000 		.4byte	.LASF7
+ 335 005d 03       		.uleb128 0x3
+ 336 005e 04       		.byte	0x4
+ 337 005f 05       		.byte	0x5
+ 338 0060 696E7400 		.ascii	"int\000"
+ 339 0064 02       		.uleb128 0x2
+ 340 0065 04       		.byte	0x4
+ 341 0066 07       		.byte	0x7
+ 342 0067 04020000 		.4byte	.LASF8
+ 343 006b 04       		.uleb128 0x4
+ 344 006c 74010000 		.4byte	.LASF9
+ 345 0070 02       		.byte	0x2
+ 346 0071 A1       		.byte	0xa1
+ 347 0072 2C000000 		.4byte	0x2c
+ 348 0076 04       		.uleb128 0x4
+ 349 0077 D4010000 		.4byte	.LASF10
+ 350 007b 02       		.byte	0x2
+ 351 007c A2       		.byte	0xa2
+ 352 007d 3A000000 		.4byte	0x3a
+ 353 0081 04       		.uleb128 0x4
+ 354 0082 E3010000 		.4byte	.LASF11
+ 355 0086 02       		.byte	0x2
+ 356 0087 A3       		.byte	0xa3
+ 357 0088 48000000 		.4byte	0x48
+ 358 008c 02       		.uleb128 0x2
+ 359 008d 04       		.byte	0x4
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccAWb0ap.s 			page 9
+
+
+ 360 008e 04       		.byte	0x4
+ 361 008f 1A000000 		.4byte	.LASF12
+ 362 0093 02       		.uleb128 0x2
+ 363 0094 08       		.byte	0x8
+ 364 0095 04       		.byte	0x4
+ 365 0096 B5010000 		.4byte	.LASF13
+ 366 009a 02       		.uleb128 0x2
+ 367 009b 01       		.byte	0x1
+ 368 009c 08       		.byte	0x8
+ 369 009d 92020000 		.4byte	.LASF14
+ 370 00a1 05       		.uleb128 0x5
+ 371 00a2 11000000 		.4byte	.LASF15
+ 372 00a6 02       		.byte	0x2
+ 373 00a7 4301     		.2byte	0x143
+ 374 00a9 48000000 		.4byte	0x48
+ 375 00ad 06       		.uleb128 0x6
+ 376 00ae 81000000 		.4byte	0x81
+ 377 00b2 02       		.uleb128 0x2
+ 378 00b3 04       		.byte	0x4
+ 379 00b4 07       		.byte	0x7
+ 380 00b5 30020000 		.4byte	.LASF16
+ 381 00b9 07       		.uleb128 0x7
+ 382 00ba 04       		.byte	0x4
+ 383 00bb 6B000000 		.4byte	0x6b
+ 384 00bf 08       		.uleb128 0x8
+ 385 00c0 39020000 		.4byte	.LASF17
+ 386 00c4 01       		.byte	0x1
+ 387 00c5 1E       		.byte	0x1e
+ 388 00c6 5D000000 		.4byte	0x5d
+ 389 00ca 00000000 		.4byte	.LFB33
+ 390 00ce 24000000 		.4byte	.LFE33-.LFB33
+ 391 00d2 01       		.uleb128 0x1
+ 392 00d3 9C       		.byte	0x9c
+ 393 00d4 FE000000 		.4byte	0xfe
+ 394 00d8 09       		.uleb128 0x9
+ 395 00d9 08000000 		.4byte	.LVL0
+ 396 00dd 69020000 		.4byte	0x269
+ 397 00e1 EB000000 		.4byte	0xeb
+ 398 00e5 0A       		.uleb128 0xa
+ 399 00e6 01       		.uleb128 0x1
+ 400 00e7 50       		.byte	0x50
+ 401 00e8 01       		.uleb128 0x1
+ 402 00e9 30       		.byte	0x30
+ 403 00ea 00       		.byte	0
+ 404 00eb 0B       		.uleb128 0xb
+ 405 00ec 0C000000 		.4byte	.LVL1
+ 406 00f0 7A020000 		.4byte	0x27a
+ 407 00f4 0B       		.uleb128 0xb
+ 408 00f5 1C000000 		.4byte	.LVL2
+ 409 00f9 85020000 		.4byte	0x285
+ 410 00fd 00       		.byte	0
+ 411 00fe 0C       		.uleb128 0xc
+ 412 00ff 85000000 		.4byte	.LASF18
+ 413 0103 01       		.byte	0x1
+ 414 0104 31       		.byte	0x31
+ 415 0105 00000000 		.4byte	.LFB34
+ 416 0109 08000000 		.4byte	.LFE34-.LFB34
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccAWb0ap.s 			page 10
+
+
+ 417 010d 01       		.uleb128 0x1
+ 418 010e 9C       		.byte	0x9c
+ 419 010f 1D010000 		.4byte	0x11d
+ 420 0113 0B       		.uleb128 0xb
+ 421 0114 06000000 		.4byte	.LVL3
+ 422 0118 8C020000 		.4byte	0x28c
+ 423 011c 00       		.byte	0
+ 424 011d 0C       		.uleb128 0xc
+ 425 011e A7000000 		.4byte	.LASF19
+ 426 0122 01       		.byte	0x1
+ 427 0123 35       		.byte	0x35
+ 428 0124 00000000 		.4byte	.LFB35
+ 429 0128 08000000 		.4byte	.LFE35-.LFB35
+ 430 012c 01       		.uleb128 0x1
+ 431 012d 9C       		.byte	0x9c
+ 432 012e 3C010000 		.4byte	0x13c
+ 433 0132 0B       		.uleb128 0xb
+ 434 0133 06000000 		.4byte	.LVL4
+ 435 0137 93020000 		.4byte	0x293
+ 436 013b 00       		.byte	0
+ 437 013c 0C       		.uleb128 0xc
+ 438 013d 00000000 		.4byte	.LASF20
+ 439 0141 01       		.byte	0x1
+ 440 0142 39       		.byte	0x39
+ 441 0143 00000000 		.4byte	.LFB36
+ 442 0147 0C000000 		.4byte	.LFE36-.LFB36
+ 443 014b 01       		.uleb128 0x1
+ 444 014c 9C       		.byte	0x9c
+ 445 014d 64010000 		.4byte	0x164
+ 446 0151 0B       		.uleb128 0xb
+ 447 0152 06000000 		.4byte	.LVL5
+ 448 0156 9A020000 		.4byte	0x29a
+ 449 015a 0B       		.uleb128 0xb
+ 450 015b 0A000000 		.4byte	.LVL6
+ 451 015f A2020000 		.4byte	0x2a2
+ 452 0163 00       		.byte	0
+ 453 0164 0D       		.uleb128 0xd
+ 454 0165 96010000 		.4byte	.LASF25
+ 455 0169 01       		.byte	0x1
+ 456 016a 3E       		.byte	0x3e
+ 457 016b A1000000 		.4byte	0xa1
+ 458 016f 00000000 		.4byte	.LFB37
+ 459 0173 22000000 		.4byte	.LFE37-.LFB37
+ 460 0177 01       		.uleb128 0x1
+ 461 0178 9C       		.byte	0x9c
+ 462 0179 C3010000 		.4byte	0x1c3
+ 463 017d 0E       		.uleb128 0xe
+ 464 017e 78020000 		.4byte	.LASF21
+ 465 0182 01       		.byte	0x1
+ 466 0183 3E       		.byte	0x3e
+ 467 0184 B9000000 		.4byte	0xb9
+ 468 0188 00000000 		.4byte	.LLST0
+ 469 018c 0E       		.uleb128 0xe
+ 470 018d 4D010000 		.4byte	.LASF22
+ 471 0191 01       		.byte	0x1
+ 472 0192 3E       		.byte	0x3e
+ 473 0193 76000000 		.4byte	0x76
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccAWb0ap.s 			page 11
+
+
+ 474 0197 2C000000 		.4byte	.LLST1
+ 475 019b 0E       		.uleb128 0xe
+ 476 019c 6C000000 		.4byte	.LASF23
+ 477 01a0 01       		.byte	0x1
+ 478 01a1 3E       		.byte	0x3e
+ 479 01a2 C3010000 		.4byte	0x1c3
+ 480 01a6 4D000000 		.4byte	.LLST2
+ 481 01aa 0E       		.uleb128 0xe
+ 482 01ab 28020000 		.4byte	.LASF24
+ 483 01af 01       		.byte	0x1
+ 484 01b0 3E       		.byte	0x3e
+ 485 01b1 6B000000 		.4byte	0x6b
+ 486 01b5 79000000 		.4byte	.LLST3
+ 487 01b9 0B       		.uleb128 0xb
+ 488 01ba 18000000 		.4byte	.LVL10
+ 489 01be AA020000 		.4byte	0x2aa
+ 490 01c2 00       		.byte	0
+ 491 01c3 07       		.uleb128 0x7
+ 492 01c4 04       		.byte	0x4
+ 493 01c5 76000000 		.4byte	0x76
+ 494 01c9 0D       		.uleb128 0xd
+ 495 01ca 52010000 		.4byte	.LASF26
+ 496 01ce 01       		.byte	0x1
+ 497 01cf 46       		.byte	0x46
+ 498 01d0 A1000000 		.4byte	0xa1
+ 499 01d4 00000000 		.4byte	.LFB38
+ 500 01d8 4C000000 		.4byte	.LFE38-.LFB38
+ 501 01dc 01       		.uleb128 0x1
+ 502 01dd 9C       		.byte	0x9c
+ 503 01de 5E020000 		.4byte	0x25e
+ 504 01e2 0E       		.uleb128 0xe
+ 505 01e3 78020000 		.4byte	.LASF21
+ 506 01e7 01       		.byte	0x1
+ 507 01e8 46       		.byte	0x46
+ 508 01e9 B9000000 		.4byte	0xb9
+ 509 01ed 9A000000 		.4byte	.LLST4
+ 510 01f1 0E       		.uleb128 0xe
+ 511 01f2 4D010000 		.4byte	.LASF22
+ 512 01f6 01       		.byte	0x1
+ 513 01f7 46       		.byte	0x46
+ 514 01f8 76000000 		.4byte	0x76
+ 515 01fc C6000000 		.4byte	.LLST5
+ 516 0200 0E       		.uleb128 0xe
+ 517 0201 6C000000 		.4byte	.LASF23
+ 518 0205 01       		.byte	0x1
+ 519 0206 46       		.byte	0x46
+ 520 0207 C3010000 		.4byte	0x1c3
+ 521 020b E7000000 		.4byte	.LLST6
+ 522 020f 0E       		.uleb128 0xe
+ 523 0210 28020000 		.4byte	.LASF24
+ 524 0214 01       		.byte	0x1
+ 525 0215 46       		.byte	0x46
+ 526 0216 6B000000 		.4byte	0x6b
+ 527 021a 13010000 		.4byte	.LLST7
+ 528 021e 0F       		.uleb128 0xf
+ 529 021f 96000000 		.4byte	.LASF27
+ 530 0223 01       		.byte	0x1
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccAWb0ap.s 			page 12
+
+
+ 531 0224 47       		.byte	0x47
+ 532 0225 5D000000 		.4byte	0x5d
+ 533 0229 34010000 		.4byte	.LLST8
+ 534 022d 0F       		.uleb128 0xf
+ 535 022e A0000000 		.4byte	.LASF28
+ 536 0232 01       		.byte	0x1
+ 537 0233 48       		.byte	0x48
+ 538 0234 A1000000 		.4byte	0xa1
+ 539 0238 60010000 		.4byte	.LLST9
+ 540 023c 0B       		.uleb128 0xb
+ 541 023d 22000000 		.4byte	.LVL17
+ 542 0241 BC020000 		.4byte	0x2bc
+ 543 0245 0B       		.uleb128 0xb
+ 544 0246 34000000 		.4byte	.LVL20
+ 545 024a C8020000 		.4byte	0x2c8
+ 546 024e 10       		.uleb128 0x10
+ 547 024f 40000000 		.4byte	.LVL23
+ 548 0253 D4020000 		.4byte	0x2d4
+ 549 0257 0A       		.uleb128 0xa
+ 550 0258 01       		.uleb128 0x1
+ 551 0259 50       		.byte	0x50
+ 552 025a 01       		.uleb128 0x1
+ 553 025b 3A       		.byte	0x3a
+ 554 025c 00       		.byte	0
+ 555 025d 00       		.byte	0
+ 556 025e 11       		.uleb128 0x11
+ 557 025f C5010000 		.4byte	.LASF42
+ 558 0263 03       		.byte	0x3
+ 559 0264 58       		.byte	0x58
+ 560 0265 AD000000 		.4byte	0xad
+ 561 0269 12       		.uleb128 0x12
+ 562 026a 44010000 		.4byte	.LASF34
+ 563 026e 06       		.byte	0x6
+ 564 026f 1D       		.byte	0x1d
+ 565 0270 7A020000 		.4byte	0x27a
+ 566 0274 13       		.uleb128 0x13
+ 567 0275 6B000000 		.4byte	0x6b
+ 568 0279 00       		.byte	0
+ 569 027a 14       		.uleb128 0x14
+ 570 027b DB010000 		.4byte	.LASF36
+ 571 027f 06       		.byte	0x6
+ 572 0280 20       		.byte	0x20
+ 573 0281 6B000000 		.4byte	0x6b
+ 574 0285 15       		.uleb128 0x15
+ 575 0286 85010000 		.4byte	.LASF29
+ 576 028a 03       		.byte	0x3
+ 577 028b 8D       		.byte	0x8d
+ 578 028c 15       		.uleb128 0x15
+ 579 028d 7A010000 		.4byte	.LASF30
+ 580 0291 04       		.byte	0x4
+ 581 0292 65       		.byte	0x65
+ 582 0293 15       		.uleb128 0x15
+ 583 0294 7F020000 		.4byte	.LASF31
+ 584 0298 04       		.byte	0x4
+ 585 0299 66       		.byte	0x66
+ 586 029a 16       		.uleb128 0x16
+ 587 029b 97020000 		.4byte	.LASF32
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccAWb0ap.s 			page 13
+
+
+ 588 029f 05       		.byte	0x5
+ 589 02a0 7801     		.2byte	0x178
+ 590 02a2 16       		.uleb128 0x16
+ 591 02a3 EA010000 		.4byte	.LASF33
+ 592 02a7 05       		.byte	0x5
+ 593 02a8 7F01     		.2byte	0x17f
+ 594 02aa 17       		.uleb128 0x17
+ 595 02ab 56020000 		.4byte	.LASF35
+ 596 02af 05       		.byte	0x5
+ 597 02b0 7D01     		.2byte	0x17d
+ 598 02b2 BC020000 		.4byte	0x2bc
+ 599 02b6 13       		.uleb128 0x13
+ 600 02b7 81000000 		.4byte	0x81
+ 601 02bb 00       		.byte	0
+ 602 02bc 18       		.uleb128 0x18
+ 603 02bd BD020000 		.4byte	.LASF37
+ 604 02c1 05       		.byte	0x5
+ 605 02c2 7701     		.2byte	0x177
+ 606 02c4 81000000 		.4byte	0x81
+ 607 02c8 18       		.uleb128 0x18
+ 608 02c9 33010000 		.4byte	.LASF38
+ 609 02cd 05       		.byte	0x5
+ 610 02ce 5C01     		.2byte	0x15c
+ 611 02d0 81000000 		.4byte	0x81
+ 612 02d4 19       		.uleb128 0x19
+ 613 02d5 4C020000 		.4byte	.LASF43
+ 614 02d9 07       		.byte	0x7
+ 615 02da 7C       		.byte	0x7c
+ 616 02db 13       		.uleb128 0x13
+ 617 02dc 76000000 		.4byte	0x76
+ 618 02e0 00       		.byte	0
+ 619 02e1 00       		.byte	0
+ 620              		.section	.debug_abbrev,"",%progbits
+ 621              	.Ldebug_abbrev0:
+ 622 0000 01       		.uleb128 0x1
+ 623 0001 11       		.uleb128 0x11
+ 624 0002 01       		.byte	0x1
+ 625 0003 25       		.uleb128 0x25
+ 626 0004 0E       		.uleb128 0xe
+ 627 0005 13       		.uleb128 0x13
+ 628 0006 0B       		.uleb128 0xb
+ 629 0007 03       		.uleb128 0x3
+ 630 0008 0E       		.uleb128 0xe
+ 631 0009 1B       		.uleb128 0x1b
+ 632 000a 0E       		.uleb128 0xe
+ 633 000b 55       		.uleb128 0x55
+ 634 000c 17       		.uleb128 0x17
+ 635 000d 11       		.uleb128 0x11
+ 636 000e 01       		.uleb128 0x1
+ 637 000f 10       		.uleb128 0x10
+ 638 0010 17       		.uleb128 0x17
+ 639 0011 00       		.byte	0
+ 640 0012 00       		.byte	0
+ 641 0013 02       		.uleb128 0x2
+ 642 0014 24       		.uleb128 0x24
+ 643 0015 00       		.byte	0
+ 644 0016 0B       		.uleb128 0xb
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccAWb0ap.s 			page 14
+
+
+ 645 0017 0B       		.uleb128 0xb
+ 646 0018 3E       		.uleb128 0x3e
+ 647 0019 0B       		.uleb128 0xb
+ 648 001a 03       		.uleb128 0x3
+ 649 001b 0E       		.uleb128 0xe
+ 650 001c 00       		.byte	0
+ 651 001d 00       		.byte	0
+ 652 001e 03       		.uleb128 0x3
+ 653 001f 24       		.uleb128 0x24
+ 654 0020 00       		.byte	0
+ 655 0021 0B       		.uleb128 0xb
+ 656 0022 0B       		.uleb128 0xb
+ 657 0023 3E       		.uleb128 0x3e
+ 658 0024 0B       		.uleb128 0xb
+ 659 0025 03       		.uleb128 0x3
+ 660 0026 08       		.uleb128 0x8
+ 661 0027 00       		.byte	0
+ 662 0028 00       		.byte	0
+ 663 0029 04       		.uleb128 0x4
+ 664 002a 16       		.uleb128 0x16
+ 665 002b 00       		.byte	0
+ 666 002c 03       		.uleb128 0x3
+ 667 002d 0E       		.uleb128 0xe
+ 668 002e 3A       		.uleb128 0x3a
+ 669 002f 0B       		.uleb128 0xb
+ 670 0030 3B       		.uleb128 0x3b
+ 671 0031 0B       		.uleb128 0xb
+ 672 0032 49       		.uleb128 0x49
+ 673 0033 13       		.uleb128 0x13
+ 674 0034 00       		.byte	0
+ 675 0035 00       		.byte	0
+ 676 0036 05       		.uleb128 0x5
+ 677 0037 16       		.uleb128 0x16
+ 678 0038 00       		.byte	0
+ 679 0039 03       		.uleb128 0x3
+ 680 003a 0E       		.uleb128 0xe
+ 681 003b 3A       		.uleb128 0x3a
+ 682 003c 0B       		.uleb128 0xb
+ 683 003d 3B       		.uleb128 0x3b
+ 684 003e 05       		.uleb128 0x5
+ 685 003f 49       		.uleb128 0x49
+ 686 0040 13       		.uleb128 0x13
+ 687 0041 00       		.byte	0
+ 688 0042 00       		.byte	0
+ 689 0043 06       		.uleb128 0x6
+ 690 0044 35       		.uleb128 0x35
+ 691 0045 00       		.byte	0
+ 692 0046 49       		.uleb128 0x49
+ 693 0047 13       		.uleb128 0x13
+ 694 0048 00       		.byte	0
+ 695 0049 00       		.byte	0
+ 696 004a 07       		.uleb128 0x7
+ 697 004b 0F       		.uleb128 0xf
+ 698 004c 00       		.byte	0
+ 699 004d 0B       		.uleb128 0xb
+ 700 004e 0B       		.uleb128 0xb
+ 701 004f 49       		.uleb128 0x49
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccAWb0ap.s 			page 15
+
+
+ 702 0050 13       		.uleb128 0x13
+ 703 0051 00       		.byte	0
+ 704 0052 00       		.byte	0
+ 705 0053 08       		.uleb128 0x8
+ 706 0054 2E       		.uleb128 0x2e
+ 707 0055 01       		.byte	0x1
+ 708 0056 3F       		.uleb128 0x3f
+ 709 0057 19       		.uleb128 0x19
+ 710 0058 03       		.uleb128 0x3
+ 711 0059 0E       		.uleb128 0xe
+ 712 005a 3A       		.uleb128 0x3a
+ 713 005b 0B       		.uleb128 0xb
+ 714 005c 3B       		.uleb128 0x3b
+ 715 005d 0B       		.uleb128 0xb
+ 716 005e 49       		.uleb128 0x49
+ 717 005f 13       		.uleb128 0x13
+ 718 0060 11       		.uleb128 0x11
+ 719 0061 01       		.uleb128 0x1
+ 720 0062 12       		.uleb128 0x12
+ 721 0063 06       		.uleb128 0x6
+ 722 0064 40       		.uleb128 0x40
+ 723 0065 18       		.uleb128 0x18
+ 724 0066 9742     		.uleb128 0x2117
+ 725 0068 19       		.uleb128 0x19
+ 726 0069 01       		.uleb128 0x1
+ 727 006a 13       		.uleb128 0x13
+ 728 006b 00       		.byte	0
+ 729 006c 00       		.byte	0
+ 730 006d 09       		.uleb128 0x9
+ 731 006e 898201   		.uleb128 0x4109
+ 732 0071 01       		.byte	0x1
+ 733 0072 11       		.uleb128 0x11
+ 734 0073 01       		.uleb128 0x1
+ 735 0074 31       		.uleb128 0x31
+ 736 0075 13       		.uleb128 0x13
+ 737 0076 01       		.uleb128 0x1
+ 738 0077 13       		.uleb128 0x13
+ 739 0078 00       		.byte	0
+ 740 0079 00       		.byte	0
+ 741 007a 0A       		.uleb128 0xa
+ 742 007b 8A8201   		.uleb128 0x410a
+ 743 007e 00       		.byte	0
+ 744 007f 02       		.uleb128 0x2
+ 745 0080 18       		.uleb128 0x18
+ 746 0081 9142     		.uleb128 0x2111
+ 747 0083 18       		.uleb128 0x18
+ 748 0084 00       		.byte	0
+ 749 0085 00       		.byte	0
+ 750 0086 0B       		.uleb128 0xb
+ 751 0087 898201   		.uleb128 0x4109
+ 752 008a 00       		.byte	0
+ 753 008b 11       		.uleb128 0x11
+ 754 008c 01       		.uleb128 0x1
+ 755 008d 31       		.uleb128 0x31
+ 756 008e 13       		.uleb128 0x13
+ 757 008f 00       		.byte	0
+ 758 0090 00       		.byte	0
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccAWb0ap.s 			page 16
+
+
+ 759 0091 0C       		.uleb128 0xc
+ 760 0092 2E       		.uleb128 0x2e
+ 761 0093 01       		.byte	0x1
+ 762 0094 3F       		.uleb128 0x3f
+ 763 0095 19       		.uleb128 0x19
+ 764 0096 03       		.uleb128 0x3
+ 765 0097 0E       		.uleb128 0xe
+ 766 0098 3A       		.uleb128 0x3a
+ 767 0099 0B       		.uleb128 0xb
+ 768 009a 3B       		.uleb128 0x3b
+ 769 009b 0B       		.uleb128 0xb
+ 770 009c 27       		.uleb128 0x27
+ 771 009d 19       		.uleb128 0x19
+ 772 009e 11       		.uleb128 0x11
+ 773 009f 01       		.uleb128 0x1
+ 774 00a0 12       		.uleb128 0x12
+ 775 00a1 06       		.uleb128 0x6
+ 776 00a2 40       		.uleb128 0x40
+ 777 00a3 18       		.uleb128 0x18
+ 778 00a4 9742     		.uleb128 0x2117
+ 779 00a6 19       		.uleb128 0x19
+ 780 00a7 01       		.uleb128 0x1
+ 781 00a8 13       		.uleb128 0x13
+ 782 00a9 00       		.byte	0
+ 783 00aa 00       		.byte	0
+ 784 00ab 0D       		.uleb128 0xd
+ 785 00ac 2E       		.uleb128 0x2e
+ 786 00ad 01       		.byte	0x1
+ 787 00ae 3F       		.uleb128 0x3f
+ 788 00af 19       		.uleb128 0x19
+ 789 00b0 03       		.uleb128 0x3
+ 790 00b1 0E       		.uleb128 0xe
+ 791 00b2 3A       		.uleb128 0x3a
+ 792 00b3 0B       		.uleb128 0xb
+ 793 00b4 3B       		.uleb128 0x3b
+ 794 00b5 0B       		.uleb128 0xb
+ 795 00b6 27       		.uleb128 0x27
+ 796 00b7 19       		.uleb128 0x19
+ 797 00b8 49       		.uleb128 0x49
+ 798 00b9 13       		.uleb128 0x13
+ 799 00ba 11       		.uleb128 0x11
+ 800 00bb 01       		.uleb128 0x1
+ 801 00bc 12       		.uleb128 0x12
+ 802 00bd 06       		.uleb128 0x6
+ 803 00be 40       		.uleb128 0x40
+ 804 00bf 18       		.uleb128 0x18
+ 805 00c0 9742     		.uleb128 0x2117
+ 806 00c2 19       		.uleb128 0x19
+ 807 00c3 01       		.uleb128 0x1
+ 808 00c4 13       		.uleb128 0x13
+ 809 00c5 00       		.byte	0
+ 810 00c6 00       		.byte	0
+ 811 00c7 0E       		.uleb128 0xe
+ 812 00c8 05       		.uleb128 0x5
+ 813 00c9 00       		.byte	0
+ 814 00ca 03       		.uleb128 0x3
+ 815 00cb 0E       		.uleb128 0xe
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccAWb0ap.s 			page 17
+
+
+ 816 00cc 3A       		.uleb128 0x3a
+ 817 00cd 0B       		.uleb128 0xb
+ 818 00ce 3B       		.uleb128 0x3b
+ 819 00cf 0B       		.uleb128 0xb
+ 820 00d0 49       		.uleb128 0x49
+ 821 00d1 13       		.uleb128 0x13
+ 822 00d2 02       		.uleb128 0x2
+ 823 00d3 17       		.uleb128 0x17
+ 824 00d4 00       		.byte	0
+ 825 00d5 00       		.byte	0
+ 826 00d6 0F       		.uleb128 0xf
+ 827 00d7 34       		.uleb128 0x34
+ 828 00d8 00       		.byte	0
+ 829 00d9 03       		.uleb128 0x3
+ 830 00da 0E       		.uleb128 0xe
+ 831 00db 3A       		.uleb128 0x3a
+ 832 00dc 0B       		.uleb128 0xb
+ 833 00dd 3B       		.uleb128 0x3b
+ 834 00de 0B       		.uleb128 0xb
+ 835 00df 49       		.uleb128 0x49
+ 836 00e0 13       		.uleb128 0x13
+ 837 00e1 02       		.uleb128 0x2
+ 838 00e2 17       		.uleb128 0x17
+ 839 00e3 00       		.byte	0
+ 840 00e4 00       		.byte	0
+ 841 00e5 10       		.uleb128 0x10
+ 842 00e6 898201   		.uleb128 0x4109
+ 843 00e9 01       		.byte	0x1
+ 844 00ea 11       		.uleb128 0x11
+ 845 00eb 01       		.uleb128 0x1
+ 846 00ec 31       		.uleb128 0x31
+ 847 00ed 13       		.uleb128 0x13
+ 848 00ee 00       		.byte	0
+ 849 00ef 00       		.byte	0
+ 850 00f0 11       		.uleb128 0x11
+ 851 00f1 34       		.uleb128 0x34
+ 852 00f2 00       		.byte	0
+ 853 00f3 03       		.uleb128 0x3
+ 854 00f4 0E       		.uleb128 0xe
+ 855 00f5 3A       		.uleb128 0x3a
+ 856 00f6 0B       		.uleb128 0xb
+ 857 00f7 3B       		.uleb128 0x3b
+ 858 00f8 0B       		.uleb128 0xb
+ 859 00f9 49       		.uleb128 0x49
+ 860 00fa 13       		.uleb128 0x13
+ 861 00fb 3F       		.uleb128 0x3f
+ 862 00fc 19       		.uleb128 0x19
+ 863 00fd 3C       		.uleb128 0x3c
+ 864 00fe 19       		.uleb128 0x19
+ 865 00ff 00       		.byte	0
+ 866 0100 00       		.byte	0
+ 867 0101 12       		.uleb128 0x12
+ 868 0102 2E       		.uleb128 0x2e
+ 869 0103 01       		.byte	0x1
+ 870 0104 3F       		.uleb128 0x3f
+ 871 0105 19       		.uleb128 0x19
+ 872 0106 03       		.uleb128 0x3
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccAWb0ap.s 			page 18
+
+
+ 873 0107 0E       		.uleb128 0xe
+ 874 0108 3A       		.uleb128 0x3a
+ 875 0109 0B       		.uleb128 0xb
+ 876 010a 3B       		.uleb128 0x3b
+ 877 010b 0B       		.uleb128 0xb
+ 878 010c 27       		.uleb128 0x27
+ 879 010d 19       		.uleb128 0x19
+ 880 010e 3C       		.uleb128 0x3c
+ 881 010f 19       		.uleb128 0x19
+ 882 0110 01       		.uleb128 0x1
+ 883 0111 13       		.uleb128 0x13
+ 884 0112 00       		.byte	0
+ 885 0113 00       		.byte	0
+ 886 0114 13       		.uleb128 0x13
+ 887 0115 05       		.uleb128 0x5
+ 888 0116 00       		.byte	0
+ 889 0117 49       		.uleb128 0x49
+ 890 0118 13       		.uleb128 0x13
+ 891 0119 00       		.byte	0
+ 892 011a 00       		.byte	0
+ 893 011b 14       		.uleb128 0x14
+ 894 011c 2E       		.uleb128 0x2e
+ 895 011d 00       		.byte	0
+ 896 011e 3F       		.uleb128 0x3f
+ 897 011f 19       		.uleb128 0x19
+ 898 0120 03       		.uleb128 0x3
+ 899 0121 0E       		.uleb128 0xe
+ 900 0122 3A       		.uleb128 0x3a
+ 901 0123 0B       		.uleb128 0xb
+ 902 0124 3B       		.uleb128 0x3b
+ 903 0125 0B       		.uleb128 0xb
+ 904 0126 27       		.uleb128 0x27
+ 905 0127 19       		.uleb128 0x19
+ 906 0128 49       		.uleb128 0x49
+ 907 0129 13       		.uleb128 0x13
+ 908 012a 3C       		.uleb128 0x3c
+ 909 012b 19       		.uleb128 0x19
+ 910 012c 00       		.byte	0
+ 911 012d 00       		.byte	0
+ 912 012e 15       		.uleb128 0x15
+ 913 012f 2E       		.uleb128 0x2e
+ 914 0130 00       		.byte	0
+ 915 0131 3F       		.uleb128 0x3f
+ 916 0132 19       		.uleb128 0x19
+ 917 0133 03       		.uleb128 0x3
+ 918 0134 0E       		.uleb128 0xe
+ 919 0135 3A       		.uleb128 0x3a
+ 920 0136 0B       		.uleb128 0xb
+ 921 0137 3B       		.uleb128 0x3b
+ 922 0138 0B       		.uleb128 0xb
+ 923 0139 27       		.uleb128 0x27
+ 924 013a 19       		.uleb128 0x19
+ 925 013b 3C       		.uleb128 0x3c
+ 926 013c 19       		.uleb128 0x19
+ 927 013d 00       		.byte	0
+ 928 013e 00       		.byte	0
+ 929 013f 16       		.uleb128 0x16
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccAWb0ap.s 			page 19
+
+
+ 930 0140 2E       		.uleb128 0x2e
+ 931 0141 00       		.byte	0
+ 932 0142 3F       		.uleb128 0x3f
+ 933 0143 19       		.uleb128 0x19
+ 934 0144 03       		.uleb128 0x3
+ 935 0145 0E       		.uleb128 0xe
+ 936 0146 3A       		.uleb128 0x3a
+ 937 0147 0B       		.uleb128 0xb
+ 938 0148 3B       		.uleb128 0x3b
+ 939 0149 05       		.uleb128 0x5
+ 940 014a 27       		.uleb128 0x27
+ 941 014b 19       		.uleb128 0x19
+ 942 014c 3C       		.uleb128 0x3c
+ 943 014d 19       		.uleb128 0x19
+ 944 014e 00       		.byte	0
+ 945 014f 00       		.byte	0
+ 946 0150 17       		.uleb128 0x17
+ 947 0151 2E       		.uleb128 0x2e
+ 948 0152 01       		.byte	0x1
+ 949 0153 3F       		.uleb128 0x3f
+ 950 0154 19       		.uleb128 0x19
+ 951 0155 03       		.uleb128 0x3
+ 952 0156 0E       		.uleb128 0xe
+ 953 0157 3A       		.uleb128 0x3a
+ 954 0158 0B       		.uleb128 0xb
+ 955 0159 3B       		.uleb128 0x3b
+ 956 015a 05       		.uleb128 0x5
+ 957 015b 27       		.uleb128 0x27
+ 958 015c 19       		.uleb128 0x19
+ 959 015d 3C       		.uleb128 0x3c
+ 960 015e 19       		.uleb128 0x19
+ 961 015f 01       		.uleb128 0x1
+ 962 0160 13       		.uleb128 0x13
+ 963 0161 00       		.byte	0
+ 964 0162 00       		.byte	0
+ 965 0163 18       		.uleb128 0x18
+ 966 0164 2E       		.uleb128 0x2e
+ 967 0165 00       		.byte	0
+ 968 0166 3F       		.uleb128 0x3f
+ 969 0167 19       		.uleb128 0x19
+ 970 0168 03       		.uleb128 0x3
+ 971 0169 0E       		.uleb128 0xe
+ 972 016a 3A       		.uleb128 0x3a
+ 973 016b 0B       		.uleb128 0xb
+ 974 016c 3B       		.uleb128 0x3b
+ 975 016d 05       		.uleb128 0x5
+ 976 016e 27       		.uleb128 0x27
+ 977 016f 19       		.uleb128 0x19
+ 978 0170 49       		.uleb128 0x49
+ 979 0171 13       		.uleb128 0x13
+ 980 0172 3C       		.uleb128 0x3c
+ 981 0173 19       		.uleb128 0x19
+ 982 0174 00       		.byte	0
+ 983 0175 00       		.byte	0
+ 984 0176 19       		.uleb128 0x19
+ 985 0177 2E       		.uleb128 0x2e
+ 986 0178 01       		.byte	0x1
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccAWb0ap.s 			page 20
+
+
+ 987 0179 3F       		.uleb128 0x3f
+ 988 017a 19       		.uleb128 0x19
+ 989 017b 03       		.uleb128 0x3
+ 990 017c 0E       		.uleb128 0xe
+ 991 017d 3A       		.uleb128 0x3a
+ 992 017e 0B       		.uleb128 0xb
+ 993 017f 3B       		.uleb128 0x3b
+ 994 0180 0B       		.uleb128 0xb
+ 995 0181 27       		.uleb128 0x27
+ 996 0182 19       		.uleb128 0x19
+ 997 0183 3C       		.uleb128 0x3c
+ 998 0184 19       		.uleb128 0x19
+ 999 0185 00       		.byte	0
+ 1000 0186 00       		.byte	0
+ 1001 0187 00       		.byte	0
+ 1002              		.section	.debug_loc,"",%progbits
+ 1003              	.Ldebug_loc0:
+ 1004              	.LLST0:
+ 1005 0000 00000000 		.4byte	.LVL7
+ 1006 0004 0A000000 		.4byte	.LVL9
+ 1007 0008 0100     		.2byte	0x1
+ 1008 000a 50       		.byte	0x50
+ 1009 000b 0A000000 		.4byte	.LVL9
+ 1010 000f 20000000 		.4byte	.LVL12
+ 1011 0013 0100     		.2byte	0x1
+ 1012 0015 56       		.byte	0x56
+ 1013 0016 20000000 		.4byte	.LVL12
+ 1014 001a 22000000 		.4byte	.LFE37
+ 1015 001e 0400     		.2byte	0x4
+ 1016 0020 F3       		.byte	0xf3
+ 1017 0021 01       		.uleb128 0x1
+ 1018 0022 50       		.byte	0x50
+ 1019 0023 9F       		.byte	0x9f
+ 1020 0024 00000000 		.4byte	0
+ 1021 0028 00000000 		.4byte	0
+ 1022              	.LLST1:
+ 1023 002c 00000000 		.4byte	.LVL7
+ 1024 0030 0A000000 		.4byte	.LVL9
+ 1025 0034 0100     		.2byte	0x1
+ 1026 0036 51       		.byte	0x51
+ 1027 0037 0A000000 		.4byte	.LVL9
+ 1028 003b 22000000 		.4byte	.LFE37
+ 1029 003f 0400     		.2byte	0x4
+ 1030 0041 F3       		.byte	0xf3
+ 1031 0042 01       		.uleb128 0x1
+ 1032 0043 51       		.byte	0x51
+ 1033 0044 9F       		.byte	0x9f
+ 1034 0045 00000000 		.4byte	0
+ 1035 0049 00000000 		.4byte	0
+ 1036              	.LLST2:
+ 1037 004d 00000000 		.4byte	.LVL7
+ 1038 0051 0A000000 		.4byte	.LVL9
+ 1039 0055 0100     		.2byte	0x1
+ 1040 0057 52       		.byte	0x52
+ 1041 0058 0A000000 		.4byte	.LVL9
+ 1042 005c 20000000 		.4byte	.LVL11
+ 1043 0060 0100     		.2byte	0x1
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccAWb0ap.s 			page 21
+
+
+ 1044 0062 54       		.byte	0x54
+ 1045 0063 20000000 		.4byte	.LVL11
+ 1046 0067 22000000 		.4byte	.LFE37
+ 1047 006b 0400     		.2byte	0x4
+ 1048 006d F3       		.byte	0xf3
+ 1049 006e 01       		.uleb128 0x1
+ 1050 006f 52       		.byte	0x52
+ 1051 0070 9F       		.byte	0x9f
+ 1052 0071 00000000 		.4byte	0
+ 1053 0075 00000000 		.4byte	0
+ 1054              	.LLST3:
+ 1055 0079 00000000 		.4byte	.LVL7
+ 1056 007d 04000000 		.4byte	.LVL8
+ 1057 0081 0100     		.2byte	0x1
+ 1058 0083 53       		.byte	0x53
+ 1059 0084 04000000 		.4byte	.LVL8
+ 1060 0088 22000000 		.4byte	.LFE37
+ 1061 008c 0400     		.2byte	0x4
+ 1062 008e F3       		.byte	0xf3
+ 1063 008f 01       		.uleb128 0x1
+ 1064 0090 53       		.byte	0x53
+ 1065 0091 9F       		.byte	0x9f
+ 1066 0092 00000000 		.4byte	0
+ 1067 0096 00000000 		.4byte	0
+ 1068              	.LLST4:
+ 1069 009a 00000000 		.4byte	.LVL13
+ 1070 009e 12000000 		.4byte	.LVL16
+ 1071 00a2 0100     		.2byte	0x1
+ 1072 00a4 50       		.byte	0x50
+ 1073 00a5 12000000 		.4byte	.LVL16
+ 1074 00a9 46000000 		.4byte	.LVL28
+ 1075 00ad 0100     		.2byte	0x1
+ 1076 00af 57       		.byte	0x57
+ 1077 00b0 46000000 		.4byte	.LVL28
+ 1078 00b4 4C000000 		.4byte	.LFE38
+ 1079 00b8 0400     		.2byte	0x4
+ 1080 00ba F3       		.byte	0xf3
+ 1081 00bb 01       		.uleb128 0x1
+ 1082 00bc 50       		.byte	0x50
+ 1083 00bd 9F       		.byte	0x9f
+ 1084 00be 00000000 		.4byte	0
+ 1085 00c2 00000000 		.4byte	0
+ 1086              	.LLST5:
+ 1087 00c6 00000000 		.4byte	.LVL13
+ 1088 00ca 12000000 		.4byte	.LVL16
+ 1089 00ce 0100     		.2byte	0x1
+ 1090 00d0 51       		.byte	0x51
+ 1091 00d1 12000000 		.4byte	.LVL16
+ 1092 00d5 4C000000 		.4byte	.LFE38
+ 1093 00d9 0400     		.2byte	0x4
+ 1094 00db F3       		.byte	0xf3
+ 1095 00dc 01       		.uleb128 0x1
+ 1096 00dd 51       		.byte	0x51
+ 1097 00de 9F       		.byte	0x9f
+ 1098 00df 00000000 		.4byte	0
+ 1099 00e3 00000000 		.4byte	0
+ 1100              	.LLST6:
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccAWb0ap.s 			page 22
+
+
+ 1101 00e7 00000000 		.4byte	.LVL13
+ 1102 00eb 12000000 		.4byte	.LVL16
+ 1103 00ef 0100     		.2byte	0x1
+ 1104 00f1 52       		.byte	0x52
+ 1105 00f2 12000000 		.4byte	.LVL16
+ 1106 00f6 46000000 		.4byte	.LVL26
+ 1107 00fa 0100     		.2byte	0x1
+ 1108 00fc 55       		.byte	0x55
+ 1109 00fd 46000000 		.4byte	.LVL26
+ 1110 0101 4C000000 		.4byte	.LFE38
+ 1111 0105 0400     		.2byte	0x4
+ 1112 0107 F3       		.byte	0xf3
+ 1113 0108 01       		.uleb128 0x1
+ 1114 0109 52       		.byte	0x52
+ 1115 010a 9F       		.byte	0x9f
+ 1116 010b 00000000 		.4byte	0
+ 1117 010f 00000000 		.4byte	0
+ 1118              	.LLST7:
+ 1119 0113 00000000 		.4byte	.LVL13
+ 1120 0117 0A000000 		.4byte	.LVL15
+ 1121 011b 0100     		.2byte	0x1
+ 1122 011d 53       		.byte	0x53
+ 1123 011e 0A000000 		.4byte	.LVL15
+ 1124 0122 4C000000 		.4byte	.LFE38
+ 1125 0126 0400     		.2byte	0x4
+ 1126 0128 F3       		.byte	0xf3
+ 1127 0129 01       		.uleb128 0x1
+ 1128 012a 53       		.byte	0x53
+ 1129 012b 9F       		.byte	0x9f
+ 1130 012c 00000000 		.4byte	0
+ 1131 0130 00000000 		.4byte	0
+ 1132              	.LLST8:
+ 1133 0134 08000000 		.4byte	.LVL14
+ 1134 0138 30000000 		.4byte	.LVL19
+ 1135 013c 0100     		.2byte	0x1
+ 1136 013e 54       		.byte	0x54
+ 1137 013f 36000000 		.4byte	.LVL21
+ 1138 0143 3A000000 		.4byte	.LVL22
+ 1139 0147 0400     		.2byte	0x4
+ 1140 0149 0A       		.byte	0xa
+ 1141 014a 1027     		.2byte	0x2710
+ 1142 014c 9F       		.byte	0x9f
+ 1143 014d 3A000000 		.4byte	.LVL22
+ 1144 0151 46000000 		.4byte	.LVL25
+ 1145 0155 0100     		.2byte	0x1
+ 1146 0157 54       		.byte	0x54
+ 1147 0158 00000000 		.4byte	0
+ 1148 015c 00000000 		.4byte	0
+ 1149              	.LLST9:
+ 1150 0160 08000000 		.4byte	.LVL14
+ 1151 0164 12000000 		.4byte	.LVL16
+ 1152 0168 0200     		.2byte	0x2
+ 1153 016a 40       		.byte	0x40
+ 1154 016b 9F       		.byte	0x9f
+ 1155 016c 12000000 		.4byte	.LVL16
+ 1156 0170 2A000000 		.4byte	.LVL18
+ 1157 0174 0100     		.2byte	0x1
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccAWb0ap.s 			page 23
+
+
+ 1158 0176 56       		.byte	0x56
+ 1159 0177 36000000 		.4byte	.LVL21
+ 1160 017b 3A000000 		.4byte	.LVL22
+ 1161 017f 0200     		.2byte	0x2
+ 1162 0181 30       		.byte	0x30
+ 1163 0182 9F       		.byte	0x9f
+ 1164 0183 3A000000 		.4byte	.LVL22
+ 1165 0187 46000000 		.4byte	.LVL27
+ 1166 018b 0100     		.2byte	0x1
+ 1167 018d 56       		.byte	0x56
+ 1168 018e 46000000 		.4byte	.LVL27
+ 1169 0192 4C000000 		.4byte	.LFE38
+ 1170 0196 0100     		.2byte	0x1
+ 1171 0198 50       		.byte	0x50
+ 1172 0199 00000000 		.4byte	0
+ 1173 019d 00000000 		.4byte	0
+ 1174              		.section	.debug_aranges,"",%progbits
+ 1175 0000 44000000 		.4byte	0x44
+ 1176 0004 0200     		.2byte	0x2
+ 1177 0006 00000000 		.4byte	.Ldebug_info0
+ 1178 000a 04       		.byte	0x4
+ 1179 000b 00       		.byte	0
+ 1180 000c 0000     		.2byte	0
+ 1181 000e 0000     		.2byte	0
+ 1182 0010 00000000 		.4byte	.LFB33
+ 1183 0014 24000000 		.4byte	.LFE33-.LFB33
+ 1184 0018 00000000 		.4byte	.LFB34
+ 1185 001c 08000000 		.4byte	.LFE34-.LFB34
+ 1186 0020 00000000 		.4byte	.LFB35
+ 1187 0024 08000000 		.4byte	.LFE35-.LFB35
+ 1188 0028 00000000 		.4byte	.LFB36
+ 1189 002c 0C000000 		.4byte	.LFE36-.LFB36
+ 1190 0030 00000000 		.4byte	.LFB37
+ 1191 0034 22000000 		.4byte	.LFE37-.LFB37
+ 1192 0038 00000000 		.4byte	.LFB38
+ 1193 003c 4C000000 		.4byte	.LFE38-.LFB38
+ 1194 0040 00000000 		.4byte	0
+ 1195 0044 00000000 		.4byte	0
+ 1196              		.section	.debug_ranges,"",%progbits
+ 1197              	.Ldebug_ranges0:
+ 1198 0000 00000000 		.4byte	.LFB33
+ 1199 0004 24000000 		.4byte	.LFE33
+ 1200 0008 00000000 		.4byte	.LFB34
+ 1201 000c 08000000 		.4byte	.LFE34
+ 1202 0010 00000000 		.4byte	.LFB35
+ 1203 0014 08000000 		.4byte	.LFE35
+ 1204 0018 00000000 		.4byte	.LFB36
+ 1205 001c 0C000000 		.4byte	.LFE36
+ 1206 0020 00000000 		.4byte	.LFB37
+ 1207 0024 22000000 		.4byte	.LFE37
+ 1208 0028 00000000 		.4byte	.LFB38
+ 1209 002c 4C000000 		.4byte	.LFE38
+ 1210 0030 00000000 		.4byte	0
+ 1211 0034 00000000 		.4byte	0
+ 1212              		.section	.debug_line,"",%progbits
+ 1213              	.Ldebug_line0:
+ 1214 0000 23010000 		.section	.debug_str,"MS",%progbits,1
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccAWb0ap.s 			page 24
+
+
+ 1214      02008500 
+ 1214      00000201 
+ 1214      FB0E0D00 
+ 1214      01010101 
+ 1215              	.LASF20:
+ 1216 0000 43794274 		.ascii	"CyBtldrCommReset\000"
+ 1216      6C647243 
+ 1216      6F6D6D52 
+ 1216      65736574 
+ 1216      00
+ 1217              	.LASF15:
+ 1218 0011 63797374 		.ascii	"cystatus\000"
+ 1218      61747573 
+ 1218      00
+ 1219              	.LASF12:
+ 1220 001a 666C6F61 		.ascii	"float\000"
+ 1220      7400
+ 1221              	.LASF41:
+ 1222 0020 433A5C55 		.ascii	"C:\\Users\\Pablo\\Projects\\EzTempRH-for-Raspberry-"
+ 1222      73657273 
+ 1222      5C506162 
+ 1222      6C6F5C50 
+ 1222      726F6A65 
+ 1223 004f 50695C66 		.ascii	"Pi\\firmware\\bootloader.cydsn\000"
+ 1223      69726D77 
+ 1223      6172655C 
+ 1223      626F6F74 
+ 1223      6C6F6164 
+ 1224              	.LASF23:
+ 1225 006c 636F756E 		.ascii	"count\000"
+ 1225      7400
+ 1226              	.LASF3:
+ 1227 0072 73686F72 		.ascii	"short unsigned int\000"
+ 1227      7420756E 
+ 1227      7369676E 
+ 1227      65642069 
+ 1227      6E7400
+ 1228              	.LASF18:
+ 1229 0085 43794274 		.ascii	"CyBtldrCommStart\000"
+ 1229      6C647243 
+ 1229      6F6D6D53 
+ 1229      74617274 
+ 1229      00
+ 1230              	.LASF27:
+ 1231 0096 74696D65 		.ascii	"timeoutUs\000"
+ 1231      6F757455 
+ 1231      7300
+ 1232              	.LASF28:
+ 1233 00a0 73746174 		.ascii	"status\000"
+ 1233      757300
+ 1234              	.LASF19:
+ 1235 00a7 43794274 		.ascii	"CyBtldrCommStop\000"
+ 1235      6C647243 
+ 1235      6F6D6D53 
+ 1235      746F7000 
+ 1236              	.LASF39:
+ 1237 00b7 474E5520 		.ascii	"GNU C 4.8.4 20140526 (release) [ARM/embedded-4_8-br"
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccAWb0ap.s 			page 25
+
+
+ 1237      4320342E 
+ 1237      382E3420 
+ 1237      32303134 
+ 1237      30353236 
+ 1238 00ea 616E6368 		.ascii	"anch revision 211358] -mcpu=cortex-m0 -mthumb -g -O"
+ 1238      20726576 
+ 1238      6973696F 
+ 1238      6E203231 
+ 1238      31333538 
+ 1239 011d 73202D66 		.ascii	"s -ffunction-sections\000"
+ 1239      66756E63 
+ 1239      74696F6E 
+ 1239      2D736563 
+ 1239      74696F6E 
+ 1240              	.LASF38:
+ 1241 0133 55415254 		.ascii	"UART_UartGetByte\000"
+ 1241      5F556172 
+ 1241      74476574 
+ 1241      42797465 
+ 1241      00
+ 1242              	.LASF34:
+ 1243 0144 454E5F57 		.ascii	"EN_Write\000"
+ 1243      72697465 
+ 1243      00
+ 1244              	.LASF22:
+ 1245 014d 73697A65 		.ascii	"size\000"
+ 1245      00
+ 1246              	.LASF26:
+ 1247 0152 43794274 		.ascii	"CyBtldrCommRead\000"
+ 1247      6C647243 
+ 1247      6F6D6D52 
+ 1247      65616400 
+ 1248              	.LASF5:
+ 1249 0162 6C6F6E67 		.ascii	"long unsigned int\000"
+ 1249      20756E73 
+ 1249      69676E65 
+ 1249      6420696E 
+ 1249      7400
+ 1250              	.LASF9:
+ 1251 0174 75696E74 		.ascii	"uint8\000"
+ 1251      3800
+ 1252              	.LASF30:
+ 1253 017a 55415254 		.ascii	"UART_Start\000"
+ 1253      5F537461 
+ 1253      727400
+ 1254              	.LASF29:
+ 1255 0185 426F6F74 		.ascii	"Bootloader_Start\000"
+ 1255      6C6F6164 
+ 1255      65725F53 
+ 1255      74617274 
+ 1255      00
+ 1256              	.LASF25:
+ 1257 0196 43794274 		.ascii	"CyBtldrCommWrite\000"
+ 1257      6C647243 
+ 1257      6F6D6D57 
+ 1257      72697465 
+ 1257      00
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccAWb0ap.s 			page 26
+
+
+ 1258              	.LASF1:
+ 1259 01a7 756E7369 		.ascii	"unsigned char\000"
+ 1259      676E6564 
+ 1259      20636861 
+ 1259      7200
+ 1260              	.LASF13:
+ 1261 01b5 646F7562 		.ascii	"double\000"
+ 1261      6C6500
+ 1262              	.LASF40:
+ 1263 01bc 2E5C6D61 		.ascii	".\\main.c\000"
+ 1263      696E2E63 
+ 1263      00
+ 1264              	.LASF42:
+ 1265 01c5 63794274 		.ascii	"cyBtldrRunType\000"
+ 1265      6C647252 
+ 1265      756E5479 
+ 1265      706500
+ 1266              	.LASF10:
+ 1267 01d4 75696E74 		.ascii	"uint16\000"
+ 1267      313600
+ 1268              	.LASF36:
+ 1269 01db 454E5F52 		.ascii	"EN_Read\000"
+ 1269      65616400 
+ 1270              	.LASF11:
+ 1271 01e3 75696E74 		.ascii	"uint32\000"
+ 1271      333200
+ 1272              	.LASF33:
+ 1273 01ea 55415254 		.ascii	"UART_SpiUartClearTxBuffer\000"
+ 1273      5F537069 
+ 1273      55617274 
+ 1273      436C6561 
+ 1273      72547842 
+ 1274              	.LASF8:
+ 1275 0204 756E7369 		.ascii	"unsigned int\000"
+ 1275      676E6564 
+ 1275      20696E74 
+ 1275      00
+ 1276              	.LASF7:
+ 1277 0211 6C6F6E67 		.ascii	"long long unsigned int\000"
+ 1277      206C6F6E 
+ 1277      6720756E 
+ 1277      7369676E 
+ 1277      65642069 
+ 1278              	.LASF24:
+ 1279 0228 74696D65 		.ascii	"timeOut\000"
+ 1279      4F757400 
+ 1280              	.LASF16:
+ 1281 0230 73697A65 		.ascii	"sizetype\000"
+ 1281      74797065 
+ 1281      00
+ 1282              	.LASF17:
+ 1283 0239 6D61696E 		.ascii	"main\000"
+ 1283      00
+ 1284              	.LASF6:
+ 1285 023e 6C6F6E67 		.ascii	"long long int\000"
+ 1285      206C6F6E 
+ 1285      6720696E 
+ARM GAS  C:\Users\Pablo\AppData\Local\Temp\ccAWb0ap.s 			page 27
+
+
+ 1285      7400
+ 1286              	.LASF43:
+ 1287 024c 43794465 		.ascii	"CyDelayUs\000"
+ 1287      6C617955 
+ 1287      7300
+ 1288              	.LASF35:
+ 1289 0256 55415254 		.ascii	"UART_SpiUartWriteTxData\000"
+ 1289      5F537069 
+ 1289      55617274 
+ 1289      57726974 
+ 1289      65547844 
+ 1290              	.LASF2:
+ 1291 026e 73686F72 		.ascii	"short int\000"
+ 1291      7420696E 
+ 1291      7400
+ 1292              	.LASF21:
+ 1293 0278 62756666 		.ascii	"buffer\000"
+ 1293      657200
+ 1294              	.LASF31:
+ 1295 027f 55415254 		.ascii	"UART_Stop\000"
+ 1295      5F53746F 
+ 1295      7000
+ 1296              	.LASF4:
+ 1297 0289 6C6F6E67 		.ascii	"long int\000"
+ 1297      20696E74 
+ 1297      00
+ 1298              	.LASF14:
+ 1299 0292 63686172 		.ascii	"char\000"
+ 1299      00
+ 1300              	.LASF32:
+ 1301 0297 55415254 		.ascii	"UART_SpiUartClearRxBuffer\000"
+ 1301      5F537069 
+ 1301      55617274 
+ 1301      436C6561 
+ 1301      72527842 
+ 1302              	.LASF0:
+ 1303 02b1 7369676E 		.ascii	"signed char\000"
+ 1303      65642063 
+ 1303      68617200 
+ 1304              	.LASF37:
+ 1305 02bd 55415254 		.ascii	"UART_SpiUartGetRxBufferSize\000"
+ 1305      5F537069 
+ 1305      55617274 
+ 1305      47657452 
+ 1305      78427566 
+ 1306              		.ident	"GCC: (GNU Tools for ARM Embedded Processors) 4.8.4 20140526 (release) [ARM/embedded-4_8-br
