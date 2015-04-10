@@ -33,9 +33,9 @@ firmware/*.cydsn/DP8051/
 firmware/*.cydsn/Generated_Source/PSoCCreatorExportIDE.xml
 
 # Compilation output (except binaries)
-firmware/*.cydsn/CortexM0/ARM_GCC_473/*/.deps/
-firmware/*.cydsn/CortexM0/ARM_GCC_473/*/*.lst
-firmware/*.cydsn/CortexM0/ARM_GCC_473/*/*.o
-firmware/*.cydsn/CortexM0/ARM_GCC_473/*/*.a
-firmware/*.cydsn/CortexM0/ARM_GCC_473/*/*.log
-firmware/*.cydsn/CortexM0/ARM_GCC_473/*/library.deps
+firmware/*.cydsn/CortexM0/*/*/.deps/
+firmware/*.cydsn/CortexM0/*/*/*.lst
+firmware/*.cydsn/CortexM0/*/*/*.o
+firmware/*.cydsn/CortexM0/*/*/*.a
+firmware/*.cydsn/CortexM0/*/*/*.log
+firmware/*.cydsn/CortexM0/*/*/library.deps
